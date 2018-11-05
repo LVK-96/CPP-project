@@ -5,7 +5,7 @@ TileMatching::TileMatching() {
 Player p1;
 std::vector<Player> players;
 players.push_back(p1);
-Map map(std::vector<std::vector<int> >(8, std::vector<int>(8,0))); //8x8 zero matrix
+Map map(std::vector<std::vector<int> >(8, std::vector<int>(8,1))); //8x8 zero matrix
 GameMode mode;
 setGame(Game(players, map, mode));
 setStatus("game");
