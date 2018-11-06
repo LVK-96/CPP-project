@@ -9,6 +9,12 @@ void Game::updateMap() {
     checkMove(); //play turn
 }
 
+void Game::tickGame() { //run game loop
+    while(1) {
+        updateMap();
+    }
+}
+
 void Game::checkMove() {
     bool is_valid = false;
     
@@ -66,12 +72,6 @@ void Game::checkMove() {
     //set new map
     std::cout<<"Valid move"<<std::endl;
     std::cout<<"New map:"<<std::endl;
-}
-
-void Game::tickGame() { //run game loop
-    while(1) {
-        updateMap();
-    }
 }
 
 std::pair<int, int> Game::checkX(int x, int y) const {
