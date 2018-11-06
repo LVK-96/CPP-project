@@ -2,11 +2,11 @@
 #include <string>
 
 class GameMode {
-    public:
+public:
     GameMode();
 
     std::string getName() const;
 
-    protected:
+protected:
     std::string name_;
 };

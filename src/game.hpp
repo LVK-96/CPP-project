@@ -5,7 +5,7 @@
 #include "gamemode.hpp"
 
 class Game {
-    public:
+public:
     Game() = default;
     Game(std::vector<Player> players, Map map, GameMode mode);
 
@@ -19,7 +19,7 @@ class Game {
     void removeY(int x, int y, std::pair<int, int> matching);
     void printMap() const;
 
-    private:
+private:
     bool paused;
     std::vector<Player> players_;
     Map map_;

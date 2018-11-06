@@ -3,7 +3,7 @@
 #include "game.hpp"
 
 class TileMatching {
-    public:
+public:
     TileMatching();
 
     Game getGame() const;
@@ -12,7 +12,7 @@ class TileMatching {
     void setGame(Game new_game);
     void runGame();
 
-    private:
+private:
     std::string status_;
     Game game_;
 };
