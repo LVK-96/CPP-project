@@ -78,7 +78,16 @@ void Game::clearMatches() {
 }
 
 void Game::fillMap() {
-
+	std::vector<std::vector<int> > matrix = map_.getMatrix();
+	
+	unsigned int = 0;
+	for (unsigned int j = 0; j < matrix.size(); j++) {
+		for (i = 0; i < matrix[j].size(); i++) {
+			if (getTile(i,j) == 0) {
+				//random tile set here
+			}
+		}
+	}
 }
 
 void Game::dropTiles() {
