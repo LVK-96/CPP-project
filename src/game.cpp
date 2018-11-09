@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include "game.hpp"
 
 Game::Game(std::vector<Player> players, Map map, GameMode mode): 
@@ -44,6 +46,7 @@ void Game::checkMove() {
         map_.setTile(coordx2, coordy2, tmpclr);
 
 		clearMatches();
+		dropTiles();
         fillMap();
     }
     
@@ -80,11 +83,15 @@ void Game::clearMatches() {
 void Game::fillMap() {
 	std::vector<std::vector<int> > matrix = map_.getMatrix();
 	
+	//intialize random seed
+	srand(time(NULL));
+
+	//loops through the map and fills empty spaces with random tiles
 	unsigned int = 0;
 	for (unsigned int j = 0; j < matrix.size(); j++) {
 		for (i = 0; i < matrix[j].size(); i++) {
-			if (getTile(i,j) == 0) {
-				//random tile set here
+			if (matrix[j][i] == 0) {
+				map_.setTile(i, j, rand() % 4 + 1);
 			}
 		}
 	}
@@ -103,80 +110,9 @@ void Game::dropTiles() {
 	}
 }
 
-
-std::pair<int, int> Game::checkX(int x, int y) const {
-    int color = map_.getTile(x, y);
-
-    //check to right
-    int matching_right = 0; 
-    for (std::vector<int>::iterator i = map_.getMatrix()[y].begin() + x; i < map_.getMatrix()[y].end(); i++) {
-        if (*i == color) {matching_right++;}
-    }
-    //check to left
-    int matching_left = 0;
-    for (std::vector<int>::iterator i = map_.getMatrix()[y].begin() + x; i > map_.getMatrix()[y].begin(); i--) {
-        if (*i == color) {matching_left++;}
-    }
-
-    return std::pair<int, int> (matching_right, matching_left);
-}
-
-std::pair<int, int> Game::checkY(int x, int y) const {
-    int color = map_.getColor(x,y);
-
-    //check downwards
-    int matching_down = 0;
-    for (std::vector<std::vector<int> >::iterator i = map_.getMatrix().begin() + y; i < map_.getMatrix().end(); i++) {
-        if((*i)[x] == color) {matching_down++;}
-    }
-
-    //check upwards
-    int matching_up = 0;
-    for (std::vector<std::vector<int> >::iterator i = map_.getMatrix().begin() + y; i > map_.getMatrix().end(); i--) {
-        if((*i)[x] == color) {matching_up++;}
-    }
-    return std::pair<int, int> (matching_down, matching_up);
-}
-
 bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
     if(x1-1 == x2 || x1+1 == x2 || y1+1 == y2 || y1-1 == y2) {return true;}
     return false;
-}
-
-void Game::removeX(int x, int y, std::pair<int, int> matching) {
-    //remove to right
-    for (std::vector<int>::iterator i = map_.getMatrix()[y].begin() + x; i < map_.getMatrix()[y].begin()+x+matching.first; i++) {
-        *i = 0;
-        std::cout<<"After removeX"<<std::endl;
-        printMap();
-        std::cout<<"//////////////////////"<<std::endl;
-    }
-
-    //remove to left 
-    for (std::vector<int>::iterator i = map_.getMatrix()[y].begin() + x; i > map_.getMatrix()[y].begin()+x-matching.second; i--) {
-        *i = 0;
-    } 
-    //remove pivot point
-    map_.getMatrix()[y][x] = 0;
-}
-
-void Game::removeY(int x, int y, std::pair<int, int> matching) {
-    //remove downwards
-    for(std::vector<std::vector<int> >::iterator i = map_.getMatrix().begin() + y; i < map_.getMatrix().begin()+y+matching.first; i++) {
-        (*i)[x] = 0;    
-    }
-
-    //remove upwards
-    for(std::vector<std::vector<int> >::iterator i = map_.getMatrix().begin() + y; i > map_.getMatrix().begin()+y-matching.second; i--) {
-        (*i)[x] = 0;
-    }
-
-    //remove pivot point
-    map_.getMatrix()[y][x] = 0;
-    
-    std::cout<<"After remove Y"<<std::endl;
-    printMap();
-    std::cout<<"//////////////////////"<<std::endl;
 }
 
 void Game::printMap() const {

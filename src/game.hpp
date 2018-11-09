@@ -16,6 +16,7 @@ public:
     std::pair <int, int> checkY(int x, int y) const;
     bool isAdjacent(int x1, int y1, int x2, int y2) const;
     void clearMatches();
+	void fillMap();
     void printMap() const;
 
 private:
