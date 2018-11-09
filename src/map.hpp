@@ -7,8 +7,7 @@ public:
     Map(std::vector<std::vector<int> > map);
     std::vector<std::vector<int> > getMatrix() const;
     int getColor(int x, int y) const;
-    void setMatrix (int x, int y, int color); 
-
-private:
+    void setTile (int x, int y, int color); 
+protected:
     std::vector<std::vector<int> > matrix_;
 };

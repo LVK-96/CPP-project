@@ -39,43 +39,64 @@ void Game::checkMove() {
         std::cout<<"Valid pair"<<std::endl;
     
         //INSERT GAME LOGIC HERE//
-        map_.setMatrix(coordx1, coordy1, map_.getColor(coordx2, coordy2)); //swap coords
-        map_.setMatrix(coordx2, coordy2, map_.getColor(coordx1, coordy1));
+        int tmpclr = map_.getColor(coordx1, coordy1);
+        map_.setTile(coordx1, coordy1, map_.getColor(coordx2, coordy2)); //swap coords
+        map_.setTile(coordx2, coordy2, tmpclr);
 
-        std::pair<int, int > matching_1_x = checkX(coordx1, coordy1); //check 1 in x-direction
-        std::pair<int, int> matching_1_y = checkY(coordx1, coordy1); //check 1 in y-direction
-
-        std::pair<int, int> matching_2_x = checkX(coordx2, coordy2); //check 2 in x-direction
-        std::pair<int, int> matching_2_y = checkY(coordx2, coordy2); //check 2 in y-direction 
-        
-        if (matching_1_x.first+matching_1_x.second+1 >= 3) {
-            //remove row 1 in x direction
-            removeX(coordx1, coordy1, matching_1_x);
-            is_valid = true;
-        }
-        if (matching_1_y.first+matching_1_y.second+1  >= 3) {
-            //remove column 1 in y direction
-            removeY(coordx1, coordy1, matching_1_y);
-            is_valid = true; 
-        }
-        if(matching_2_x.first+matching_2_x.second+1 >= 3) {
-            //remove row 2 in x direction
-            removeX(coordx2, coordy2, matching_2_x);
-            is_valid = true; 
-        }
-        if(matching_2_y.first+matching_2_y.second+1 >= 3) {
-            //remove column 2 in y direction
-            removeY(coordx2, coordy2, matching_2_y);
-            is_valid = true;
-        }
+		clearMatches();
+        fillMap();
     }
-    //set new map
+    
     std::cout<<"Valid move"<<std::endl;
     std::cout<<"New map:"<<std::endl;
 }
 
+
+void Game::clearMatches() {
+	std::vector<std::vector<int> > matrix = map_.getMatrix();
+	
+	unsigned int = 0;
+	for (unsigned int j = 0; j < matrix.size(); j++) {
+		if ( (j-2) >= 0) {
+			if ( (matrix[j-1][i] == matrix[j][i]) && (matrix[j-2][i] == matrix[j][i]) ) {
+				map._setTile(i, j, 0);
+				map._setTile(i, j-1, 0);
+				map._setTile(i, j-2, 0);
+			}
+		}
+		
+		for (i = 0; i < matrix[j].size(); i++) {
+			if ( (i-2) >= 0) {
+				if ( (matrix[j][i-1] == matrix[j][i]) && (matrix[j][i-2] == matrix[j][i]) ) {
+					map._setTile(i, j, 0);
+					map._setTile(i-1, j, 0);
+					map._setTile(i-2, j, 0);
+				}
+			}
+		}
+	}
+}
+
+void Game::fillMap() {
+
+}
+
+void Game::dropTiles() {
+	std::vector<std::vector<int> > matrix = map_.getMatrix();
+	
+	unsigned int = 0;
+	for (unsigned int j = matrix.size(); j > 0; j--) {
+		for (i = matrix[j].size(); i > 0; i--) {
+			if ( (j+1) < matrix.size() ) {
+				
+			}
+		}
+	}
+}
+
+
 std::pair<int, int> Game::checkX(int x, int y) const {
-    int color = map_.getColor(x, y);
+    int color = map_.getTile(x, y);
 
     //check to right
     int matching_right = 0; 
