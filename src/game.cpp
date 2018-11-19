@@ -37,8 +37,6 @@ void Game::checkMove() {
             std::cin>>coordy2;
             check_adjacent = isAdjacent(coordx1, coordy1, coordx2, coordy2); //check if coords are adjacent
         }
-
-        std::cout<<"Valid pair"<<std::endl;
     
         //INSERT GAME LOGIC HERE//
         swapCoords(coordx1, coordy1, coordx2, coordy2);
