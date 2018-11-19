@@ -43,6 +43,7 @@ void Game::checkMove() {
 		while(clearMatches()) { //clear matches, drop tiles and insert new tiles untill no more matches
 			dropTiles();
 			fillMap();
+			printMap();
 			is_valid = true;
 		}
     }
