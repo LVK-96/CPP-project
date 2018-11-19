@@ -15,9 +15,11 @@ public:
     std::pair<int, int> checkX(int x, int y) const;
     std::pair <int, int> checkY(int x, int y) const;
     bool isAdjacent(int x1, int y1, int x2, int y2) const;
-    void clearMatches();
+    bool clearMatches();
+    bool dropTiles();
 	void fillMap();
     void printMap() const;
+    void swapCoords(int x1, int y1, int x2, int y2);
 
 private:
     bool paused;

@@ -1,2 +1,9 @@
 .vscode/launch.json
+game.o
+gamemode.o
+main
+main.o
+map.o
+player.o
+tilematching.o
 

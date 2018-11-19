@@ -41,13 +41,12 @@ void Game::checkMove() {
         std::cout<<"Valid pair"<<std::endl;
     
         //INSERT GAME LOGIC HERE//
-        int tmpclr = map_.getColor(coordx1, coordy1);
-        map_.setTile(coordx1, coordy1, map_.getColor(coordx2, coordy2)); //swap coords
-        map_.setTile(coordx2, coordy2, tmpclr);
-
-		clearMatches();
-		dropTiles();
-        fillMap();
+        swapCoords(coordx1, coordy1, coordx2, coordy2);
+		while(clearMatches()) { //clear matches, drop tiles and insert new tiles untill no more matches
+			dropTiles();
+			fillMap();
+			is_valid = true;
+		}
     }
     
     std::cout<<"Valid move"<<std::endl;
@@ -55,29 +54,31 @@ void Game::checkMove() {
 }
 
 
-void Game::clearMatches() {
+bool Game::clearMatches() {
 	std::vector<std::vector<int> > matrix = map_.getMatrix();
-	
-	unsigned int = 0;
-	for (unsigned int j = 0; j < matrix.size(); j++) {
-		if ( (j-2) >= 0) {
-			if ( (matrix[j-1][i] == matrix[j][i]) && (matrix[j-2][i] == matrix[j][i]) ) {
-				map._setTile(i, j, 0);
-				map._setTile(i, j-1, 0);
-				map._setTile(i, j-2, 0);
-			}
-		}
-		
-		for (i = 0; i < matrix[j].size(); i++) {
-			if ( (i-2) >= 0) {
-				if ( (matrix[j][i-1] == matrix[j][i]) && (matrix[j][i-2] == matrix[j][i]) ) {
-					map._setTile(i, j, 0);
-					map._setTile(i-1, j, 0);
-					map._setTile(i-2, j, 0);
+	bool ret = false;
+
+	for (int j = 0; j < (int) matrix.size(); j++) {
+		for (int i = 0; i < (int) matrix[j].size(); i++) {
+			if (j-2 >= 0) {	//check y			
+				if (matrix[j][i] == matrix[j-1][i] && matrix[j][i] == matrix[j-2][i]) {
+					map_.setTile(i, j, 0);
+					map_.setTile(i, j-1, 0);
+					map_.setTile(i, j-2, 0);
+					ret = true;
+				}
+			}	
+			if (i-2 >= 0) { //check x 
+				if (matrix[j][i] == matrix[j][i-1] && matrix[j][i] == matrix[j][i-2]) {
+					map_.setTile(i, j, 0);
+					map_.setTile(i-1, j, 0);
+					map_.setTile(i-2, j, 0);
+					ret = true;
 				}
 			}
 		}
 	}
+	return ret;	
 }
 
 void Game::fillMap() {
@@ -87,9 +88,8 @@ void Game::fillMap() {
 	srand(time(NULL));
 
 	//loops through the map and fills empty spaces with random tiles
-	unsigned int = 0;
 	for (unsigned int j = 0; j < matrix.size(); j++) {
-		for (i = 0; i < matrix[j].size(); i++) {
+		for (unsigned int i = 0; i < matrix[j].size(); i++) {
 			if (matrix[j][i] == 0) {
 				map_.setTile(i, j, rand() % 4 + 1);
 			}
@@ -97,17 +97,26 @@ void Game::fillMap() {
 	}
 }
 
-void Game::dropTiles() {
+bool Game::dropTiles() {
+	bool ret = false;
 	std::vector<std::vector<int> > matrix = map_.getMatrix();
-	
-	unsigned int = 0;
-	for (unsigned int j = matrix.size(); j > 0; j--) {
-		for (i = matrix[j].size(); i > 0; i--) {
-			if ( (j+1) < matrix.size() ) {
-				
+	for (int j = matrix.size()-1; j >= 0; j--) {
+		for (int i = matrix[j].size()-1; i >= 0; i--) {
+			if(matrix[j][i] == 0) {
+				for (unsigned int tmp = j; tmp > 0; tmp--) { //drop each tile in column 
+					map_.setTile(tmp, i, map_.getTile(tmp-1, i));
+					ret = true;
+				}
 			}
 		}
 	}
+	return ret; 
+}
+
+void Game::swapCoords(int x1, int y1, int x2, int y2) {
+	int tmpclr = map_.getTile(x1, y1);
+    map_.setTile(x1, y1, map_.getTile(x2, y2)); //swap coords
+    map_.setTile(x2, y2, tmpclr);
 }
 
 bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
@@ -116,10 +125,13 @@ bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
 }
 
 void Game::printMap() const {
-    for (auto i : map_.getMatrix()) {
+     std::cout<<"/////////////////"<<std::endl;
+	for (auto i : map_.getMatrix()) {
         for (auto j : i) {
             std::cout<<j<<" ";
         }
         std::cout<<std::endl;
     }
+    std::cout<<"/////////////////"<<std::endl;
+
 }
