@@ -3,8 +3,7 @@
 
 class Map {
 public:
-    Map() = default;
-    Map(std::vector<std::vector<int> > map);
+    Map();
 
     std::vector<std::vector<int> > getMatrix() const;
     void setTile (int x, int y, int color); 
