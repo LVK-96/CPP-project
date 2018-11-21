@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "game.hpp"
+#include "algorithm"
 
 Game::Game(std::vector<Player> players, Map map, GameMode mode): 
 players_(players), map_(map), mode_(mode) {}
@@ -40,10 +41,24 @@ void Game::checkMove() {
     
         //INSERT GAME LOGIC HERE//
         swapCoords(coordx1, coordy1, coordx2, coordy2);
-		while(clearMatches()) { //clear matches, drop tiles and insert new tiles untill no more matches
-			dropTiles();
-			fillMap();
+		bool asd = false;
+		while(1) {
+			asd = clearMatches();
+			std::cout<<"cleared"<<std::endl;
 			printMap();
+			
+			if(!asd) { //clear matches, drop tiles and insert new tiles untill no more matches
+				break;
+			} 
+			
+			dropTiles();
+			std::cout<<"dropped"<<std::endl;
+			printMap();
+
+			fillMap();
+			std::cout<<"filled"<<std::endl;
+			printMap();
+			
 			is_valid = true;
 		}
     }
@@ -96,20 +111,28 @@ void Game::fillMap() {
 	}
 }
 
-bool Game::dropTiles() {
-	bool ret = false;
-	std::vector<std::vector<int> > matrix = map_.getMatrix();
-	for (int j = matrix.size()-1; j >= 0; j--) {
-		for (int i = matrix[j].size()-1; i >= 0; i--) {
-			if(matrix[j][i] == 0) {
-				for (unsigned int tmp = j; tmp > 0; tmp--) { //drop each tile in column 
-					map_.setTile(tmp, i, map_.getTile(tmp-1, i));
-					ret = true;
+void Game::dropTiles() {
+	for (int j = map_.getMatrix().size()-1; j >= 0; j--) {
+		for (unsigned int i = 0; i < map_.getMatrix()[j].size(); i++) {
+			if(map_.getTile(i, j) == 0) {
+				std::vector<int> tmp_arr; 
+				for (int tmp = 0; tmp <= j; tmp++) { //get column upwards from 0 into array 
+					tmp_arr.push_back(map_.getTile(i, tmp));
+				}
+				
+				std::sort(tmp_arr.begin(), tmp_arr.end(), //sort array 
+				[] (int a, int b) {
+					if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal
+					return (a < b);
+				}	
+				);
+
+				for (int tmp = 0; tmp <= j; tmp++) { //set array into map 
+					map_.setTile(i, tmp, tmp_arr[tmp]);
 				}
 			}
 		}
 	}
-	return ret; 
 }
 
 void Game::swapCoords(int x1, int y1, int x2, int y2) {
@@ -119,8 +142,10 @@ void Game::swapCoords(int x1, int y1, int x2, int y2) {
 }
 
 bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
-    if(x1-1 == x2 || x1+1 == x2 || y1+1 == y2 || y1-1 == y2) {return true;}
-    return false;
+    if((x1-1 == x2 || x1+1 == x2) && y1 == y2) {return true;} 
+	if((y1+1 == y2 || y1-1 == y2) && x1 == x2) {return true;}
+    
+	return false;
 }
 
 void Game::printMap() const {
