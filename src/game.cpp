@@ -4,8 +4,15 @@
 #include "game.hpp"
 #include "algorithm"
 
+Game::Game() = default;
+
 Game::Game(std::vector<Player> players, Map map, GameMode mode): 
-players_(players), map_(map), mode_(mode) {}
+players_(players), map_(map), mode_(mode) {
+	fillMap(); //fill map with random numbers 1-4 
+	while(clearMatches()) {
+		fillMap();
+	}
+}
 
 void Game::updateMap() {
     printMap(); //call GUI update here 

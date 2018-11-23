@@ -6,7 +6,7 @@
 
 class Game {
 public:
-    Game() = default;
+    Game();
     Game(std::vector<Player> players, Map map, GameMode mode);
 
     void updateMap();
