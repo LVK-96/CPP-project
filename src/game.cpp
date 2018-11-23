@@ -8,9 +8,9 @@ Game::Game() = default;
 
 Game::Game(std::vector<Player> players, Map map, GameMode mode): 
 players_(players), map_(map), mode_(mode) {
-	fillMap(); //fill map with random numbers 1-4 
-	while(clearMatches()) {
-		fillMap();
+	fillMap(); //fill map with random numbers
+	while(clearMatches()) { 
+		fillMap(); //clear and fill until no more matches
 	}
 }
 
@@ -48,15 +48,9 @@ void Game::checkMove() {
     
         //INSERT GAME LOGIC HERE//
         swapCoords(coordx1, coordy1, coordx2, coordy2);
-		bool asd = false;
-		while(1) {
-			asd = clearMatches();
+		while(clearMatches()) {
 			std::cout<<"cleared"<<std::endl;
 			printMap();
-			
-			if(!asd) { //clear matches, drop tiles and insert new tiles untill no more matches
-				break;
-			} 
 			
 			dropTiles();
 			std::cout<<"dropped"<<std::endl;
@@ -76,14 +70,14 @@ void Game::checkMove() {
 
 
 bool Game::clearMatches() {
-	std::vector<std::vector<int> > matrix = map_.getMatrix();
+	std::vector<std::vector<int> > matrix = map_.getMatrix(); //perform checks on this copy 
 	bool ret = false;
 
 	for (int j = 0; j < (int) matrix.size(); j++) {
 		for (int i = 0; i < (int) matrix[j].size(); i++) {
 			if (j-2 >= 0) {	//check y			
 				if (matrix[j][i] == matrix[j-1][i] && matrix[j][i] == matrix[j-2][i]) {
-					map_.setTile(i, j, 0);
+					map_.setTile(i, j, 0);  
 					map_.setTile(i, j-1, 0);
 					map_.setTile(i, j-2, 0);
 					ret = true;
@@ -91,7 +85,7 @@ bool Game::clearMatches() {
 			}	
 			if (i-2 >= 0) { //check x 
 				if (matrix[j][i] == matrix[j][i-1] && matrix[j][i] == matrix[j][i-2]) {
-					map_.setTile(i, j, 0);
+					map_.setTile(i, j, 0); 
 					map_.setTile(i-1, j, 0);
 					map_.setTile(i-2, j, 0);
 					ret = true;
@@ -123,18 +117,18 @@ void Game::dropTiles() {
 		for (unsigned int i = 0; i < map_.getMatrix()[j].size(); i++) {
 			if(map_.getTile(i, j) == 0) {
 				std::vector<int> tmp_arr; 
-				for (int tmp = 0; tmp <= j; tmp++) { //get column upwards from 0 into array 
+				for (int tmp = 0; tmp <= j; tmp++) { //get column downwards from 0 into array 
 					tmp_arr.push_back(map_.getTile(i, tmp));
 				}
 				
-				std::sort(tmp_arr.begin(), tmp_arr.end(), //sort array 
+				std::sort(tmp_arr.begin(), tmp_arr.end(), 
 				[] (int a, int b) {
-					if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal
+					if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal so 0s end up on top
 					return (a < b);
 				}	
 				);
 
-				for (int tmp = 0; tmp <= j; tmp++) { //set array into map 
+				for (int tmp = 0; tmp <= j; tmp++) { //set sorted array into map 
 					map_.setTile(i, tmp, tmp_arr[tmp]);
 				}
 			}
@@ -144,14 +138,13 @@ void Game::dropTiles() {
 
 void Game::swapCoords(int x1, int y1, int x2, int y2) {
 	int tmpclr = map_.getTile(x1, y1);
-    map_.setTile(x1, y1, map_.getTile(x2, y2)); //swap coords
+    map_.setTile(x1, y1, map_.getTile(x2, y2)); 
     map_.setTile(x2, y2, tmpclr);
 }
 
 bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
     if((x1-1 == x2 || x1+1 == x2) && y1 == y2) {return true;} 
 	if((y1+1 == y2 || y1-1 == y2) && x1 == x2) {return true;}
-    
 	return false;
 }
 
