@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "game.hpp"
+#include "GUIWindow.hpp"
 
 class TileMatching {
 public:
