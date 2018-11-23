@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "game.hpp"
-#include "GUIWindow.hpp"
+#include "guiwindow.hpp"
 
 class TileMatching {
 public:
@@ -16,4 +16,5 @@ public:
 private:
     std::string status_;
     Game game_;
+    GUIWindow window_;
 };

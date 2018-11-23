@@ -1,6 +1,7 @@
 #include <vector>
 #include "tilematching.hpp"
 
+
 TileMatching::TileMatching() {
 	Player p1;
 	std::vector<Player> players;
@@ -9,6 +10,8 @@ TileMatching::TileMatching() {
 	GameMode mode;
 	setGame(Game(players,map, mode));
 	setStatus("game");
+	window_ = GUIWindow();
+	window_.draw();
 }
 
 Game TileMatching::getGame() const {return game_;}
