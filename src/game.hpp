@@ -3,11 +3,12 @@
 #include "map.hpp"
 #include "player.hpp"
 #include "gamemode.hpp"
+#include "guiwindow.hpp"
 
 class Game {
 public:
     Game();
-    Game(std::vector<Player> players, Map map, GameMode mode);
+    Game(std::vector<Player> players, Map map, GameMode mode, GUIWindow window);
 
     void updateMap();
     void checkMove();
@@ -26,4 +27,5 @@ private:
     std::vector<Player> players_;
     Map map_;
     GameMode mode_;
+	GUIWindow window_;
 };

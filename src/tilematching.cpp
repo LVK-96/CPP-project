@@ -8,10 +8,11 @@ TileMatching::TileMatching() {
 	players.push_back(p1);
 	Map map(std::vector<std::vector<int> >(8, std::vector<int>(8,0))); //8x8 zero matrix
 	GameMode mode;
-	setGame(Game(players,map, mode));
-	setStatus("game");
 	window_ = GUIWindow();
-	window_.draw();
+	setGame(Game(players,map, mode,window_));
+	setStatus("game");
+	//window_ = GUIWindow();
+	//window_.draw();
 }
 
 Game TileMatching::getGame() const {return game_;}
