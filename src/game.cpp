@@ -119,7 +119,7 @@ void Game::fillMap() {
 void Game::dropTiles() {
 	for (unsigned int i = 0; i < map_.getMatrix()[0].size(); i++) {
 		std::vector<int> tmp_arr;
-		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //get column downwards from 0 into array 
+		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //get column into array 
 			tmp_arr.push_back(map_.getTile(i, tmp));
 		}
 
