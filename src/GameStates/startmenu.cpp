@@ -12,7 +12,7 @@ StartMenu::startGame() {
 
 	Map map(std::vector<std::vector<int> >(8, std::vector<int>(8,0)));
 
-    game=new Game(players,map, mode,window_);
+    Game* game=new Game(players,map, mode,window_);
 
-    this->guiWindow->pushState(new GameGUI(this->guiWindow));
+    this->guiWindow->pushState(new GameGUI(this->guiWindow, &game));
 }
