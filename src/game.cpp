@@ -117,27 +117,22 @@ void Game::fillMap() {
 }
 
 void Game::dropTiles() {
-	for (int j = map_.getMatrix().size()-1; j >= 0; j--) {
-		for (unsigned int i = 0; i < map_.getMatrix()[j].size(); i++) {
-			if(map_.getTile(i, j) == 0) {
-				std::vector<int> tmp_arr; 
-				for (int tmp = 0; tmp <= j; tmp++) { //get column downwards from 0 into array 
-					tmp_arr.push_back(map_.getTile(i, tmp));
-				}
-				
-				std::sort(tmp_arr.begin(), tmp_arr.end(), 
-				[] (int a, int b) {
-					if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal so 0s end up on top
-					return (a < b);
-				}	
-				);
-
-				for (int tmp = 0; tmp <= j; tmp++) { //set sorted array into map 
-					map_.setTile(i, tmp, tmp_arr[tmp]);
-				}
-			}
+	for (unsigned int i = 0; i < map_.getMatrix()[0].size(); i++) {
+		std::vector<int> tmp_arr;
+		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //get column downwards from 0 into array 
+			tmp_arr.push_back(map_.getTile(i, tmp));
 		}
-	}
+
+		std::sort(tmp_arr.begin(), tmp_arr.end(), 
+		[] (int a, int b) {
+			if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal so 0s end up on top
+			return (a < b);
+		});
+
+		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //set sorted array into map 
+			map_.setTile(i, tmp, tmp_arr[tmp]);
+		}
+	} 
 }
 
 void Game::swapCoords(int x1, int y1, int x2, int y2) {

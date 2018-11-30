@@ -21,8 +21,6 @@ void GUIWindow::draw(std::vector<std::vector<int> > matrix) const {
                 window.draw(shape);
 			}
 		}
-
-		
         window.display();
 }
 
