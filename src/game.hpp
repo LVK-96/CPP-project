@@ -8,7 +8,7 @@
 class Game {
 public:
     Game();
-    Game(std::vector<Player> players, Map map, GameMode mode, GUIWindow window);
+    Game(std::vector<Player> players, Map map, GameMode mode);
 
     void updateMap();
     void checkMove();
@@ -27,5 +27,4 @@ private:
     std::vector<Player> players_;
     Map map_;
     GameMode mode_;
-	GUIWindow window_;
 };

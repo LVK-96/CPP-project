@@ -7,15 +7,15 @@
 
 Game::Game() = default;
 
-Game::Game(std::vector<Player> players, Map map, GameMode mode, GUIWindow window): 
-players_(players), map_(map), mode_(mode), window_(window) {
+Game::Game(std::vector<Player> players, Map map, GameMode mode): 
+players_(players), map_(map), mode_(mode) {
 	fillMap(); //fill map with random numbers
 	while(clearMatches()) { 
 		fillMap(); //clear and fill until no more matches
 	}
 }
 
-void Game::updateMap() {
+/*void Game::updateMap() {
     printMap(); //call GUI update here 
     checkMove(); //play turn
 }
@@ -24,7 +24,7 @@ void Game::tickGame() { //run game loop
     while(1) {
         updateMap();
     }
-}
+}*/
 
 void Game::checkMove() {
     bool is_valid = false;
@@ -54,15 +54,15 @@ void Game::checkMove() {
         swapCoords(mouseClicks[0], mouseClicks[1], mouseClicks[2], mouseClicks[3]);
 		while(clearMatches()) {
 			std::cout<<"cleared"<<std::endl;
-			printMap();
+			//printMap();
 			
 			dropTiles();
 			std::cout<<"dropped"<<std::endl;
-			printMap();
+			//printMap();
 
 			fillMap();
 			std::cout<<"filled"<<std::endl;
-			printMap();
+			//printMap();
 			
 			is_valid = true;
 		}
@@ -148,7 +148,7 @@ bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
 	return false;
 }
 
-void Game::printMap() const {
+/*void Game::printMap() const {
      std::cout<<"/////////////////"<<std::endl;
 	for (auto i : map_.getMatrix()) {
         for (auto j : i) {
@@ -159,4 +159,4 @@ void Game::printMap() const {
     std::cout<<"/////////////////"<<std::endl;
 	window_.draw(map_.getMatrix());
 
-}
+}*/

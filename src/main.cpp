@@ -1,8 +1,6 @@
-#include "tilematching.hpp"
+#include "GUIWindow.hpp"
 
 int main() {
-    TileMatching tilematching_game;
-    tilematching_game.setStatus("game");  
-    tilematching_game.runGame();
+   	GUIWindow();
     return 0;
 }
