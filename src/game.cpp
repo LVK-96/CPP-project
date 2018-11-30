@@ -140,6 +140,11 @@ void Game::swapCoords(int x1, int y1, int x2, int y2) {
 	std::cout << x1 << y1 << x2 << y2 << std::endl;
     map_.setTile(x1, y1, map_.getTile(x2, y2)); 
     map_.setTile(x2, y2, tmpclr);
+	
+	while(clearMatches()) {
+			dropTiles();
+			fillMap();
+	}
 }
 
 bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {

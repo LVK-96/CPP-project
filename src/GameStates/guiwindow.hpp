@@ -14,8 +14,9 @@ class GUIWindow {
         State *peekState(); //returns the state on top of the stack
         void gameLoop(); //calls input handlers, draws window
 
-        std::stack<State*> states_;
-        sf::RenderWindow window_;
+		private:
+        	std::stack<State*> states_;
+        	sf::RenderWindow window_;
 };
 
 /* In tilemaching.cpp/main: 
