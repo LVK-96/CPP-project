@@ -1,6 +1,7 @@
 #include "GUIWindow.hpp"
 
 int main() {
-   	GUIWindow();
+   	GUIWindow gui = GUIWindow();
+	StartMenu(&gui.window_);
     return 0;
 }
