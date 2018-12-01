@@ -13,7 +13,7 @@ class GUIWindow {
         void changeState(State *state); //change state on window
         State *peekState(); //returns the state on top of the stack
         void gameLoop(); //calls input handlers, draws window
-
+	protected:
         std::stack<State*> states_;
         sf::RenderWindow window_;
 };

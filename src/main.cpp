@@ -2,6 +2,7 @@
 
 int main() {
    	GUIWindow gui = GUIWindow();
-	StartMenu(&gui.window_);
+	StartMenu(&gui);
+	gui.gameLoop();
     return 0;
 }
