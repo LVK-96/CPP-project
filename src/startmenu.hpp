@@ -1,4 +1,4 @@
-#include <SFML/Graphics>
+#include <SFML/Graphics.hpp>
 
 #include "state.hpp"
 
@@ -12,5 +12,5 @@ class StartMenu : public State {
 
         void startGame(); // add game to the state stack
 	private:
-		GUIWindow *guiWindow_
+		GUIWindow *guiWindow_;
 };

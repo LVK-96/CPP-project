@@ -1,7 +1,6 @@
 #include <stack>
-#include <SFML/Graphics>
-
-class State;
+#include <SFML/Graphics.hpp>
+//class State;
 
 class GUIWindow {
     public:
