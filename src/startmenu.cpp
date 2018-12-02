@@ -16,7 +16,7 @@ void StartMenu::startGame() {
 
     Game* game=new Game(players,map, mode);
 
-    guiWindow_->pushState(new GameGUI(guiWindow_, &game));
+    guiWindow_->changeState(new GameGUI(guiWindow_, &game));
 }
 
 void StartMenu::handleInput(const float dt) {
@@ -29,9 +29,9 @@ void StartMenu::handleInput(const float dt) {
                window.close();
 		if (event.type == sf::Event::KeyPressed)
 		{
-    		if (event.key.code == sf::Keyboard::Return)
+    		if (event.key.code == sf::Keyboard::A)
     		{
-				std::cout <<"enter pressed" << std::endl;
+				std::cout <<"A pressed" << std::endl;
 				startGame();//this may result to problems if the loops stays on
     		}
 		}
