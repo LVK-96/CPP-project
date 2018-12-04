@@ -26,9 +26,11 @@ void Game::tickGame() { //run game loop
     }
 }*/
 
+//check move plays takes the input, checks it and plays the move if appropriate --> all of this should be done in the gameGUI
+/*
 void Game::checkMove() {
     bool is_valid = false;
-    while (is_valid == false) { //loop until valid move
+    while (is_valid == false) { *///loop until valid move
         /*std::cout<<"Gib coodrinates 1"<<std::endl; //read first coords
         int coordx1;
         int coordy1;
@@ -43,11 +45,11 @@ void Game::checkMove() {
             std::cin>>coordx2;
             std::cin>>coordy2;
             check_adjacent = isAdjacent(coordx1, coordy1, coordx2, coordy2); //check if coords are adjacent
-        }*/
+        }*//*
 		std::vector<unsigned int> mouseClicks;
     	bool check_adjacent = false;
 		while(check_adjacent == false) {		
-			mouseClicks = window_.getInput(map_.getMatrix());
+			mouseClicks = window_.getInput(map_.getMatrix());//all of this should be done in the GUI
 			check_adjacent = isAdjacent(mouseClicks[0], mouseClicks[1], mouseClicks[2], mouseClicks[3]); //check if coords are adjacent
 		}
         //INSERT GAME LOGIC HERE//
@@ -71,6 +73,7 @@ void Game::checkMove() {
     std::cout<<"Valid move"<<std::endl;
     std::cout<<"New map:"<<std::endl;
 }
+*/
 
 
 bool Game::clearMatches() {

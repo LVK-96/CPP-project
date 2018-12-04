@@ -4,7 +4,7 @@ GameGUI::GameGUI(GameGUI(GUIWindow *gui, Game *g);) {
 	game_ = g;
 }
 void GameGUI::draw(const float time) {
-	std::vector<std::vector<int> matrix = this->guiWindow->game_.map_.getMatrix();
+	std::vector<std::vector<int> matrix = this->game_.map_.getMatrix();
 	sf::CircleShape shape(48.f, 8);
 	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
@@ -48,7 +48,7 @@ void GameGUI::handleInput(const float time) {
 	while (this->guiWindow->window_.pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
-			this->guiWindow->window_.close();
+			this->guiWindow->window_.close();//if the window is closed the whole program should terminate
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
     		if (event.mouseButton.button == sf::Mouse::Left)
@@ -66,8 +66,8 @@ void GameGUI::handleInput(const float time) {
 				}
     		}
 		}
-		if (isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
-			this->guiWindow->game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
+		if (this->game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
+			this->game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
 			return
 		}
 	}
