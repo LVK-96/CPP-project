@@ -3,7 +3,7 @@
 
 StartMenu::StartMenu(GUIWindow *guiWindow) {
     guiWindow_ = guiWindow;
-	guiWIndow_->pushState(this); //we want to show this when it's created so we push it to the stack
+	guiWindow_->pushState(this); //we want to show this when it's created so we push it to the stack
 }
 
 void StartMenu::startGame() {
@@ -22,7 +22,7 @@ void StartMenu::startGame() {
 void StartMenu::handleInput(const float dt) {
 	sf::Event event;
 
-	while (guiWindow->window_.pollEvent(event))
+	while (guiWindow_->window_.pollEvent(event))
 	{
          // "close requested" event: we close the window
 		 if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Q)

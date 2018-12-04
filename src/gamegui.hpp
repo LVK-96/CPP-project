@@ -1,7 +1,5 @@
 #include <SFML/Graphics>
 
-#include "state.hpp"
-
 class GameGUI : public State {
     public:
         GameGUI(GUIWindow *guiWindow, Game *game);

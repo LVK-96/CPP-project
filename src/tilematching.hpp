@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include <string>
 #include "game.hpp"
 #include "guiwindow.hpp"
@@ -18,3 +18,4 @@ private:
     Game game_;
     GUIWindow window_;
 };
+*/

@@ -1,20 +1,21 @@
+#pragma once
 #include <stack>
 #include <SFML/Graphics.hpp>
+#include "state.hpp"
 //class State;
 
 class GUIWindow {
-    public:
-        GUIWindow();
-        ~GUIWindow();
-
-        void pushState(State *state); //add new state to stack
-        void popState(); //remove state from states
-        void changeState(State *state); //change state on window
-        State *peekState(); //returns the state on top of the stack
-        void gameLoop(); //calls input handlers, draws window
-	protected:
-        std::stack<State*> states_;
-        sf::RenderWindow window_;
+        public:
+                GUIWindow();
+                ~GUIWindow();
+                void pushState(State *state); //add new state to stack
+                void popState(); //remove state from states
+                void changeState(State *state); //change state on window
+                State *peekState(); //returns the state on top of the stack
+                void gameLoop(); //calls input handlers, draws window
+        protected:
+                std::stack<State*> states_;
+                sf::RenderWindow window_;
 };
 
 /* In tilemaching.cpp/main: 
