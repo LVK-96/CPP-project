@@ -33,11 +33,13 @@ void GUIWindow::pushState(State* state) {
 }
 
 void GUIWindow::popState() {
-    delete states.top();
+    delete states_.top();
+    //pop method calls the destructor of the item that is popped, move memory deallocation to the destructor of the state
     states.pop();
 }
 
 void GUIWindow::changeState(State* state) {
+    //why is this method needed
     if(!states.empty()) popState();
     pushState(state);
 }

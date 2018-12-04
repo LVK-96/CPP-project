@@ -16,7 +16,8 @@ void StartMenu::startGame() {
 
     Game* game=new Game(players,map, mode);
 
-    guiWindow_->changeState(new GameGUI(guiWindow_, &game));
+    guiWindow_->pushState(new GameGUI(guiWindow_, game));
+	/*we want to push the gamestate ontop of the startmenu in the stack not replace it*/
 }
 
 void StartMenu::handleInput(const float dt) {

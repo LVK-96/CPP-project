@@ -4,7 +4,7 @@
 
 class StartMenu : public State {
     public:
-        StartMenu(GUIWindow *guiWindow);//changed from pointer to reference
+        StartMenu(GUIWindow *guiWindow);
 
         virtual void draw(const float dt); //changes the view that will be drawn to window (defined in guiwindow class)
         virtual void update(const float dt);
