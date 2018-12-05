@@ -1,5 +1,6 @@
 #include "startmenu.hpp"
 #include "game.hpp"
+#include <iostream>
 
 StartMenu::StartMenu(GUIWindow *guiWindow) {
     guiWindow_ = guiWindow;
@@ -20,14 +21,14 @@ void StartMenu::startGame() {
 	/*we want to push the gamestate ontop of the startmenu in the stack not replace it*/
 }
 
-void StartMenu::handleInput(const float dt) {
+void StartMenu::handleInput() {
 	sf::Event event;
 
 	while (guiWindow_->window_.pollEvent(event))
 	{
          // "close requested" event: we close the window
 		 if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Q)
-               window.close();
+               guiWindow_->window_.close();
 		if (event.type == sf::Event::KeyPressed)
 		{
     		if (event.key.code == sf::Keyboard::A)

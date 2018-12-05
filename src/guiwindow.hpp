@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "state.hpp"
 //class State;
+class State;//forward declaration
 
 class GUIWindow {
         public:

@@ -3,6 +3,11 @@ GameGUI::GameGUI(GameGUI(GUIWindow *gui, Game *g);) {
 	guiWindow_ = gui;	
 	game_ = g;
 }
+
+GameGUI~GameGUI(){
+	delete this;//memory allocated with new
+};
+
 void GameGUI::draw(const float time) {
 	std::vector<std::vector<int> matrix = this->game_.map_.getMatrix();
 	sf::CircleShape shape(48.f, 8);

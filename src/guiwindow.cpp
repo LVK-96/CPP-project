@@ -1,15 +1,14 @@
-#include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
 #include "guiwindow.hpp"
 
 GUIWindow::GUIWindow() {
     window_.create(sf::VideoMode(800,600), "Match 3");
-    window_.setFrameRateLimit(60);
+    window_.setFramerateLimit(60);
 }
 
 GUIWindow::~GUIWindow() {
-    while(!states.empty()) popState();
+    while(!states_.empty()) popState();
 }
 
 void GUIWindow::gameLoop() {
@@ -29,22 +28,20 @@ void GUIWindow::gameLoop() {
 }
 
 void GUIWindow::pushState(State* state) {
-    states.push(state);
+    states_.push(state);
 }
 
 void GUIWindow::popState() {
-    delete states_.top();
-    //pop method calls the destructor of the item that is popped, move memory deallocation to the destructor of the state
-    states.pop();
+    states_.pop();//pop method calls the destructor of the item that is popped, memory deallocation moved to the destructor
 }
 
 void GUIWindow::changeState(State* state) {
     //why is this method needed
-    if(!states.empty()) popState();
+    if(!states_.empty()) popState();
     pushState(state);
 }
 
-void GUIWindow::peekState() {
-    if(!states.empty()) return NULL;
-    return states.top();
+State *GUIWindow::peekState() {
+    if(!states_.empty()) return NULL;
+    return states_.top();
 }
