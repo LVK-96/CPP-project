@@ -1,9 +1,11 @@
 #include <SFML/System.hpp>
 
 #include "guiwindow.hpp"
+#include <iostream>
 
 GUIWindow::GUIWindow() {
     window_.create(sf::VideoMode(800,600), "Match 3");
+    window_.setVerticalSyncEnabled(false);//probably not be needed
     window_.setFramerateLimit(60);
 }
 
@@ -17,8 +19,9 @@ void GUIWindow::gameLoop() {
     while (window_.isOpen()) {
         sf::Time elapsed=clock.restart();
         float dt=elapsed.asSeconds();
-
+        
         if (peekState()==NULL) continue;
+        std::cout << "made it past stack check" << std::endl;
         peekState()->handleInput();
         peekState()->update(dt);
         window_.clear(sf::Color::Black);

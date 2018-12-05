@@ -6,7 +6,7 @@ class GUIWindow;//forward declaration
 
 class State {
     public:
-        virtual ~State()=0;//pure virtual destructor
+        virtual ~State(){};//virtual destructor
         virtual void draw(const float dt)=0;
         virtual void update(const float dt)=0;
         virtual void handleInput()=0;

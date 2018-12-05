@@ -1,5 +1,7 @@
 #include "gamegui.hpp"
 #include "iostream"
+#include <math.h>
+#include <string>
 GameGUI::GameGUI(GUIWindow *gui, Game *g) {
 	guiWindow_ = gui;	
 	game_ = g;
@@ -14,7 +16,7 @@ void GameGUI::draw(const float time) {
 	sf::CircleShape shape(48.f, 8);
 	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
-    const float height = std::sqrt(std::pow(distance,2.f));
+    const float height = sqrt(pow(distance,2.f));
 		
 	for (unsigned int i=0; i < matrix.size(); i++){
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
@@ -37,24 +39,24 @@ void GameGUI::draw(const float time) {
 	}
 	sf::Text text;
 	text.setFont(font);
-	std::string timestr = str(time);
+	std::string timestr = std::to_string(time);
 	text.setString(timestr);
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::Red);
 	text.setPosition(10, 10);
 	
-	guiWindow_->window_.draw(text);
+	guiWindow_->getWindow().draw(text);
 
 
 }
 
-void GameGUI::handleInput(const float time) {
+void GameGUI::handleInput() {
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
-	while (this->guiWindow->window_.pollEvent(event))
+	while (this->guiWindow_->getWindow().pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)
-			this->guiWindow->window_.close();//if the window is closed the whole program should terminate
+			this->guiWindow_->getWindow().close();//if the window is closed the whole program should terminate
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
     		if (event.mouseButton.button == sf::Mouse::Left)
@@ -74,8 +76,10 @@ void GameGUI::handleInput(const float time) {
 		}
 		if (this->game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			this->game_->swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
-			return
+			return;
 		}
 	}
 
 }
+
+void GameGUI::update(const float dt){}

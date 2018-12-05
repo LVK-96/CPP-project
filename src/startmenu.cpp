@@ -63,4 +63,4 @@ void StartMenu::draw(const float dt) {
 	guiWindow_->getWindow().draw(text);
 }
 
-
+void StartMenu::update(const float dt){}
