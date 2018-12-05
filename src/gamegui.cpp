@@ -59,12 +59,14 @@ void GameGUI::handleInput() {
 	while (counter < 2){
 		while (this->guiWindow_->getWindow().pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed){
 				this->guiWindow_->getWindow().close();//if the window is closed the whole program should terminate
+				}
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
     			if (event.mouseButton.button == sf::Mouse::Left)
     			{
+					std::cout << "but how many times here" << std::endl;
 					unsigned int clickX = (event.mouseButton.x / 100);
 					unsigned int clickY = (event.mouseButton.y / 100);
 					if (newCoords[2] != clickX || newCoords[3] != clickY) {
@@ -75,10 +77,11 @@ void GameGUI::handleInput() {
 		    			std::cout << "the left button was pressed" << std::endl;
 		    			std::cout << "mouse x: " << newCoords[2] << std::endl;
 		    			std::cout << "mouse y: " << newCoords[3] << std::endl;
+						counter++;
+						std::cout << "counter: " << counter << std::endl;
 					}
     			}
 			}
-			std::cout << newCoords[0] << " " << newCoords[1] << " "  << newCoords[2] << " "  << newCoords[3] << std::endl;
 		}
 		if (this->game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
@@ -86,6 +89,7 @@ void GameGUI::handleInput() {
 			return;
 		}
 	}
+	std::cout << "invalid move" << std::endl;
 	
 }
 
