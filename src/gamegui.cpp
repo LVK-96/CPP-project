@@ -1,15 +1,16 @@
 #include "gamegui.hpp"
-GameGUI::GameGUI(GameGUI(GUIWindow *gui, Game *g);) {
+#include "iostream"
+GameGUI::GameGUI(GUIWindow *gui, Game *g) {
 	guiWindow_ = gui;	
 	game_ = g;
 }
 
-GameGUI~GameGUI(){
+GameGUI::~GameGUI(){
 	delete this;//memory allocated with new
-};
+}
 
 void GameGUI::draw(const float time) {
-	std::vector<std::vector<int> matrix = this->game_.map_.getMatrix();
+	std::vector<std::vector<int>> matrix = this->game_->getMap().getMatrix();//should getMatrix or getMap return a reference
 	sf::CircleShape shape(48.f, 8);
 	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
@@ -23,7 +24,7 @@ void GameGUI::draw(const float time) {
 			else if (matrix[i][j] == 3) shape.setFillColor(sf::Color::Red);
 			else if (matrix[i][j] == 4) shape.setFillColor(sf::Color::Green);
 			else shape.setFillColor(sf::Color::Transparent);
-	        guiWindow_->window_.draw(shape);
+	        guiWindow_->getWindow().draw(shape);
 			}
 		}
 
@@ -71,8 +72,8 @@ void GameGUI::handleInput(const float time) {
 				}
     		}
 		}
-		if (this->game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
-			this->game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
+		if (this->game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
+			this->game_->swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
 			return
 		}
 	}

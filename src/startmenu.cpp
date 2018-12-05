@@ -1,5 +1,7 @@
-#include "startmenu.hpp"
-#include "game.hpp"
+#include "gameGUI.hpp"
+#include "player.hpp"
+#include "gamemode.hpp"
+
 #include <iostream>
 
 StartMenu::StartMenu(GUIWindow *guiWindow) {
@@ -24,11 +26,11 @@ void StartMenu::startGame() {
 void StartMenu::handleInput() {
 	sf::Event event;
 
-	while (guiWindow_->window_.pollEvent(event))
+	while (guiWindow_->getWindow().pollEvent(event))
 	{
          // "close requested" event: we close the window
 		 if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Q)
-               guiWindow_->window_.close();
+               guiWindow_->getWindow().close();
 		if (event.type == sf::Event::KeyPressed)
 		{
     		if (event.key.code == sf::Keyboard::A)
@@ -58,7 +60,7 @@ void StartMenu::draw(const float dt) {
 	float xPos = 50;
 	text.setPosition(xPos, 100);
 	
-	guiWindow_->window_.draw(text);
+	guiWindow_->getWindow().draw(text);
 }
 
 

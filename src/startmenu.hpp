@@ -1,7 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include "map.hpp"
 #include "state.hpp"
+#include "game.hpp"
 
 class StartMenu : public State {
     public:

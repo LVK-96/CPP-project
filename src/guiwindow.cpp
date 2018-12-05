@@ -45,3 +45,8 @@ State *GUIWindow::peekState() {
     if(!states_.empty()) return NULL;
     return states_.top();
 }
+
+//returns a reference to the window so that it can be used outside of this class
+sf::RenderWindow &GUIWindow::getWindow(){
+    return this->window_;
+}

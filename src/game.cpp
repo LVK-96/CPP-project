@@ -15,6 +15,11 @@ players_(players), map_(map), mode_(mode) {
 	}
 }
 
+ Map Game::getMap(){
+	 //return the games map object for use outside of this class
+	 return this->map_;
+ }
+
 /*void Game::updateMap() {
     printMap(); //call GUI update here 
     checkMove(); //play turn
