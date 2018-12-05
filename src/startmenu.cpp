@@ -5,9 +5,12 @@
 #include <iostream>
 
 StartMenu::StartMenu(GUIWindow *guiWindow) {
+	this->value_=1;
     guiWindow_ = guiWindow;
 	guiWindow_->pushState(this); //we want to show this when it's created so we push it to the stack
 }
+
+int StartMenu::getValue(){return this->value_;}//test method
 
 void StartMenu::startGame() {
     Player p1;

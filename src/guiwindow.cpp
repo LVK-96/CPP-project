@@ -5,7 +5,6 @@
 
 GUIWindow::GUIWindow() {
     window_.create(sf::VideoMode(800,600), "Match 3");
-    window_.setVerticalSyncEnabled(false);//probably not be needed
     window_.setFramerateLimit(60);
 }
 
@@ -21,7 +20,6 @@ void GUIWindow::gameLoop() {
         float dt=elapsed.asSeconds();
         
         if (peekState()==NULL) continue;
-        std::cout << "made it past stack check" << std::endl;
         peekState()->handleInput();
         peekState()->update(dt);
         window_.clear(sf::Color::Black);
@@ -45,7 +43,7 @@ void GUIWindow::changeState(State* state) {
 }
 
 State *GUIWindow::peekState() {
-    if(!states_.empty()) return NULL;
+    if(states_.empty()) return NULL;
     return states_.top();
 }
 

@@ -15,6 +15,6 @@ class State {
 
 };
 /*
-pure virtual destructor is used to inform that when a derived classes destructor is called through a pointer to the base class,
+virtual destructor is used to inform that when a derived classes destructor is called through a pointer to the base class,
 the derived classes destructor will always be called
 */

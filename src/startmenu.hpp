@@ -15,7 +15,6 @@ class StartMenu : public State {
         virtual void handleInput(); // window event loop, close window or call startGame
 
         void startGame(); // add game to the state stack
-
-   /* private:
+   /*private:
 		GUIWindow *guiWindow_;*/
 };
