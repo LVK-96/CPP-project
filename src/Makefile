@@ -12,7 +12,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@ 
 
 .cpp.o:
-	$(CC) $(CPPFLAGS)$(INCLUDES) $< -o $@
+	$(CC) $(CPPFLAGS) $(INCLUDES) $< -o $@
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE)

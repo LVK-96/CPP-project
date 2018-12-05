@@ -1,5 +1,5 @@
-#include <SFML/Graphics>
-#include <SFML/System>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
 #include "guiwindow.hpp"
 
