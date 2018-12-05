@@ -144,6 +144,7 @@ void Game::dropTiles() {
 }
 
 void Game::swapCoords(int x1, int y1, int x2, int y2) {
+	std::cout << "swapping" << std::endl;
 	int tmpclr = map_.getTile(x1, y1);
 	std::cout << x1 << y1 << x2 << y2 << std::endl;
     map_.setTile(x1, y1, map_.getTile(x2, y2)); 

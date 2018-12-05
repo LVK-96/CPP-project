@@ -51,35 +51,42 @@ void GameGUI::draw(const float time) {
 }
 
 void GameGUI::handleInput() {
+	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
-	while (this->guiWindow_->getWindow().pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-			this->guiWindow_->getWindow().close();//if the window is closed the whole program should terminate
-		if (event.type == sf::Event::MouseButtonPressed)
+	int counter = 0;
+	//outer loop loops while there is no event and the inner loop catches it
+	while (counter < 2){
+		while (this->guiWindow_->getWindow().pollEvent(event))
 		{
-    		if (event.mouseButton.button == sf::Mouse::Left)
-    		{
-				unsigned int clickX = (event.mouseButton.x / 100);
-				unsigned int clickY = (event.mouseButton.y / 100);
-				if (newCoords[2] != clickX || newCoords[3] != clickY) {
-					newCoords[0] = newCoords[2];
-					newCoords[1] = newCoords[3];
-					newCoords[2] = clickX;
-					newCoords[3] = clickY;
-		    		std::cout << "the left button was pressed" << std::endl;
-		    		std::cout << "mouse x: " << newCoords[2] << std::endl;
-		    		std::cout << "mouse y: " << newCoords[3] << std::endl;
-				}
-    		}
+			if (event.type == sf::Event::Closed)
+				this->guiWindow_->getWindow().close();//if the window is closed the whole program should terminate
+			if (event.type == sf::Event::MouseButtonPressed)
+			{
+    			if (event.mouseButton.button == sf::Mouse::Left)
+    			{
+					unsigned int clickX = (event.mouseButton.x / 100);
+					unsigned int clickY = (event.mouseButton.y / 100);
+					if (newCoords[2] != clickX || newCoords[3] != clickY) {
+						newCoords[0] = newCoords[2];
+						newCoords[1] = newCoords[3];
+						newCoords[2] = clickX;
+						newCoords[3] = clickY;
+		    			std::cout << "the left button was pressed" << std::endl;
+		    			std::cout << "mouse x: " << newCoords[2] << std::endl;
+		    			std::cout << "mouse y: " << newCoords[3] << std::endl;
+					}
+    			}
+			}
+			std::cout << newCoords[0] << " " << newCoords[1] << " "  << newCoords[2] << " "  << newCoords[3] << std::endl;
 		}
 		if (this->game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
+			std::cout << "are adjacent" << std::endl;
 			this->game_->swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
 			return;
 		}
 	}
-
+	
 }
 
 void GameGUI::update(const float dt){}
