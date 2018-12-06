@@ -84,7 +84,8 @@ void GameGUI::handleInput() {
 			{
     			if (event.mouseButton.button == sf::Mouse::Left)
     			{
-					std::cout << "but how many times here" << std::endl;
+					//this loop is entered only once per mouse click event
+					std::cout << "click number: " << counter + 1 << std::endl;
 					unsigned int clickX = (event.mouseButton.x / 100);
 					unsigned int clickY = (event.mouseButton.y / 100);
 					if (newCoords[2] != clickX || newCoords[3] != clickY) {
@@ -96,14 +97,17 @@ void GameGUI::handleInput() {
 		    			std::cout << "mouse x: " << newCoords[2] << std::endl;
 		    			std::cout << "mouse y: " << newCoords[3] << std::endl;
 						counter++;
-						std::cout << "counter: " << counter << std::endl;
+					}
+					else{
+						std::cout << "same tile pressed twice" << std::endl;
+						counter++;
 					}
     			}
 			}
 			dt = this->game_->getTime();
 			timestr = "Time: " +  std::to_string(dt);
 			text.setString(timestr);
-			std::cout << timestr << std::endl;
+			//std::cout << timestr << std::endl;
 			guiWindow_->getWindow().draw(text);
 		}
 		if (this->game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
