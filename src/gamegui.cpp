@@ -11,6 +11,23 @@ GameGUI::~GameGUI(){
 	delete this;//memory allocated with new
 }
 
+void GameGUI::drawTime(const float time){
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error in loading font" << std::endl;
+	}
+	sf::Text text;
+	text.setFont(font);
+	std::string timestr = "Time: " +  std::to_string(time);
+	text.setString(timestr);
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::Red);
+	text.setPosition(10, 810);
+	
+	guiWindow_->getWindow().draw(text);
+}
+
 void GameGUI::draw(const float time) {
 	std::vector<std::vector<int>> matrix = this->game_->getMap().getMatrix();//should getMatrix or getMap return a reference
 	sf::CircleShape shape(48.f, 8);
@@ -31,23 +48,7 @@ void GameGUI::draw(const float time) {
 		}
 
 	//time
-
-	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-    	std::cout << "Error in loading font" << std::endl;
-	}
-	sf::Text text;
-	text.setFont(font);
-	std::string timestr = "Time: " +  std::to_string(time);
-	text.setString(timestr);
-	text.setCharacterSize(24);
-	text.setFillColor(sf::Color::Red);
-	text.setPosition(10, 810);
-	
-	guiWindow_->getWindow().draw(text);
-
-
+	drawTime(time);
 }
 
 void GameGUI::handleInput() {
@@ -57,7 +58,8 @@ void GameGUI::handleInput() {
 
 	float dt = this->game_->getTime();
 
-	sf::Font font;
+	//all this moved to a seperate method
+	/*sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))
 	{
     	std::cout << "Error in loading font" << std::endl;
@@ -69,12 +71,15 @@ void GameGUI::handleInput() {
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::Red);
 	text.setPosition(10, 810);
-	std::cout << timestr << std::endl;
+	std::cout << timestr << std::endl;*/
 	//guiWindow_->getWindow().draw(text);
 
 	int counter = 0;
 	//outer loop loops while there is no event and the inner loop catches it
 	while (counter < 2){
+		
+		dt = this->game_->getTime();
+		drawTime(dt);
 		while (this->guiWindow_->getWindow().pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed){
@@ -104,12 +109,14 @@ void GameGUI::handleInput() {
 					}
     			}
 			}
-			dt = this->game_->getTime();
-			timestr = "Time: " +  std::to_string(dt);
-			text.setString(timestr);
+			
+			
+			//timestr = "Time: " +  std::to_string(dt);
+			//text.setString(timestr);
 			//std::cout << timestr << std::endl;
-			guiWindow_->getWindow().draw(text);
+			//guiWindow_->getWindow().draw(text);
 		}
+		
 		if (this->game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
 			this->game_->swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);

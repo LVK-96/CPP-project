@@ -13,6 +13,7 @@ class GameGUI : public State {
         virtual void draw(const float dt); 
         virtual void update(const float dt);
         virtual void handleInput(); // window event loop, handle game inputs
+        void drawTime(const float dt);
 	private:
 		GUIWindow *guiWindow_;
 		Game *game_;
