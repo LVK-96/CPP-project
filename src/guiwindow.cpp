@@ -4,7 +4,7 @@
 #include <iostream>
 
 GUIWindow::GUIWindow() {
-    window_.create(sf::VideoMode(800,600), "Match 3");
+    window_.create(sf::VideoMode(800,850), "Match 3");
     window_.setFramerateLimit(60);
 }
 
@@ -16,7 +16,7 @@ void GUIWindow::gameLoop() {
     sf::Clock clock;
 
     while (window_.isOpen()) {
-        sf::Time elapsed=clock.restart();
+        sf::Time elapsed=clock.getElapsedTime();
         float dt=elapsed.asSeconds();
         
         if (peekState()==NULL) continue;

@@ -39,11 +39,11 @@ void GameGUI::draw(const float time) {
 	}
 	sf::Text text;
 	text.setFont(font);
-	std::string timestr = std::to_string(time);
+	std::string timestr = "Time: " +  std::to_string(time);
 	text.setString(timestr);
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::Red);
-	text.setPosition(10, 10);
+	text.setPosition(10, 810);
 	
 	guiWindow_->getWindow().draw(text);
 
@@ -54,6 +54,24 @@ void GameGUI::handleInput() {
 	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
+
+	float dt = this->game_->getTime();
+
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error in loading font" << std::endl;
+	}
+	sf::Text text;
+	text.setFont(font);
+	std::string timestr = "Time: " +  std::to_string(dt);
+	text.setString(timestr);
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::Red);
+	text.setPosition(10, 810);
+	std::cout << timestr << std::endl;
+	//guiWindow_->getWindow().draw(text);
+
 	int counter = 0;
 	//outer loop loops while there is no event and the inner loop catches it
 	while (counter < 2){
@@ -82,6 +100,11 @@ void GameGUI::handleInput() {
 					}
     			}
 			}
+			dt = this->game_->getTime();
+			timestr = "Time: " +  std::to_string(dt);
+			text.setString(timestr);
+			std::cout << timestr << std::endl;
+			guiWindow_->getWindow().draw(text);
 		}
 		if (this->game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;

@@ -22,10 +22,12 @@ public:
     void printMap() const;
     void swapCoords(int x1, int y1, int x2, int y2);
     Map getMap();
+	float getTime();
 
 private:
     bool paused;
     std::vector<Player> players_;
     Map map_;
     GameMode mode_;
+	sf::Clock clock_;
 };

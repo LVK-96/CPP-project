@@ -162,6 +162,12 @@ bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
 	return false;
 }
 
+float Game::getTime() {
+	sf::Time elapsed = clock_.getElapsedTime();
+    float dt=elapsed.asSeconds();
+	return dt;
+}
+
 /*void Game::printMap() const {
      std::cout<<"/////////////////"<<std::endl;
 	for (auto i : map_.getMatrix()) {
