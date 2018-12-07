@@ -1,13 +1,15 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-#include "map.hpp"
 #include "state.hpp"
-#include "game.hpp"
+#include "gamegui.hpp"
+#include "guiwindow.hpp"
 
-class StartMenu : public State {
+class StartMenu: public State {
     public:
-        StartMenu(GUIWindow *guiWindow);
+        StartMenu(GUIWindow& guiWindow);
         ~StartMenu(){};//no memory allocated with new - no memory needs to be deallocated with delete
 
         virtual void draw(const float dt); //changes the view that will be drawn to window (defined in guiwindow class)
@@ -15,6 +17,6 @@ class StartMenu : public State {
         virtual void handleInput(); // window event loop, close window or call startGame
 
         void startGame(); // add game to the state stack
-   /*private:
-		GUIWindow *guiWindow_;*/
+    private:
+		GUIWindow& guiWindow_;
 };

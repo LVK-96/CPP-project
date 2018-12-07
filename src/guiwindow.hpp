@@ -1,9 +1,13 @@
 #pragma once
 #include <stack>
+#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
 #include "state.hpp"
+
 //class State;
-class State;//forward declaration
+class State; //forward declaration
 
 class GUIWindow {
         public:

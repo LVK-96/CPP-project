@@ -4,7 +4,7 @@
 
 int main() {
 	GUIWindow gui;
-	StartMenu menu(&gui);
+	StartMenu menu(gui);
 	gui.gameLoop();
     return 0;
 }
