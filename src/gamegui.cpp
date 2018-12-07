@@ -23,9 +23,15 @@ void GameGUI::drawTime(const float time){
 	text.setString(timestr);
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::Red);
-	text.setPosition(10, 810);
+	text.setPosition(10, 800);//old 10 810
 	
+	//draw a rectangle over the existing time
+	sf::RectangleShape rect(sf::Vector2f(200, 100));
+	rect.setPosition(10, 800);
+	rect.setFillColor(sf::Color::Black);
+	guiWindow_->getWindow().draw(rect);
 	guiWindow_->getWindow().draw(text);
+	guiWindow_->getWindow().display();//display command could probably be removed from guiWindow
 }
 
 void GameGUI::draw(const float time) {
