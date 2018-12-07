@@ -21,6 +21,8 @@ class GameGUI : public State {
         virtual void update(const float dt);
         virtual void handleInput(); // window event loop, handle game inputs
         void drawTime(const float dt);
+        void drawSelection(int x, int y);
+
 	private:
 		GUIWindow& guiWindow_;
 		Game game_;

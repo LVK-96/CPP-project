@@ -34,9 +34,9 @@ void GameGUI::drawTime(const float time){
 	sf::RectangleShape rect(sf::Vector2f(200, 100));
 	rect.setPosition(10, 800);
 	rect.setFillColor(sf::Color::Black);
-	guiWindow_->getWindow().draw(rect);
-	guiWindow_->getWindow().draw(text);
-	guiWindow_->getWindow().display();//display command could probably be removed from guiWindow
+	guiWindow_.getWindow().draw(rect);
+	guiWindow_.getWindow().draw(text);
+	guiWindow_.getWindow().display();//display command could probably be removed from guiWindow
 }
 
 void GameGUI::draw(const float time) {
@@ -59,6 +59,18 @@ void GameGUI::draw(const float time) {
 	}
 	//time
 	drawTime(time);
+}
+
+void GameGUI::drawSelection(int x, int y){
+	sf::CircleShape shape(48.f, 8);
+	const int distance = 100; //distance between dots
+    const float height = sqrt(pow(distance,2.f));
+	shape.setPosition(x*distance, y*height);
+	sf::Color white = sf::Color::White;
+	white.a = 100;//set opacity
+	shape.setFillColor(white);
+	guiWindow_.getWindow().draw(shape);
+	guiWindow_.getWindow().display();
 }
 
 void GameGUI::handleInput() {
@@ -95,6 +107,7 @@ void GameGUI::handleInput() {
 		    			std::cout << "mouse x: " << newCoords[2] << std::endl;
 		    			std::cout << "mouse y: " << newCoords[3] << std::endl;
 						counter++;
+						drawSelection(newCoords[2], newCoords[3]);
 					}
 					else {
 						std::cout << "same tile pressed twice" << std::endl;
