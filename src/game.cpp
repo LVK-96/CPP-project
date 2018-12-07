@@ -150,9 +150,21 @@ void Game::swapCoords(int x1, int y1, int x2, int y2) {
     map_.setTile(x1, y1, map_.getTile(x2, y2)); 
     map_.setTile(x2, y2, tmpclr);
 	
+	int i = 0;
 	while(clearMatches()) {
 			dropTiles();
 			fillMap();
+			i++;
+	}
+	if(i == 0){
+		std::cout << "no matches on the swap, swapping back" << std::endl;
+		tmpclr = map_.getTile(x1, y1);
+    	map_.setTile(x1, y1, map_.getTile(x2, y2));
+		map_.setTile(x2, y2, tmpclr); 
+
+	}
+	else{
+		std::cout << "matches found" << std::endl;
 	}
 }
 
