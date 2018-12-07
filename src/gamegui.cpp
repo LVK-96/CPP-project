@@ -34,9 +34,9 @@ void GameGUI::drawTime(const float time){
 	sf::RectangleShape rect(sf::Vector2f(200, 100));
 	rect.setPosition(10, 800);
 	rect.setFillColor(sf::Color::Black);
-	guiWindow_->getWindow().draw(rect);
-	guiWindow_->getWindow().draw(text);
-	guiWindow_->getWindow().display();//display command could probably be removed from guiWindow
+	guiWindow_.getWindow().draw(rect);
+	guiWindow_.getWindow().draw(text);
+	guiWindow_.getWindow().display();//display command could probably be removed from guiWindow
 }
 
 void GameGUI::draw(const float time) {
