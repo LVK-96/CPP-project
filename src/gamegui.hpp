@@ -1,13 +1,20 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include "startmenu.hpp"
+#include <iostream>
+#include <math.h>
+#include <string>
+
+#include "player.hpp"
+#include "gamemode.hpp"
+#include "map.hpp"
+#include "game.hpp"
+
 //forward declarations for GUIWindow and Game. Compiler needs this for memory allocation
 class GUIWindow;
 class Game;
 
 class GameGUI : public State {
     public:
-        GameGUI(GUIWindow *guiWindow, Game *game);
+        GameGUI(GUIWindow& guiWindow);
         ~GameGUI();
 
         virtual void draw(const float dt); 
@@ -15,6 +22,6 @@ class GameGUI : public State {
         virtual void handleInput(); // window event loop, handle game inputs
         void drawTime(const float dt);
 	private:
-		GUIWindow *guiWindow_;
-		Game *game_;
+		GUIWindow& guiWindow_;
+		Game game_;
 };

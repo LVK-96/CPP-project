@@ -1,7 +1,4 @@
-#include <SFML/System.hpp>
-
 #include "guiwindow.hpp"
-#include <iostream>
 
 GUIWindow::GUIWindow() {
     window_.create(sf::VideoMode(800,850), "Match 3");
@@ -49,5 +46,5 @@ State *GUIWindow::peekState() {
 
 //returns a reference to the window so that it can be used outside of this class
 sf::RenderWindow &GUIWindow::getWindow(){
-    return this->window_;
+    return window_;
 }
