@@ -6,6 +6,7 @@ GUIWindow::GUIWindow() {
 }
 
 GUIWindow::~GUIWindow() {
+    std::cout << "GUIWindow destructor called" << std::endl;
     while(!states_.empty()) popState();
 }
 
@@ -17,7 +18,7 @@ void GUIWindow::gameLoop() {
         float dt=elapsed.asSeconds();
         
         if (peekState()==NULL) continue;
-        peekState()->handleInput();
+        if(peekState()->handleInput()) popState();//remove a state from the stack
         peekState()->update(dt);
         window_.clear(sf::Color::Black);
         peekState()->draw(dt);
@@ -30,7 +31,8 @@ void GUIWindow::pushState(State* state) {
 }
 
 void GUIWindow::popState() {
-    states_.pop();//pop method calls the destructor of the item that is popped, memory deallocation moved to the destructor
+    states_.pop();//pop method calls the destructor of the item that is popped, memory deallocation moved to the destructor - does it??
+    //check if this works as expected
 }
 
 void GUIWindow::changeState(State* state) {

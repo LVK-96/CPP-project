@@ -105,7 +105,7 @@ bool Game::clearMatches() {
 			}
 		}
 	}
-	return ret;	
+	return ret;
 }
 
 void Game::fillMap() {
@@ -162,9 +162,6 @@ void Game::swapCoords(int x1, int y1, int x2, int y2) {
     	map_.setTile(x1, y1, map_.getTile(x2, y2));
 		map_.setTile(x2, y2, tmpclr); 
 
-	}
-	else{
-		std::cout << "matches found" << std::endl;
 	}
 }
 

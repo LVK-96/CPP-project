@@ -73,7 +73,7 @@ void GameGUI::drawSelection(int x, int y){
 	guiWindow_.getWindow().display();
 }
 
-void GameGUI::handleInput() {
+bool GameGUI::handleInput() {
 	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
@@ -120,10 +120,11 @@ void GameGUI::handleInput() {
 		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
 			game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
-			return;
+			return false;
 		}
 	}
 	std::cout << "invalid move" << std::endl;
+	return false;
 }
 
 void GameGUI::update(const float dt){}

@@ -9,23 +9,40 @@ void StartMenu::startGame() {
 	/*we want to push the gamestate ontop of the startmenu in the stack not replace it*/
 }
 
-void StartMenu::handleInput() {
+bool StartMenu::handleInput() {
 	sf::Event event;
-
 	while (guiWindow_.getWindow().pollEvent(event))
 	{
          // "close requested" event: we close the window
-		 if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Q)
-               guiWindow_.getWindow().close();
+		if (event.type == sf::Event::Closed){
+			std::cout << "window closed" << std::endl;
+			guiWindow_.getWindow().close();
+		}
+
+               
 		if (event.type == sf::Event::KeyPressed)
 		{
+			if(event.key.code == sf::Keyboard::Q)
+			{
+				std::cout << "Q pressed closing window" << std::endl;
+				guiWindow_.getWindow().close();
+			}
+
     		if (event.key.code == sf::Keyboard::A)
     		{
 				std::cout <<"A pressed" << std::endl;
 				startGame();//this may result to problems if the loops stays on
     		}
+
+			if (event.key.code == sf::Keyboard::B)
+    		{
+				std::cout <<"B pressed" << std::endl;
+				guiWindow_.pushState(new MapMenu(guiWindow_));//call the map menu
+    		}
+
 		}
 	}
+	return false;
 }
 
 void StartMenu::draw(const float dt) {

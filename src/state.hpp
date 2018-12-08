@@ -9,7 +9,7 @@ class State {
         virtual ~State(){};//virtual destructor
         virtual void draw(const float dt)=0;
         virtual void update(const float dt)=0;
-        virtual void handleInput()=0;
+        virtual bool handleInput()=0;//bool return value to determine whether to call the destructor of the state or not
 	protected:
 		GUIWindow *guiWindow_;
 
