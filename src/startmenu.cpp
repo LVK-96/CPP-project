@@ -1,7 +1,7 @@
 #include "startmenu.hpp"
 
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	guiWindow_.pushState(this); //we want to show this when it's created so we push it to the stack
+	
 }
 
 void StartMenu::startGame() {

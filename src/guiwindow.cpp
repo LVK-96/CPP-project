@@ -31,7 +31,11 @@ void GUIWindow::pushState(State* state) {
 }
 
 void GUIWindow::popState() {
-    states_.pop();//pop method calls the destructor of the item that is popped, memory deallocation moved to the destructor - does it??
+    State *temp = states_.top();
+    states_.pop();
+    delete temp;
+    
+    //pop method calls the destructor of the item that is popped, memory deallocation moved to the destructor - does it??
     //check if this works as expected
 }
 

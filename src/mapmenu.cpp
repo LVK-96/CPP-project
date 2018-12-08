@@ -3,8 +3,8 @@
 MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {}
 
 MapMenu::~MapMenu(){
-    std::cout << "destructor called" << std::endl << "delete this probably not a good idea" << std::endl;
-    delete this; //memory allocated with this
+    std::cout << "Map menu destructor called" << std::endl << "delete this probably not a good idea" << std::endl;
+	//memory allocated with this
 }
 
 void MapMenu::startGame() {
