@@ -7,9 +7,42 @@ GameGUI::GameGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	players.push_back(p1);
 	GameMode mode;
 
-	Map map(std::vector<std::vector<int> >(8, std::vector<int>(8,0)));
+	Map map(loadMap("maps/default.txt"));
 
     game_= Game(players,map, mode);
+}
+
+std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
+
+	std::cout << "loading map from: " << map_filename << std::endl;
+	std::vector<std::vector<int>> temp(8, std::vector<int>(8,0));
+
+	std::ifstream infile(map_filename);//map_filename is by default default.txt which is 8x8 of zeros
+	std::string line;
+	int x = 0;
+	int y = 0;
+
+	while(std::getline(infile, line)){
+		line.resize(8);
+		for(auto i = line.begin(); i != line.end(); i++){
+			
+			//read chars from line to matrix
+			if(*i == 'w'){
+				temp[x][y] = -1;
+			}
+			else if(*i == 'x'){
+				temp[x][y] = 0;
+			}
+			else{
+				temp[x][y] = 0;
+			}
+			y++;
+		}
+		std::cout << std::endl;
+		x++;
+		y = 0;
+	}
+	return temp;	
 }
 
 GameGUI::~GameGUI(){
@@ -53,6 +86,7 @@ void GameGUI::draw(const float time) {
 			else if (matrix[i][j] == 2) shape.setFillColor(sf::Color::Blue);
 			else if (matrix[i][j] == 3) shape.setFillColor(sf::Color::Red);
 			else if (matrix[i][j] == 4) shape.setFillColor(sf::Color::Green);
+			else if (matrix[i][j] == -1) shape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 			else shape.setFillColor(sf::Color::Transparent);
 	        guiWindow_.getWindow().draw(shape);
 		}
@@ -98,7 +132,9 @@ bool GameGUI::handleInput() {
 					std::cout << "click number: " << counter + 1 << std::endl;
 					unsigned int clickX = (event.mouseButton.x / 100);
 					unsigned int clickY = (event.mouseButton.y / 100);
-					if (newCoords[2] != clickX || newCoords[3] != clickY) {
+					if(game_.getMap().getTile(clickX, clickY) != -1){
+						//dont allow selecting walls
+						if (newCoords[2] != clickX || newCoords[3] != clickY) {
 						newCoords[0] = newCoords[2];
 						newCoords[1] = newCoords[3];
 						newCoords[2] = clickX;
@@ -108,10 +144,11 @@ bool GameGUI::handleInput() {
 		    			std::cout << "mouse y: " << newCoords[3] << std::endl;
 						counter++;
 						drawSelection(newCoords[2], newCoords[3]);
-					}
-					else {
-						std::cout << "same tile pressed twice" << std::endl;
-						counter++;
+						}
+						else {
+							std::cout << "same tile pressed twice" << std::endl;
+							counter++;
+						}
 					}
     			}
 			}
