@@ -6,7 +6,7 @@ public:
     Map() = default;
     Map(std::vector<std::vector<int> >);
     std::vector<std::vector<int> > getMatrix() const;
-    void setTile (int x, int y, int color); 
+    bool setTile (int x, int y, int color); 
 	int getTile(int x, int y) const;
 protected:
     std::vector<std::vector<int> > matrix_;

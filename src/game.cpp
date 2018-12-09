@@ -127,21 +127,52 @@ void Game::fillMap() {
 void Game::dropTiles() {
 	for (unsigned int i = 0; i < map_.getMatrix()[0].size(); i++) {
 		std::vector<int> tmp_arr;
-		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //get column into array 
-			tmp_arr.push_back(map_.getTile(i, tmp));
+		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //get column into array
+			if(map_.getTile(i, tmp) >= 0){
+				tmp_arr.push_back(map_.getTile(i, tmp));
+			}
 		}
-
+		//tmp_arr is a single column without walls
 		std::sort(tmp_arr.begin(), tmp_arr.end(), 
 		[] (int a, int b) {
 			if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal so 0s end up on top
 			return (a < b);
 		});
 
+		int k = 0;//index the sorted array without walls
 		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //set sorted array into map 
-			map_.setTile(i, tmp, tmp_arr[tmp]);
+			if(map_.setTile(i, tmp, tmp_arr[k])){
+				k++;
+			}
+			else continue;
 		}
 	} 
 }
+//prototype code
+/*
+	std::vector<int> map_template = { 0, 0, 0, 0, -1, 0, 0, 0 };
+
+	std::vector<int> test = {1, 2, 1, 2, -1, 0, 0, 1};
+	std::vector<int> temp;
+	//map column template without walls
+	for (auto i = test.begin(); i != test.end(); i++) {
+		//i is an iterator -> dereferencing needed
+		if (*i >= 0) {
+			temp.push_back(*i);
+		}
+	}
+	//sort
+	temp = bubble(temp);
+	//insert into map column template
+	auto j = temp.begin(); //iterator to sorted map elements
+	for (auto i = map_template.begin(); i != map_template.end(); i++) {
+		if (*i == 0) {
+			*i = *j;
+			j++;
+		}
+	}
+*/
+
 
 void Game::swapCoords(int x1, int y1, int x2, int y2) {
 	std::cout << "swapping" << std::endl;
