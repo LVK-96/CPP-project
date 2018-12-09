@@ -87,21 +87,26 @@ bool Game::clearMatches() {
 
 	for (int j = 0; j < (int) matrix.size(); j++) {
 		for (int i = 0; i < (int) matrix[j].size(); i++) {
-			if (j-2 >= 0) {	//check y			
-				if (matrix[j][i] == matrix[j-1][i] && matrix[j][i] == matrix[j-2][i]) {
-					map_.setTile(i, j, 0);  
-					map_.setTile(i, j-1, 0);
-					map_.setTile(i, j-2, 0);
-					ret = true;
-				}
-			}	
-			if (i-2 >= 0) { //check x 
-				if (matrix[j][i] == matrix[j][i-1] && matrix[j][i] == matrix[j][i-2]) {
-					map_.setTile(i, j, 0); 
-					map_.setTile(i-1, j, 0);
-					map_.setTile(i-2, j, 0);
-					ret = true;
-				}
+			if(matrix[j][i] != -1){
+				//check only if not wall
+				if (j-2 >= 0) {	
+					//check y			
+					if (matrix[j][i] == matrix[j-1][i] && matrix[j][i] == matrix[j-2][i]) {
+						map_.setTile(i, j, 0);  
+						map_.setTile(i, j-1, 0);
+						map_.setTile(i, j-2, 0);
+						ret = true;
+						}
+					}	
+					if (i-2 >= 0) { 
+						//check x 
+						if (matrix[j][i] == matrix[j][i-1] && matrix[j][i] == matrix[j][i-2]) {
+							map_.setTile(i, j, 0); 
+							map_.setTile(i-1, j, 0);
+							map_.setTile(i-2, j, 0);
+							ret = true;
+						}
+					}
 			}
 		}
 	}
