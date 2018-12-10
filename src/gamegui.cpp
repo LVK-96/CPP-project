@@ -1,7 +1,7 @@
 #include "gamegui.hpp"
 
 GameGUI::GameGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	
+
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);
@@ -25,7 +25,7 @@ std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
 	while(std::getline(infile, line)){
 		line.resize(8);
 		for(auto i = line.begin(); i != line.end(); i++){
-			
+
 			//read chars from line to matrix
 			if(*i == 'w'){
 				temp[x][y] = -1;
@@ -42,7 +42,7 @@ std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
 		x++;
 		y = 0;
 	}
-	return temp;	
+	return temp;
 }
 
 GameGUI::~GameGUI(){
@@ -60,9 +60,9 @@ void GameGUI::drawTime(const float time){
 	std::string timestr = "Time: " +  std::to_string(time);
 	text.setString(timestr);
 	text.setCharacterSize(24);
-	text.setFillColor(sf::Color::Red);
+	text.setColor(sf::Color::Red);
 	text.setPosition(10, 800);//old 10 810
-	
+
 	//draw a rectangle over the existing time
 	sf::RectangleShape rect(sf::Vector2f(200, 100));
 	rect.setPosition(10, 800);
@@ -78,7 +78,7 @@ void GameGUI::draw(const float time) {
 	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
     const float height = sqrt(pow(distance,2.f));
-		
+
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 		    shape.setPosition(j*distance, i*height);
@@ -117,7 +117,7 @@ bool GameGUI::handleInput() {
 	int counter = 0;
 	//outer loop loops while there is no event and the inner loop catches it
 	while (counter < 2){
-		
+
 		dt = game_.getTime();
 		drawTime(dt);
 		while (guiWindow_.getWindow().pollEvent(event))
@@ -125,7 +125,7 @@ bool GameGUI::handleInput() {
 			if (event.type == sf::Event::Closed){
 				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
 			}
-			
+
 			if (event.type == sf::Event::MouseButtonPressed) {
     			if (event.mouseButton.button == sf::Mouse::Left) {
 					//this loop is entered only once per mouse click event
@@ -153,7 +153,7 @@ bool GameGUI::handleInput() {
     			}
 			}
 		}
-		
+
 		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
 			game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);

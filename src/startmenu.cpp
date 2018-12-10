@@ -1,7 +1,7 @@
 #include "startmenu.hpp"
 
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	
+
 }
 
 void StartMenu::startGame() {
@@ -19,7 +19,7 @@ bool StartMenu::handleInput() {
 			guiWindow_.getWindow().close();
 		}
 
-               
+
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if(event.key.code == sf::Keyboard::Q)
@@ -59,10 +59,10 @@ void StartMenu::draw(const float dt) {
 					"press c to view highscores\n\n"
 					"press q to quit");
 	text.setCharacterSize(24);
-	text.setFillColor(sf::Color::Red);
+	text.setColor(sf::Color::Red);
 	float xPos = 50;
 	text.setPosition(xPos, 100);
-	
+
 	guiWindow_.getWindow().draw(text);
 }
 

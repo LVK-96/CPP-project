@@ -64,10 +64,10 @@ void MapMenu::draw(const float dt) {
 					"press b to choose default\n\n"
 					"press q to go back");
 	text.setCharacterSize(24);
-	text.setFillColor(sf::Color::Red);
+	text.setColor(sf::Color::Red);
 	float xPos = 50;
 	text.setPosition(xPos, 100);
-	
+
 	guiWindow_.getWindow().draw(text);
 }
 
