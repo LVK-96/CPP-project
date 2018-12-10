@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
@@ -229,6 +230,14 @@ void Game::addScore(int matches) {
 int Game::getScore() {
 	return score;
 }
+
+void Game::saveScore() {
+	std::ofstream myfile;
+  	myfile.open ("highscore.txt", std::ofstream::app);
+  	myfile << "Player1 " << std::to_string(getScore()) << "\n";
+  	myfile.close();
+}
+
 /*void Game::printMap() const {
      std::cout<<"/////////////////"<<std::endl;
 	for (auto i : map_.getMatrix()) {
