@@ -92,7 +92,7 @@ bool SaveMap::handleInput() {
 				outfile.close();
 
 				std::ofstream maplist;
-				maplist.open("map_filenames.txt", std::ios::app);
+				maplist.open("maps/map_filenames.txt", std::ios::app);
 				std::cout<< filepath_.getString().toAnsiString()<<std::endl;
 				maplist<<filepath_.getString().toAnsiString()<<std::endl;
 				maplist.close();
