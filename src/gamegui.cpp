@@ -1,12 +1,6 @@
 #include "gamegui.hpp"
 
-<<<<<<< HEAD
-GameGUI::GameGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-
-=======
 GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindow) {
-	
->>>>>>> 1dfc42bc9d966507536a077231d27d3250413e3e
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);

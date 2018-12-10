@@ -148,14 +148,12 @@ void MapMenu::draw(const float dt) {
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
 	float xPos = 50;
-<<<<<<< HEAD
+
 	text.setPosition(xPos, 100);
 
-=======
 	float ypos = 100;
 	text.setPosition(xPos, ypos);
 	
->>>>>>> c591b3a85216d12d2de04c11c9aff556e77507c1
 	guiWindow_.getWindow().draw(text);
 }
 
