@@ -19,7 +19,7 @@ class MapMenu: public State {
         virtual void update(const float dt);
         virtual bool handleInput(); // window event loop, close window or call startGame
 
-        void startGame(); // add game to the state stack
+        void startGame(std::string mapname); // add game to the state stack
     private:
 		GUIWindow& guiWindow_;
         std::vector<std::string> filearr_;

@@ -16,7 +16,7 @@ class Game;
 
 class GameGUI : public State {
     public:
-        GameGUI(GUIWindow& guiWindow);
+        GameGUI(GUIWindow& guiWindow, std::string mapname);
         ~GameGUI();
 
         virtual void draw(const float dt); 
