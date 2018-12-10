@@ -46,9 +46,7 @@ std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
 	return temp;
 }
 
-GameGUI::~GameGUI(){
-	delete this;//memory allocated with new
-}
+
 
 void GameGUI::drawTime(const float time){
 	int roundedtime = static_cast<int>(time);
@@ -151,9 +149,10 @@ bool GameGUI::handleInput() {
 		drawTime(dt);
 		while (guiWindow_.getWindow().pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed){
+			if (event.type == sf::Event::Closed) {
 				game_.saveScore();
-				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
+				guiWindow_.getWindow().close();
+				//guiWindow_.~GUIWindow();
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed) {
