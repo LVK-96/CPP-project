@@ -1,6 +1,22 @@
 #include "mapmenu.hpp"
 
-MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {}
+MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow){
+	wincounter_ = 0;
+	std::ifstream infile("maps/map_filenames.txt");//map_filename is by default default.txt which is 8x8 of zeros
+	std::string line;
+	filearr_ = {};//init an empty vector
+
+	while(std::getline(infile, line)){
+		line.resize(line.size()-1);
+		filearr_.push_back(line);
+	}
+
+	std::cout << "arr 0: " << std::endl;
+	std::cout << filearr_[0] << std::endl;
+
+	std::cout << "arr 1: " << std::endl;
+	std::cout << filearr_[1] << std::endl;
+}
 
 MapMenu::~MapMenu(){
     std::cout << "Map menu destructor called" << std::endl << "delete this probably not a good idea" << std::endl;
@@ -25,19 +41,65 @@ bool MapMenu::handleInput() {
 		{
     		if (event.key.code == sf::Keyboard::A)
     		{
-				std::cout <<"A pressed" << std::endl;
-                //set a map and start Game
-				//startGame();//this may result to problems if the loops stays on
-                 ret = true;
+				if(wincounter_< filearr_.size()){
+					//check that the index exists
+					std::cout <<"A pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_] << std::endl;
+                	//set a map and start Game
+					//startGame();//this may result to problems if the loops stays on
+                	ret = true;
+				}
     		}
-            if (event.key.code == sf::Keyboard::B)
+
+            else if (event.key.code == sf::Keyboard::B)
     		{
-				std::cout <<"B pressed" << std::endl;
-                //set a map and start Game
-				//startGame();//this may result to problems if the loops stays on
-                ret = true;
+				if(wincounter_ + 1 < filearr_.size()){
+					std::cout <<"B pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 1] << std::endl;
+                	//set a map and start Game
+					//startGame();//this may result to problems if the loops stays on
+                	ret = true;
+				}
     		}
-            if (event.key.code == sf::Keyboard::Q)
+			else if (event.key.code == sf::Keyboard::C)
+    		{
+				if(wincounter_ + 2 < filearr_.size()){
+					std::cout <<"C pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 2] << std::endl;
+                	//set a map and start Game
+					//startGame();//this may result to problems if the loops stays on
+                	ret = true;
+				}
+    		}
+			else if (event.key.code == sf::Keyboard::D)
+    		{
+				if(wincounter_ + 3 < filearr_.size()){
+					std::cout <<"D pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 3] << std::endl;
+                	//set a map and start Game
+					//startGame();//this may result to problems if the loops stays on
+                	ret = true;
+				}
+    		}
+			else if (event.key.code == sf::Keyboard::E)
+    		{
+				if(wincounter_ + 4 < filearr_.size()){
+					std::cout <<"E pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 4] << std::endl;
+                	//set a map and start Game
+					//startGame();//this may result to problems if the loops stays on
+                	ret = true;
+				}
+    		}
+			else if(event.key.code == sf::Keyboard::F){
+				if(wincounter_ + 5 < filearr_.size()){
+					wincounter_ = wincounter_ + 5;
+				}
+				else{
+					wincounter_ = 0;
+				}
+			}
+            else if (event.key.code == sf::Keyboard::Q)
     		{
                 //go back to startmenu
 				std::cout <<"Q pressed" << std::endl;
@@ -59,14 +121,24 @@ void MapMenu::draw(const float dt) {
 	}
 	sf::Text text;
 	text.setFont(font);
-	text.setString("Choose Map \n\n"
-					"press a to choose default \n\n"
-					"press b to choose default\n\n"
-					"press q to go back");
+
+	std::stringstream ss;
+	ss << "Choose Map \n\n";
+	for(int i = wincounter_; i < wincounter_ + 5 && i < filearr_.size(); i++){
+		ss << filearr_[i];
+		ss << "\n\n";
+	}
+	if(filearr_.size() > 5){
+		ss << "press f for next\n\n";
+	}
+	ss << "press q to go back"; 
+
+	text.setString(ss.str());
 	text.setCharacterSize(24);
 	text.setFillColor(sf::Color::Red);
 	float xPos = 50;
-	text.setPosition(xPos, 100);
+	float ypos = 100;
+	text.setPosition(xPos, ypos);
 	
 	guiWindow_.getWindow().draw(text);
 }

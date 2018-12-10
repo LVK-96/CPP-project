@@ -2,6 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 #include "state.hpp"
 #include "gamegui.hpp"
@@ -19,4 +22,6 @@ class MapMenu: public State {
         void startGame(); // add game to the state stack
     private:
 		GUIWindow& guiWindow_;
+        std::vector<std::string> filearr_;
+        unsigned int wincounter_;
 };
