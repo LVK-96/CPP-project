@@ -23,6 +23,8 @@ public:
     void swapCoords(int x1, int y1, int x2, int y2);
     Map getMap();
 	float getTime();
+	void addScore(int matches);
+	int getScore();
 
 private:
     bool paused;
@@ -30,4 +32,5 @@ private:
     Map map_;
     GameMode mode_;
 	sf::Clock clock_;
+	int score;
 };
