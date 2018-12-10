@@ -11,6 +11,15 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindo
 	Map map(loadMap(ss.str()));
 
     game_= Game(players,map, mode);
+
+	if (!musicBuffer_.loadFromFile("sound.wav"))
+        std::cout << "Reading music file failed!" << std::endl;
+	else
+		std::cout << "Loading music was success!" << std::endl;
+	
+	music_.setBuffer(musicBuffer_);
+	music_.play();
+	music_.setLoop(true);
 }
 
 std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){

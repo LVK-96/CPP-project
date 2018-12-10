@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <SFML/Audio.hpp>
 
 #include "guiwindow.hpp"
 #include "player.hpp"
@@ -31,4 +32,6 @@ class GameGUI : public State {
 	private:
 		GUIWindow& guiWindow_;
 		Game game_;
+		sf::Sound music_;
+		sf::SoundBuffer musicBuffer_;
 };
