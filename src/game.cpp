@@ -134,8 +134,8 @@ void Game::fillMap() {
 			}
 		}
 	}
-	if ( (getScore() % 10000 > 1) && (getScore() % 10000 < 30) )
-		map_.setTile(rand() % 7, rand() % 7, 9);
+	if ( (getScore() % 100 > 10) && (getScore() % 100 < 50) )
+		map_.setTile(rand() % 7, rand() % 7, rand() % 5 + 1);
 }
 
 void Game::dropTiles() {
@@ -199,8 +199,8 @@ void Game::swapCoords(int x1, int y1, int x2, int y2) {
 	int i = 0;
 
 	//special tile
-	if (clr1 == 9 || clr2 == 9) {
-		specialEffect9(clr1, clr2);
+	if (clr1 == 5 || clr2 == 5) {
+		specialEffect5(clr1, clr2);
 		i = 1;
 	}
 
@@ -246,7 +246,7 @@ void Game::saveScore() {
   	myfile.close();
 }
 
-void Game::specialEffect9(int color1, int color2) {
+void Game::specialEffect5(int color1, int color2) {
 	std::cout << "SPECIAL EFFECT!!!" << std::endl;
 	std::vector<std::vector<int> > matrix = map_.getMatrix();
 	for (unsigned int i = 0; i < map_.getMatrix()[0].size(); i++) {

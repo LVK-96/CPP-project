@@ -26,7 +26,7 @@ public:
 	void addScore(int matches);
 	int getScore();
 	void saveScore();
-	void specialEffect9(int color1, int color2);
+	void specialEffect5(int color1, int color2);
 
 private:
     bool paused;
