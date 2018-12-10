@@ -11,6 +11,22 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindo
 	Map map(loadMap(ss.str()));
 
     game_= Game(players,map, mode);
+
+	if (!musicBuffer_.loadFromFile("gamemusic.wav"))
+        std::cout << "Reading music file failed!" << std::endl;
+	else
+		std::cout << "Loading music was success!" << std::endl;
+	
+	music_.setBuffer(musicBuffer_);
+	music_.play();
+	music_.setLoop(true);
+
+	if (!matchBuffer_.loadFromFile("matchsound.wav"))
+        std::cout << "Reading match file failed!" << std::endl;
+	else
+		std::cout << "Loading match was success!" << std::endl;
+	
+	 matchSound_.setBuffer(matchBuffer_);
 }
 
 std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
@@ -195,7 +211,9 @@ bool GameGUI::handleInput() {
 		}
 		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
-			game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);
+			if (game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
+				matchSound_.play();
+			}
 			return false;
 		}
 	}

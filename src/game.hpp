@@ -20,7 +20,7 @@ public:
     void dropTiles();
 	void fillMap();
     void printMap() const;
-    void swapCoords(int x1, int y1, int x2, int y2);
+    bool swapCoords(int x1, int y1, int x2, int y2);
     Map getMap();
 	float getTime();
 	void addScore(int matches);
