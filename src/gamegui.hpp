@@ -34,4 +34,6 @@ class GameGUI : public State {
 		Game game_;
 		sf::Sound music_;
 		sf::SoundBuffer musicBuffer_;
+		sf::Sound matchSound_;
+		sf::SoundBuffer matchBuffer_;
 };

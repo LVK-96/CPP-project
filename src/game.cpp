@@ -188,7 +188,7 @@ void Game::dropTiles() {
 */
 
 
-void Game::swapCoords(int x1, int y1, int x2, int y2) {
+bool Game::swapCoords(int x1, int y1, int x2, int y2) {
 	std::cout << "swapping" << std::endl;
 	int clr1 = map_.getTile(x1, y1);
 	int clr2 = map_.getTile(x2, y2);
@@ -214,9 +214,11 @@ void Game::swapCoords(int x1, int y1, int x2, int y2) {
 		std::cout << "no matches on the swap, swapping back" << std::endl;
 		clr1 = map_.getTile(x1, y1);
     	map_.setTile(x1, y1, map_.getTile(x2, y2));
-		map_.setTile(x2, y2, clr1); 
+		map_.setTile(x2, y2, clr1);
+		return false;
 
 	}
+	return true;
 }
 
 bool Game::isAdjacent (int x1, int y1, int x2, int y2) const {
