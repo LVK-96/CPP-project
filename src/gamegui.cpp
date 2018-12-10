@@ -109,7 +109,7 @@ void GameGUI::drawScore() {
 	std::string scorestr = "Score: " +  std::to_string(game_.getScore());
 	text.setString(scorestr);
 	text.setCharacterSize(24);
-	text.setFillColor(sf::Color::Red);
+	text.setColor(sf::Color::Red);
 	text.setPosition(250, 800);
 	
 	guiWindow_.getWindow().draw(text);
