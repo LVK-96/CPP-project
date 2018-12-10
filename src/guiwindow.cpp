@@ -31,6 +31,7 @@ void GUIWindow::pushState(State* state) {
 }
 
 void GUIWindow::popState() {
+    std::cout << "popstate called" << std::endl;
     State *temp = states_.top();
     states_.pop();
     delete temp;
@@ -40,9 +41,11 @@ void GUIWindow::popState() {
 }
 
 void GUIWindow::changeState(State* state) {
-    //why is this method needed
-    if(!states_.empty()) popState();
+    State *temp = states_.top();
+    states_.pop();
     pushState(state);
+    pushState(temp);
+    //why is this method needed
 }
 
 State *GUIWindow::peekState() {

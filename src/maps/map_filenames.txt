@@ -1,0 +1,6 @@
+default
+diamond
+de_dust2
+de_dust1
+mirror
+mainmap

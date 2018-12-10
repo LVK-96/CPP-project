@@ -7,7 +7,7 @@ GameGUI::GameGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	players.push_back(p1);
 	GameMode mode;
 
-	Map map(loadMap("maps/default.txt"));
+	Map map(loadMap("maps/diamond.txt"));
 
     game_= Game(players,map, mode);
 }
@@ -50,6 +50,7 @@ GameGUI::~GameGUI(){
 }
 
 void GameGUI::drawTime(const float time){
+	int roundedtime = static_cast<int>(time);
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))
 	{
@@ -57,7 +58,7 @@ void GameGUI::drawTime(const float time){
 	}
 	sf::Text text;
 	text.setFont(font);
-	std::string timestr = "Time: " +  std::to_string(time);
+	std::string timestr = "Time: " +  std::to_string(roundedtime);
 	text.setString(timestr);
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
@@ -93,6 +94,25 @@ void GameGUI::draw(const float time) {
 	}
 	//time
 	drawTime(time);
+	drawScore();
+}
+
+void GameGUI::drawScore() {
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error in loading font" << std::endl;
+	}
+	sf::Text text;
+	text.setFont(font);
+	std::string scorestr = "Score: " +  std::to_string(game_.getScore());
+	text.setString(scorestr);
+	text.setCharacterSize(24);
+	text.setFillColor(sf::Color::Red);
+	text.setPosition(250, 800);
+	
+	guiWindow_.getWindow().draw(text);
+	guiWindow_.getWindow().display();
 }
 
 void GameGUI::drawSelection(int x, int y){

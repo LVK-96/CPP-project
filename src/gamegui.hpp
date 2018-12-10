@@ -23,6 +23,7 @@ class GameGUI : public State {
         virtual void update(const float dt);
         virtual bool handleInput(); // window event loop, handle game inputs
         void drawTime(const float dt);
+		void drawScore();
         void drawSelection(int x, int y);
         std::vector<std::vector<int>> loadMap(std::string map_filename);
 
