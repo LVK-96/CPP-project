@@ -181,8 +181,17 @@ bool GameGUI::handleInput() {
 					}
     			}
 			}
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if(event.key.code == sf::Keyboard::Q)
+				{
+					std::cout << "Q pressed closing window" << std::endl;
+					//guiWindow_.popState();
+					game_.saveScore();
+					return true;
+				}
+			}
 		}
-
 		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
 			game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);

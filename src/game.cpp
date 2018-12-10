@@ -17,7 +17,6 @@ players_(players), map_(map), mode_(mode) {
 		fillMap(); //clear and fill until no more matches
 	}
 	score = 0;
-	std::cout << "Zeroed" << std::endl;
 }
 
  Map Game::getMap(){
@@ -90,7 +89,6 @@ bool Game::clearMatches() {
 	std::vector<std::vector<int> > matrix = map_.getMatrix(); //perform checks on this copy 
 	bool ret = false;
 	int matches = 0;
-	std::cout << "pre-Score: " << getScore() << std::endl;
 	for (int j = 0; j < (int) matrix.size(); j++) {
 		for (int i = 0; i < (int) matrix[j].size(); i++) {
 			if(matrix[j][i] != -1){
@@ -119,7 +117,6 @@ bool Game::clearMatches() {
 		}
 	}
 	addScore(matches);
-	std::cout << "post-Score: " << getScore() << std::endl;
 	return ret;
 }
 
