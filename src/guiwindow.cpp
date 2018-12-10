@@ -31,6 +31,7 @@ void GUIWindow::pushState(State* state) {
 }
 
 void GUIWindow::popState() {
+    std::cout << "popstate called" << std::endl;
     State *temp = states_.top();
     states_.pop();
     delete temp;

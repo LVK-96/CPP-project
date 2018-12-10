@@ -7,7 +7,7 @@ GameGUI::GameGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	players.push_back(p1);
 	GameMode mode;
 
-	Map map(loadMap("maps/default.txt"));
+	Map map(loadMap("maps/diamond.txt"));
 
     game_= Game(players,map, mode);
 }
