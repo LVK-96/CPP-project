@@ -26,8 +26,8 @@ MapMenu::~MapMenu(){
 
 
 
-void MapMenu::startGame() {
-    guiWindow_.changeState(new GameGUI(guiWindow_)); //insert as second in stack will be first when this method returns
+void MapMenu::startGame(std::string mapname) {
+    guiWindow_.changeState(new GameGUI(guiWindow_, mapname)); //insert as second in stack will be first when this method returns
 	/*we want to push the gamestate ontop of the STARTMENU - and we want to remove mapmenu from the stack - 
 	we can do this only after returning from this function (and handleinput) - once back in game loop the top of the
 	stack is popped - insert gameGUI as second in the stack*/
@@ -51,7 +51,7 @@ bool MapMenu::handleInput() {
 					//check that the index exists
 					std::cout <<"A pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_] << std::endl;
-					startGame();
+					startGame(filearr_[wincounter_]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
                 	ret = true;
@@ -63,6 +63,7 @@ bool MapMenu::handleInput() {
 				if(wincounter_ + 1 < filearr_.size()){
 					std::cout <<"B pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 1] << std::endl;
+					startGame(filearr_[wincounter_ + 1]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
                 	ret = true;
@@ -73,6 +74,7 @@ bool MapMenu::handleInput() {
 				if(wincounter_ + 2 < filearr_.size()){
 					std::cout <<"C pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 2] << std::endl;
+					startGame(filearr_[wincounter_ + 2]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
                 	ret = true;
@@ -83,6 +85,7 @@ bool MapMenu::handleInput() {
 				if(wincounter_ + 3 < filearr_.size()){
 					std::cout <<"D pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 3] << std::endl;
+					startGame(filearr_[wincounter_ + 3]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
                 	ret = true;
@@ -93,6 +96,7 @@ bool MapMenu::handleInput() {
 				if(wincounter_ + 4 < filearr_.size()){
 					std::cout <<"E pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 4] << std::endl;
+					startGame(filearr_[wincounter_ + 4]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
                 	ret = true;
