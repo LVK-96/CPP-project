@@ -7,7 +7,10 @@ MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow){
 	filearr_ = {};//init an empty vector
 
 	while(std::getline(infile, line)){
-		line.resize(line.size()-1);
+
+		line.erase(std::remove(line.begin(), line.end(), '\n'), line.end());
+		line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
+		std::cout << line.size() << std::endl;
 		filearr_.push_back(line);
 	}
 
