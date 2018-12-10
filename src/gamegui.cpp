@@ -77,20 +77,28 @@ void GameGUI::drawTime(const float time){
 void GameGUI::draw(const float time) {
 	std::vector<std::vector<int>> matrix = game_.getMap().getMatrix();//should getMatrix or getMap return a reference
 	sf::CircleShape shape(48.f, 8);
+	sf::RectangleShape wallshape(sf::Vector2f(48.f, 48.f));
 	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
     const float height = sqrt(pow(distance,2.f));
 
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
-		    shape.setPosition(j*distance, i*height);
-			if (matrix[i][j] == 1) shape.setFillColor(sf::Color::Yellow);
-			else if (matrix[i][j] == 2) shape.setFillColor(sf::Color::Blue);
-			else if (matrix[i][j] == 3) shape.setFillColor(sf::Color::Red);
-			else if (matrix[i][j] == 4) shape.setFillColor(sf::Color::Green);
-			else if (matrix[i][j] == -1) shape.setFillColor(sf::Color(139, 69, 19));//brown for walls
-			else shape.setFillColor(sf::Color::Transparent);
-	        guiWindow_.getWindow().draw(shape);
+			if (matrix[i][j] == -1) {
+				std::cout << "Wall" << std::endl;
+				wallshape.setPosition(j*distance, i*height);
+				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
+				guiWindow_.getWindow().draw(wallshape);
+			}
+			else {
+		    	shape.setPosition(j*distance, i*height);
+				if (matrix[i][j] == 1) shape.setFillColor(sf::Color::Yellow);
+				else if (matrix[i][j] == 2) shape.setFillColor(sf::Color::Blue);
+				else if (matrix[i][j] == 3) shape.setFillColor(sf::Color::Red);
+				else if (matrix[i][j] == 4) shape.setFillColor(sf::Color::Green);
+				else shape.setFillColor(sf::Color::Transparent);
+	        	guiWindow_.getWindow().draw(shape);
+			}
 		}
 	}
 	//time
