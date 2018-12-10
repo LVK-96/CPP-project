@@ -10,6 +10,7 @@
 #include "gamemode.hpp"
 #include "map.hpp"
 #include "game.hpp"
+#include <SFML/Audio.hpp>
 
 //forward declarations for GUIWindow and Game. Compiler needs this for memory allocation
 class GUIWindow;
@@ -31,4 +32,5 @@ class GameGUI : public State {
 	private:
 		GUIWindow& guiWindow_;
 		Game game_;
+		sf::Sound music_;
 };
