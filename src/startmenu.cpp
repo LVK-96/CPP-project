@@ -39,7 +39,12 @@ bool StartMenu::handleInput() {
 				std::cout <<"B pressed" << std::endl;
 				guiWindow_.pushState(new MapMenu(guiWindow_));//call the map menu
     		}
-
+			if (event.key.code == sf::Keyboard::C)
+    		{
+				std::cout <<"C pressed" << std::endl;
+				readScore();
+				
+    		}
 		}
 	}
 	return false;
@@ -64,6 +69,18 @@ void StartMenu::draw(const float dt) {
 	text.setPosition(xPos, 100);
 	
 	guiWindow_.getWindow().draw(text);
+}
+
+void StartMenu::readScore() {
+	std::string line;
+	std::ifstream myfile ("highscore.txt");
+  	if (myfile.is_open()) {
+    	while ( getline (myfile,line) ) {
+      		std::cout << line << '\n';
+		}
+    	myfile.close();
+	}
+	else std::cout << "Unable to open file"; 
 }
 
 void StartMenu::update(const float dt){}
