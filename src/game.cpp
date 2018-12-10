@@ -10,10 +10,13 @@ Game::Game() = default;
 
 Game::Game(std::vector<Player> players, Map map, GameMode mode): 
 players_(players), map_(map), mode_(mode) {
+	score = 0;
 	fillMap(); //fill map with random numbers
 	while(clearMatches()) { 
 		fillMap(); //clear and fill until no more matches
 	}
+	score = 0;
+	std::cout << "Zeroed" << std::endl;
 }
 
  Map Game::getMap(){
@@ -85,7 +88,8 @@ void Game::checkMove() {
 bool Game::clearMatches() {
 	std::vector<std::vector<int> > matrix = map_.getMatrix(); //perform checks on this copy 
 	bool ret = false;
-
+	int matches = 0;
+	std::cout << "pre-Score: " << getScore() << std::endl;
 	for (int j = 0; j < (int) matrix.size(); j++) {
 		for (int i = 0; i < (int) matrix[j].size(); i++) {
 			if(matrix[j][i] != -1){
@@ -96,6 +100,7 @@ bool Game::clearMatches() {
 						map_.setTile(i, j, 0);  
 						map_.setTile(i, j-1, 0);
 						map_.setTile(i, j-2, 0);
+						matches += 1;
 						ret = true;
 						}
 					}	
@@ -105,12 +110,15 @@ bool Game::clearMatches() {
 							map_.setTile(i, j, 0); 
 							map_.setTile(i-1, j, 0);
 							map_.setTile(i-2, j, 0);
+							matches += 1;
 							ret = true;
 						}
 					}
 			}
 		}
 	}
+	addScore(matches);
+	std::cout << "post-Score: " << getScore() << std::endl;
 	return ret;
 }
 
