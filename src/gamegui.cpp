@@ -94,6 +94,7 @@ void GameGUI::draw(const float time) {
 				else if (matrix[i][j] == 2) shape.setFillColor(sf::Color::Blue);
 				else if (matrix[i][j] == 3) shape.setFillColor(sf::Color::Red);
 				else if (matrix[i][j] == 4) shape.setFillColor(sf::Color::Green);
+				else if (matrix[i][j] == 9) shape.setFillColor(sf::Color::Magenta);
 				else shape.setFillColor(sf::Color::Transparent);
 	        	guiWindow_.getWindow().draw(shape);
 			}

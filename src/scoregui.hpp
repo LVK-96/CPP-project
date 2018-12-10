@@ -18,6 +18,7 @@ class ScoreGUI: public State {
         virtual void draw(const float dt);
         virtual void update(const float dt);
         virtual bool handleInput(); // window event loop, close window or call startGame
+		void deleteScores();
     private:
 		GUIWindow& guiWindow_;
 		std::string scorestr;

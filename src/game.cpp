@@ -134,6 +134,8 @@ void Game::fillMap() {
 			}
 		}
 	}
+	if ( (getScore() % 10000 > 1) && (getScore() % 10000 < 30) )
+		map_.setTile(rand() % 7, rand() % 7, 9);
 }
 
 void Game::dropTiles() {
@@ -188,22 +190,31 @@ void Game::dropTiles() {
 
 void Game::swapCoords(int x1, int y1, int x2, int y2) {
 	std::cout << "swapping" << std::endl;
-	int tmpclr = map_.getTile(x1, y1);
+	int clr1 = map_.getTile(x1, y1);
+	int clr2 = map_.getTile(x2, y2);
 	std::cout << x1 << y1 << x2 << y2 << std::endl;
     map_.setTile(x1, y1, map_.getTile(x2, y2)); 
-    map_.setTile(x2, y2, tmpclr);
-	
+    map_.setTile(x2, y2, clr1);
+		
 	int i = 0;
-	while(clearMatches()) {
+
+	//special tile
+	if (clr1 == 9 || clr2 == 9) {
+		specialEffect9(clr1, clr2);
+		i = 1;
+	}
+
+	while(clearMatches() || i == 1) {
 			dropTiles();
 			fillMap();
 			i++;
-	}
+	} 
+
 	if(i == 0){
 		std::cout << "no matches on the swap, swapping back" << std::endl;
-		tmpclr = map_.getTile(x1, y1);
+		clr1 = map_.getTile(x1, y1);
     	map_.setTile(x1, y1, map_.getTile(x2, y2));
-		map_.setTile(x2, y2, tmpclr); 
+		map_.setTile(x2, y2, clr1); 
 
 	}
 }
@@ -233,6 +244,17 @@ void Game::saveScore() {
   	myfile.open ("highscore.txt", std::ofstream::app);
   	myfile << "Player1 " << std::to_string(getScore()) << "\n";
   	myfile.close();
+}
+
+void Game::specialEffect9(int color1, int color2) {
+	std::cout << "SPECIAL EFFECT!!!" << std::endl;
+	std::vector<std::vector<int> > matrix = map_.getMatrix();
+	for (unsigned int i = 0; i < map_.getMatrix()[0].size(); i++) {
+		for (unsigned int j = 0; j < map_.getMatrix().size(); j++) {
+			if(matrix[j][i] == color1 || matrix[j][i] == color2)
+				map_.setTile(i, j, 0);
+		}
+	}
 }
 
 /*void Game::printMap() const {
