@@ -13,7 +13,7 @@
 class ScoreGUI: public State {
     public:
         ScoreGUI(GUIWindow& guiWindow);
-        ~ScoreGUI();
+        ~ScoreGUI() = default;
 
         virtual void draw(const float dt);
         virtual void update(const float dt);

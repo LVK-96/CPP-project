@@ -36,6 +36,7 @@ bool StartMenu::handleInput() {
 			if (event.key.code == sf::Keyboard::C)
     		{
 				std::cout <<"C pressed" << std::endl;
+				guiWindow_.pushState(new ScoreGUI(guiWindow_));
 				readScore();
 				
     		}

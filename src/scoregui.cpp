@@ -14,6 +14,7 @@ ScoreGUI::ScoreGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 
 }
 
+
 bool ScoreGUI::handleInput() {
 	sf::Event event;
 	while (guiWindow_.getWindow().pollEvent(event))
@@ -30,7 +31,7 @@ bool ScoreGUI::handleInput() {
 			if(event.key.code == sf::Keyboard::Q)
 			{
 				std::cout << "Q pressed closing highscore" << std::endl;
-				guiWindow_.pop();
+				guiWindow_.popState();
 			}
 		}
 	}
@@ -55,4 +56,4 @@ void ScoreGUI::draw(const float dt) {
 
 	guiWindow_.getWindow().draw(text);
 }
-void StartMenu::update(const float dt){}
+void ScoreGUI::update(const float dt){}
