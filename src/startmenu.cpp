@@ -4,11 +4,6 @@ StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	
 }
 
-void StartMenu::startGame() {
-    guiWindow_.pushState(new GameGUI(guiWindow_));
-	/*we want to push the gamestate ontop of the startmenu in the stack not replace it*/
-}
-
 bool StartMenu::handleInput() {
 	sf::Event event;
 	while (guiWindow_.getWindow().pollEvent(event))
@@ -31,13 +26,12 @@ bool StartMenu::handleInput() {
     		if (event.key.code == sf::Keyboard::A)
     		{
 				std::cout <<"A pressed" << std::endl;
-				startGame();//this may result to problems if the loops stays on
+				guiWindow_.pushState(new MapMenu(guiWindow_));//call the map menu
     		}
 
 			if (event.key.code == sf::Keyboard::B)
     		{
 				std::cout <<"B pressed" << std::endl;
-				guiWindow_.pushState(new MapMenu(guiWindow_));//call the map menu
     		}
 
 		}

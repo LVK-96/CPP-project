@@ -23,9 +23,15 @@ MapMenu::~MapMenu(){
 	//memory allocated with this
 }
 
+
+
+
 void MapMenu::startGame() {
-    guiWindow_.pushState(new GameGUI(guiWindow_));
-	/*we want to push the gamestate ontop of the startmenu in the stack not replace it*/
+    guiWindow_.changeState(new GameGUI(guiWindow_)); //insert as second in stack will be first when this method returns
+	/*we want to push the gamestate ontop of the STARTMENU - and we want to remove mapmenu from the stack - 
+	we can do this only after returning from this function (and handleinput) - once back in game loop the top of the
+	stack is popped - insert gameGUI as second in the stack*/
+
 }
 
 bool MapMenu::handleInput() {
@@ -45,6 +51,7 @@ bool MapMenu::handleInput() {
 					//check that the index exists
 					std::cout <<"A pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_] << std::endl;
+					startGame();
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
                 	ret = true;
