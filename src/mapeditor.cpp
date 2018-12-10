@@ -11,7 +11,6 @@ void MapEditor::draw(const float dt) {
 	std::vector<std::vector<int>> matrix = map_.getMatrix();
 	sf::CircleShape shape(48.f, 8);
 	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));
-	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
     const float height = sqrt(pow(distance,2.f));
 
@@ -48,17 +47,12 @@ void MapEditor::draw(const float dt) {
 	text.setColor(sf::Color::Red);
 	text.setPosition(10, 800);
 	guiWindow_.getWindow().draw(text);
-	guiWindow_.getWindow().display();
 }
 
 bool MapEditor::handleInput() {
 	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
-
-	
-
-	
 
 	//outer loop loops while there is no event and the inner loop catches it
 	while (guiWindow_.getWindow().pollEvent(event)) {
@@ -74,7 +68,16 @@ bool MapEditor::handleInput() {
 				map_.setTile(clickX, clickY, -1);
 			}
 		}
-		
+
+		if (event.type == sf::Event::KeyPressed) {
+			if (event.key.code == sf::Keyboard::S) {
+				guiWindow_.pushState(new SaveMap(guiWindow_, map_));
+			}
+			if (event.key.code == sf::Keyboard::Q) {
+				return true;
+			}
+
+		}
 	}
 	return false;	
 }

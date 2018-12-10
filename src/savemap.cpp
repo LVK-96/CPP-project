@@ -1,12 +1,14 @@
 #include "savemap.hpp"
 
-SaveMap::SaveMap(GUIWindow& guiWindow, Map map): guiWindow_(guiWindow), map_(map) {}
+SaveMap::SaveMap(GUIWindow& guiWindow, Map map): guiWindow_(guiWindow), map_(map) {
+	std::string save = "";
+	filepath_.setString(save);
+}
 
 void SaveMap::draw(const float dt) {
 	std::vector<std::vector<int>> matrix = map_.getMatrix();
 	sf::CircleShape shape(48.f, 8);
 	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));
-	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
     const float height = sqrt(pow(distance,2.f));
 
@@ -34,31 +36,71 @@ void SaveMap::draw(const float dt) {
 	if (!font.loadFromFile("arial.ttf")) {
     	std::cout << "Error" << std::endl;
 	}
-	
+
 	sf::Text text;
 	text.setFont(font);
-	std::string save = "Type filename";
+	std::string save = "Filename: ";
 	text.setString(save);
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
 	text.setPosition(10, 800);
+	guiWindow_.getWindow().draw(text);
+	
+	filepath_.setFont(font);
+	filepath_.setCharacterSize(24);
+	filepath_.setColor(sf::Color::Red);
+	filepath_.setPosition(120, 800);
+	guiWindow_.getWindow().draw(filepath_);
 }
 
 bool SaveMap::handleInput() {
 	sf::Event event;
-
 	//outer loop loops while there is no event and the inner loop catches it
-	sf::String playerInput;
-	sf::Text playerText;
 	
 	while (guiWindow_.getWindow().pollEvent(event)) {
-		if (event.type == sf::Event::TextEntered) {
-    		playerInput += event.text.unicode;
-    		playerText.setString(playerInput);
-		}
-		return false;
-	}
+		sf::String playerInput;
 
+		if (event.type == sf::Event::Closed) {
+				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
+		}
+
+		if (event.type == sf::Event::TextEntered) {
+			if(event.text.unicode >= 32 && event.text.unicode < 127) {
+				playerInput +=event.text.unicode;
+    			filepath_.setString(filepath_.getString() + playerInput);
+			}
+			else if (event.text.unicode == 8 && filepath_.getString().getSize() > 0) {
+				 sf::String temp = filepath_.getString();
+				 temp.erase(temp.getSize()-1, temp.getSize());
+				 filepath_.setString(temp);
+			}
+			
+		}
+
+		if (event.type == sf::Event::KeyPressed) {
+			if (event.key.code == sf::Keyboard::Enter) {
+				//save into file and close mapeditor
+				std::string savepath = "maps/" + filepath_.getString().toAnsiString() + ".txt";
+				std::ofstream outfile(savepath.c_str());
+				for (auto j : map_.getMatrix()) {
+					for (auto i : j) {
+						if (i == -1) {outfile<<'w';}
+						else {outfile<<i;}
+					}
+					outfile<<std::endl;
+				}
+				outfile.close();
+
+				std::ofstream maplist;
+				maplist.open("map_filenames.txt", std::ios::app);
+				std::cout<< filepath_.getString().toAnsiString()<<std::endl;
+				maplist<<filepath_.getString().toAnsiString()<<std::endl;
+				maplist.close();
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void SaveMap::update(const float dt) {}

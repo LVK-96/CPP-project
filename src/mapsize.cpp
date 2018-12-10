@@ -28,7 +28,7 @@ bool MapSize::handleInput() {
 				//guiWindow_.pushState(new MapEditor(guiWindow_, 32));
 			}
 			
-			if(event.key.code == sf::Keyboard::B) {
+			if(event.key.code == sf::Keyboard::Q) {
 				std::cout << "B pressed" << std::endl;
 				guiWindow_.popState();
 				
@@ -51,7 +51,7 @@ void MapSize::draw(const float dt) {
 	text.setString("a 8x8 \n\n"
 					"s 16x16 \n\n"
 					"d 32x32\n\n"
-					"press b to go back");
+					"press q to go back");
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
 	float xPos = 50;

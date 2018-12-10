@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <tgmath.h>
+#include <iostream>
+#include <string>
+#include <fstream>
 #include "state.hpp"
 #include "guiwindow.hpp"
 #include "map.hpp"
@@ -17,4 +20,5 @@ public:
 private:
 	GUIWindow& guiWindow_;
 	Map map_;
+	sf::Text filepath_;
 };
