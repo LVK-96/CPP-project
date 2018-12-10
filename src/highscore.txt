@@ -1,9 +1,2 @@
 Player1 0
-Player1 0
-Player1 0
-Player1 0
-Player1 0
-Player1 0
-Player1 0
-Player1 0
-Player1 0
+Player1 110

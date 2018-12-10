@@ -75,7 +75,7 @@ void GameGUI::drawTime(const float time){
 void GameGUI::draw(const float time) {
 	std::vector<std::vector<int>> matrix = game_.getMap().getMatrix();//should getMatrix or getMap return a reference
 	sf::CircleShape shape(48.f, 8);
-	sf::RectangleShape wallshape(sf::Vector2f(48.f, 48.f));
+	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));
 	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
     const float height = sqrt(pow(distance,2.f));
