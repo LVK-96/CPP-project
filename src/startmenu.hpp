@@ -16,9 +16,13 @@ class StartMenu: public State {
         virtual void draw(const float dt); //changes the view that will be drawn to window (defined in guiwindow class)
         virtual void update(const float dt);
         virtual bool handleInput(); // window event loop, close window or call startGame
+<<<<<<< HEAD
 
         void startGame(); // add game to the state stack
 		void readScore();
+=======
+        
+>>>>>>> c591b3a85216d12d2de04c11c9aff556e77507c1
     private:
 		GUIWindow& guiWindow_;
 };
