@@ -46,9 +46,7 @@ std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
 	return temp;
 }
 
-GameGUI::~GameGUI(){
-	delete this;//memory allocated with new
-}
+
 
 void GameGUI::drawTime(const float time){
 	int roundedtime = static_cast<int>(time);
@@ -77,7 +75,7 @@ void GameGUI::drawTime(const float time){
 void GameGUI::draw(const float time) {
 	std::vector<std::vector<int>> matrix = game_.getMap().getMatrix();//should getMatrix or getMap return a reference
 	sf::CircleShape shape(48.f, 8);
-	sf::RectangleShape wallshape(sf::Vector2f(48.f, 48.f));
+	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));
 	shape.setFillColor(sf::Color::Green);
 	const int distance = 100; //distance between dots
     const float height = sqrt(pow(distance,2.f));
@@ -96,6 +94,7 @@ void GameGUI::draw(const float time) {
 				else if (matrix[i][j] == 2) shape.setFillColor(sf::Color::Blue);
 				else if (matrix[i][j] == 3) shape.setFillColor(sf::Color::Red);
 				else if (matrix[i][j] == 4) shape.setFillColor(sf::Color::Green);
+				else if (matrix[i][j] == 5) shape.setFillColor(sf::Color::Magenta);
 				else shape.setFillColor(sf::Color::Transparent);
 	        	guiWindow_.getWindow().draw(shape);
 			}
@@ -151,9 +150,10 @@ bool GameGUI::handleInput() {
 		drawTime(dt);
 		while (guiWindow_.getWindow().pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed){
+			if (event.type == sf::Event::Closed) {
 				game_.saveScore();
-				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
+				guiWindow_.getWindow().close();
+				//guiWindow_.~GUIWindow();
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed) {
@@ -182,8 +182,17 @@ bool GameGUI::handleInput() {
 					}
     			}
 			}
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if(event.key.code == sf::Keyboard::Q)
+				{
+					std::cout << "Q pressed closing window" << std::endl;
+					//guiWindow_.popState();
+					game_.saveScore();
+					return true;
+				}
+			}
 		}
-
 		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
 			game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]);

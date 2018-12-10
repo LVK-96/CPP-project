@@ -2,7 +2,7 @@
 
 ScoreGUI::ScoreGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	std::string line;
-	scorestr = "";
+	scorestr = "Highscores (press q to quit, d to delete): \n\n";
 	std::ifstream myfile ("highscore.txt");
   	if (myfile.is_open()) {
     	while ( getline (myfile,line) ) {
@@ -33,6 +33,10 @@ bool ScoreGUI::handleInput() {
 				std::cout << "Q pressed closing highscore" << std::endl;
 				guiWindow_.popState();
 			}
+			if (event.key.code == sf::Keyboard::D) {
+				std::cout << "D pressed - deleting highscores" << std::endl;
+				deleteScores();
+			}
 		}
 	}
 	return false;
@@ -55,5 +59,10 @@ void ScoreGUI::draw(const float dt) {
 	text.setPosition(xPos, 100);
 
 	guiWindow_.getWindow().draw(text);
+}
+void ScoreGUI::deleteScores() {
+	std::ofstream ofs;
+	ofs.open("highscore.txt", std::ofstream::out | std::ofstream::trunc);
+	ofs.close();
 }
 void ScoreGUI::update(const float dt){}
