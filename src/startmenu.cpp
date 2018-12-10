@@ -28,11 +28,17 @@ bool StartMenu::handleInput() {
 				std::cout <<"A pressed" << std::endl;
 				guiWindow_.pushState(new MapMenu(guiWindow_));//call the map menu
     		}
-
+			
 			if (event.key.code == sf::Keyboard::B)
     		{
 				std::cout <<"B pressed" << std::endl;
     		}
+			
+			if (event.key.code == sf::Keyboard::E) {
+				std::cout <<"E pressed" << std::endl;
+				guiWindow_.pushState(new MapSize(guiWindow_));
+			}
+			
 			if (event.key.code == sf::Keyboard::C)
     		{
 				std::cout <<"C pressed" << std::endl;
@@ -56,6 +62,7 @@ void StartMenu::draw(const float dt) {
 	text.setString("press a to start game \n\n"
 					"press b to configure settings \n\n"
 					"press c to view highscores\n\n"
+					"press e to start map editor \n\n"
 					"press q to quit");
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);

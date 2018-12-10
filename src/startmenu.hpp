@@ -8,6 +8,7 @@
 #include "guiwindow.hpp"
 #include "mapmenu.hpp"
 #include "scoregui.hpp"
+#include "mapsize.hpp"
 
 class StartMenu: public State {
     public:

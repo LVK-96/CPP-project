@@ -7,7 +7,7 @@ Map::Map(std::vector<std::vector<int> > map): matrix_(map) {}
 std::vector<std::vector<int> > Map::getMatrix() const {return matrix_;} 
 bool Map::setTile (int x, int y, int color) 
 {
-    if(matrix_[y][x] >= 0){
+    if(matrix_[y][x] > -1){
         //if not a wall
         matrix_[y][x] = color;
         return true;
