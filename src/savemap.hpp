@@ -4,12 +4,11 @@
 #include "state.hpp"
 #include "guiwindow.hpp"
 #include "map.hpp"
-#include "savemap.hpp"
 
-class MapEditor : public State {
+class SaveMap : public State {
 public:
-	MapEditor(GUIWindow& guiWindow, int size);
-	~MapEditor() = default;
+	SaveMap(GUIWindow& guiWindow, Map map);
+	~SaveMap() = default;
 	
 	virtual void draw(const float dt);
 	virtual void update(const float dt);

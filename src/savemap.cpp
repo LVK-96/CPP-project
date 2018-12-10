@@ -1,13 +1,8 @@
-#include "mapeditor.hpp"
+#include "savemap.hpp"
 
+SaveMap::SaveMap(GUIWindow& guiWindow, Map map): guiWindow_(guiWindow), map_(map) {}
 
-MapEditor::MapEditor(GUIWindow& guiWindow, int size): guiWindow_(guiWindow) {
-	std::vector<std::vector<int> > temp(size, std::vector<int>(size,0));
-	Map map(temp);
-	map_ = map;
-}
-
-void MapEditor::draw(const float dt) {
+void SaveMap::draw(const float dt) {
 	std::vector<std::vector<int>> matrix = map_.getMatrix();
 	sf::CircleShape shape(48.f, 8);
 	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));
@@ -42,43 +37,29 @@ void MapEditor::draw(const float dt) {
 	
 	sf::Text text;
 	text.setFont(font);
-	std::string save = "Press S to save";
+	std::string save = "Type filename";
 	text.setString(save);
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
 	text.setPosition(10, 800);
-	guiWindow_.getWindow().draw(text);
-	guiWindow_.getWindow().display();
 }
 
-bool MapEditor::handleInput() {
-	std::cout << "entering handle input" << std::endl;
-	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
+bool SaveMap::handleInput() {
 	sf::Event event;
 
-	
-
-	
-
 	//outer loop loops while there is no event and the inner loop catches it
+	sf::String playerInput;
+	sf::Text playerText;
+	
 	while (guiWindow_.getWindow().pollEvent(event)) {
-		if (event.type == sf::Event::Closed) {
-				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
+		if (event.type == sf::Event::TextEntered) {
+    		playerInput += event.text.unicode;
+    		playerText.setString(playerInput);
 		}
-
-		if (event.type == sf::Event::MouseButtonPressed) {
-			if (event.mouseButton.button == sf::Mouse::Left) {
-				unsigned int clickX = (event.mouseButton.x / 100);
-				unsigned int clickY = (event.mouseButton.y / 100);
-				if (clickX > 7 || clickY > 7) {return false;}
-				map_.setTile(clickX, clickY, -1);
-			}
-		}
-		
+		return false;
 	}
-	return false;	
+
 }
 
-
-void MapEditor::update(const float dt){}
+void SaveMap::update(const float dt) {}
 
