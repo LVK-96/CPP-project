@@ -25,6 +25,7 @@ public:
 	float getTime();
 	void addScore(int matches);
 	int getScore();
+	void saveScore();
 
 private:
     bool paused;

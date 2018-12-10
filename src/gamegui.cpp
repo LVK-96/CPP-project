@@ -145,6 +145,7 @@ bool GameGUI::handleInput() {
 		while (guiWindow_.getWindow().pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed){
+				game_.saveScore();
 				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
 			}
 			
