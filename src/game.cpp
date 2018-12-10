@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "game.hpp"
 #include "guiwindow.hpp"
 #include "algorithm"
@@ -213,6 +214,9 @@ float Game::getTime() {
 	return dt;
 }
 
+void Game::addScore(int matches) {
+	score += 10 * pow(matches, 3);
+}
 /*void Game::printMap() const {
      std::cout<<"/////////////////"<<std::endl;
 	for (auto i : map_.getMatrix()) {
