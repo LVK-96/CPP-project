@@ -17,5 +17,7 @@ void MapEditor::setSize() {
 	text.setColor(sf::Color::Red);
 	float xPos = 50;
 	text.setPosition(xPos, 100);
+
+	guiWindow_.getWindow().draw(text);
 }
 
