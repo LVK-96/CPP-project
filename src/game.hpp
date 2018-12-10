@@ -24,6 +24,7 @@ public:
     Map getMap();
 	float getTime();
 	void addScore(int matches);
+	int getScore();
 
 private:
     bool paused;

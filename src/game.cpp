@@ -22,7 +22,7 @@ players_(players), map_(map), mode_(mode) {
  }
 
 /*void Game::updateMap() {
-    printMap(); //call GUI update here 
+    printMap(); //call GUI update here
     checkMove(); //play turn
 }
 
@@ -216,6 +216,10 @@ float Game::getTime() {
 
 void Game::addScore(int matches) {
 	score += 10 * pow(matches, 3);
+}
+
+int Game::getScore() {
+	return score;
 }
 /*void Game::printMap() const {
      std::cout<<"/////////////////"<<std::endl;
