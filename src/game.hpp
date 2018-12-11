@@ -27,6 +27,7 @@ public:
 	int getScore();
 	void saveScore();
 	void specialEffect5(int color1, int color2);
+    GameMode getGameMode(){return mode_;}
 
 private:
     bool paused;
