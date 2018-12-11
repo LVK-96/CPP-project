@@ -1,7 +1,7 @@
 #include "startmenu.hpp"
 
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	button1_ = Button("Test button", 300, 300, 200, 100);
+	button1_ = Button("Quit", 300, 300, 200, 100);
 }
 
 bool StartMenu::handleInput() {
