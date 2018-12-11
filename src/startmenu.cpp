@@ -1,7 +1,7 @@
 #include "startmenu.hpp"
 
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	button1_ = Button("Quit", 300, 300, 200, 100);
+	button1_ = Button("Play", 500, 200, 100, 50);
 }
 
 bool StartMenu::handleInput() {
@@ -16,7 +16,7 @@ bool StartMenu::handleInput() {
 		if (event.type == sf::Event::MouseButtonPressed) {
     			if (event.mouseButton.button == sf::Mouse::Left) {
 					if (button1_.checkClick(event.mouseButton.x, event.mouseButton.y))
-						guiWindow_.getWindow().close();
+						guiWindow_.pushState(new MapMenu(guiWindow_));
 				}
 		}
 
