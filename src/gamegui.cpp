@@ -178,6 +178,7 @@ bool GameGUI::handleInput() {
 					std::cout << "click number: " << counter + 1 << std::endl;
 					unsigned int clickX = (event.mouseButton.x / 100);
 					unsigned int clickY = (event.mouseButton.y / 100);
+					if (clickX > 7 || clickY > 7) {return false;}
 					if(game_.getMap().getTile(clickX, clickY) != -1){
 						//dont allow selecting walls
 						if (newCoords[2] != clickX || newCoords[3] != clickY) {
