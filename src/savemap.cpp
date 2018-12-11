@@ -78,7 +78,7 @@ bool SaveMap::handleInput() {
 		}
 
 		if (event.type == sf::Event::KeyPressed) {
-			if (event.key.code == sf::Keyboard::Enter) {
+			if (event.key.code == sf::Keyboard::Return) {
 				//save into file and close mapeditor
 				std::string savepath = "maps/" + filepath_.getString().toAnsiString() + ".txt";
 				std::ofstream outfile(savepath.c_str());
