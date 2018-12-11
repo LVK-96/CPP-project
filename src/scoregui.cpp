@@ -1,17 +1,8 @@
 #include "scoregui.hpp"
 
 ScoreGUI::ScoreGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	std::string line;
-	scorestr = "Highscores (press q to quit, d to delete): \n\n";
-	std::ifstream myfile ("highscore.txt");
-  	if (myfile.is_open()) {
-    	while ( getline (myfile,line) ) {
-      		scorestr += line + '\n';
-		}
-    	myfile.close();
-	}
-	else std::cout << "Unable to open file"; 
-
+	loadScores();
+	
 }
 
 
@@ -52,7 +43,7 @@ void ScoreGUI::draw(const float dt) {
 	}
 	sf::Text text;
 	text.setFont(font);
-	text.setString(scorestr);
+	text.setString(getStr());
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
 	float xPos = 50;
@@ -60,9 +51,41 @@ void ScoreGUI::draw(const float dt) {
 
 	guiWindow_.getWindow().draw(text);
 }
+
+void ScoreGUI::loadScores() {
+	scores.clear();
+	std::string name;
+	std::string score;
+	std::ifstream myfile ("highscore.txt");
+  	if (myfile.is_open()) {
+    	while (std::getline(myfile,name, ' ') &&  std::getline(myfile,score)) {
+			scores.push_back(std::make_pair(std::stoi(score), name));
+		}
+		sort(scores.begin(), scores.end());
+    	myfile.close();
+	}
+	else std::cout << "Unable to open file"; 
+	
+}
+
 void ScoreGUI::deleteScores() {
 	std::ofstream ofs;
 	ofs.open("highscore.txt", std::ofstream::out | std::ofstream::trunc);
 	ofs.close();
+	loadScores();
+}
+
+std::string ScoreGUI::getStr() {
+	std::string scorestr = "Highscores (press q to quit, d to delete): \n\n";
+	int i = 0;
+	for (auto it = scores.rbegin(); it != scores.rend(); ++it)
+    {
+		if (i >= 10)
+			break;
+		scorestr += std::to_string(i + 1) + ". ";
+        scorestr += (*it).second + ' ' + std::to_string((*it).first) + '\n'; 
+		i++;
+    }
+	return scorestr;
 }
 void ScoreGUI::update(const float dt){}

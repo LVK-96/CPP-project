@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <bits/stdc++.h> 
+#include <utility> 
 
 #include "state.hpp"
 #include "gamegui.hpp"
@@ -18,8 +20,10 @@ class ScoreGUI: public State {
         virtual void draw(const float dt);
         virtual void update(const float dt);
         virtual bool handleInput(); // window event loop, close window or call startGame
+		void loadScores();
 		void deleteScores();
+		std::string getStr();
     private:
 		GUIWindow& guiWindow_;
-		std::string scorestr;
+		std::vector<std::pair<int, std::string>> scores;
 };
