@@ -214,6 +214,13 @@ bool GameGUI::handleInput() {
 			std::cout << "are adjacent" << std::endl;
 			if (game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
 				matchSound_.play();
+				if(game_.getGameMode().checkBaseEndCondition(game_.getMap())){
+					std::cout << "found atleast one possible move" << std::endl;
+				}
+				else{
+					std::cout << "no possible moves found" << std::endl;
+					//end game (create a state for it)
+				}
 			}
 			return false;
 		}
