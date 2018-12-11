@@ -1,7 +1,7 @@
 #include "startmenu.hpp"
 
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-
+	button1_ = Button("Test button", 300, 300, 200, 100);
 }
 
 bool StartMenu::handleInput() {
@@ -13,7 +13,12 @@ bool StartMenu::handleInput() {
 			std::cout << "window closed" << std::endl;
 			guiWindow_.getWindow().close();
 		}
-
+		if (event.type == sf::Event::MouseButtonPressed) {
+    			if (event.mouseButton.button == sf::Mouse::Left) {
+					if (button1_.checkClick(event.mouseButton.x, event.mouseButton.y))
+						guiWindow_.getWindow().close();
+				}
+		}
 
 		if (event.type == sf::Event::KeyPressed)
 		{
@@ -68,6 +73,8 @@ void StartMenu::draw(const float dt) {
 	text.setColor(sf::Color::Red);
 	float xPos = 50;
 	text.setPosition(xPos, 100);
+
+	button1_.drawButton(&guiWindow_.getWindow());
 
 	guiWindow_.getWindow().draw(text);
 }

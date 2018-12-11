@@ -9,6 +9,7 @@
 #include "mapmenu.hpp"
 #include "scoregui.hpp"
 #include "mapsize.hpp"
+#include "button.hpp"
 
 class StartMenu: public State {
     public:
@@ -22,4 +23,5 @@ class StartMenu: public State {
         void startGame(); // add game to the state stack
     private:
 		GUIWindow& guiWindow_;
+		Button button1_;
 };
