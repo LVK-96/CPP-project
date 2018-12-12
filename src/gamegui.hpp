@@ -11,6 +11,7 @@
 #include "gamemode.hpp"
 #include "map.hpp"
 #include "game.hpp"
+#include "endgame.hpp"
 
 //forward declarations for GUIWindow and Game. Compiler needs this for memory allocation
 class GUIWindow;

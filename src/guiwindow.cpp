@@ -45,7 +45,6 @@ void GUIWindow::changeState(State* state) {
     states_.pop();
     pushState(state);
     pushState(temp);
-    //why is this method needed
 }
 
 State *GUIWindow::peekState() {

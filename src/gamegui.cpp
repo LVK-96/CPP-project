@@ -219,6 +219,9 @@ bool GameGUI::handleInput() {
 				}
 				else{
 					std::cout << "no possible moves found" << std::endl;
+					game_.saveScore();
+					guiWindow_.changeState(new EndGame(5, "default", "default", guiWindow_));
+					return true;//close game and display endgame screen
 					//end game (create a state for it)
 				}
 			}
