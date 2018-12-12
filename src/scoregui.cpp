@@ -2,7 +2,8 @@
 
 ScoreGUI::ScoreGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	loadScores();
-	
+	backbutton_ =  new Button("Back", 50, 500, 150, 50);
+	deletebutton_ = new Button("Delete", 220, 500, 150, 50);	
 }
 
 
@@ -15,7 +16,15 @@ bool ScoreGUI::handleInput() {
 			std::cout << "window closed" << std::endl;
 			guiWindow_.getWindow().close();
 		}
-
+		
+		if (event.type == sf::Event::MouseButtonPressed) {
+    			if (event.mouseButton.button == sf::Mouse::Left) {
+					if (backbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
+						guiWindow_.popState();;
+					if (deletebutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
+						deleteScores();
+				}
+		}
 
 		if (event.type == sf::Event::KeyPressed)
 		{
@@ -49,6 +58,9 @@ void ScoreGUI::draw(const float dt) {
 	float xPos = 50;
 	text.setPosition(xPos, 100);
 
+	backbutton_->drawButton(&guiWindow_.getWindow());
+	deletebutton_->drawButton(&guiWindow_.getWindow());
+
 	guiWindow_.getWindow().draw(text);
 }
 
@@ -76,7 +88,7 @@ void ScoreGUI::deleteScores() {
 }
 
 std::string ScoreGUI::getStr() {
-	std::string scorestr = "Highscores (press q to quit, d to delete): \n\n";
+	std::string scorestr = "Highscores: \n\n";
 	int i = 0;
 	for (auto it = scores.rbegin(); it != scores.rend(); ++it)
     {

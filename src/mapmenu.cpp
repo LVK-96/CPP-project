@@ -121,7 +121,7 @@ bool MapMenu::handleInput() {
     		}
 
 		}
-		std::cout << "end of first loop" << std::endl;
+		//std::cout << "end of first loop" << std::endl;
 	}
     return ret;
 }

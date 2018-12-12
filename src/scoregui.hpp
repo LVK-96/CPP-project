@@ -11,6 +11,7 @@
 #include "state.hpp"
 #include "gamegui.hpp"
 #include "guiwindow.hpp"
+#include "button.hpp"
 
 class ScoreGUI: public State {
     public:
@@ -26,4 +27,6 @@ class ScoreGUI: public State {
     private:
 		GUIWindow& guiWindow_;
 		std::vector<std::pair<int, std::string>> scores;
+		Button *backbutton_;
+		Button *deletebutton_;
 };
