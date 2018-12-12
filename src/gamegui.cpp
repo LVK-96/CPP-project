@@ -11,6 +11,8 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindo
 	Map map(loadMap(ss.str()));
 
     game_= Game(players,map, mode);
+	//check if game has ended before any moves have been made
+	availablemoves_ = game_.getGameMode().checkBaseEndCondition(game_.getMap());
 
 	if (!musicBuffer_.loadFromFile("gamemusic.wav"))
         std::cout << "Reading music file failed!" << std::endl;
@@ -155,6 +157,13 @@ bool GameGUI::handleInput() {
 	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
+
+	if(!availablemoves_){
+		std::cout << "no possible moves found" << std::endl;
+		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode().getName(), guiWindow_));
+		game_.saveScore();
+		return true;//close game and display endgame screen
+	}
 
 	float dt = game_.getTime();
 

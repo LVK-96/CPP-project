@@ -34,6 +34,8 @@ class GameGUI : public State {
 		GUIWindow& guiWindow_;
 		Game game_;
         std::string mapname_;
+        bool availablemoves_;
+
 		sf::Sound music_;
 		sf::SoundBuffer musicBuffer_;
 		sf::Sound matchSound_;
