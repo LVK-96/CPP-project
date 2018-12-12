@@ -1,6 +1,6 @@
 #include "gamegui.hpp"
 
-GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindow) {
+GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindow), mapname_(mapname){
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);
@@ -219,8 +219,8 @@ bool GameGUI::handleInput() {
 				}
 				else{
 					std::cout << "no possible moves found" << std::endl;
+					guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode().getName(), guiWindow_));
 					game_.saveScore();
-					guiWindow_.changeState(new EndGame(5, "default", "default", guiWindow_));
 					return true;//close game and display endgame screen
 					//end game (create a state for it)
 				}

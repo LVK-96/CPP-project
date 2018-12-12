@@ -33,6 +33,7 @@ class GameGUI : public State {
 	private:
 		GUIWindow& guiWindow_;
 		Game game_;
+        std::string mapname_;
 		sf::Sound music_;
 		sf::SoundBuffer musicBuffer_;
 		sf::Sound matchSound_;

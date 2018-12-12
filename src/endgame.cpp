@@ -34,11 +34,14 @@ void EndGame::draw(const float dt) {
 	}
 	sf::Text text;
 	text.setFont(font);
-	text.setString("Game ended\n\n Map: \n\n GameMode: \n\n Score: ");
+    std::stringstream ss;
+    ss << "Game ended\n\nMap: "+ mapname_ +"\n\nGame Mode: " + modename_ + "\n\nScore: ";
+    ss << points_;
+	text.setString(ss.str());
 	text.setCharacterSize(44);
 	text.setColor(sf::Color::Red);
-	float xPos = 400;
-	text.setPosition(xPos, 400);
+	float xPos = 200;
+	text.setPosition(xPos, 200);
 	guiWindow_.getWindow().draw(text);
 }
 

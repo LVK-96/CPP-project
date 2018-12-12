@@ -11,6 +11,7 @@ public:
 
     std::string getName() const;
     bool checkBaseEndCondition(Map map);
+    std::string getName(){return name_;}
 
 protected:
     std::string name_;
