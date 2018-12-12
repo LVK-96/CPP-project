@@ -18,8 +18,8 @@ bool Button::checkClick(int clickX, int clickY) const {
 void Button::drawButton(sf::RenderWindow *window) {
 	sf::RectangleShape rectangle(sf::Vector2f(width, height));
 	rectangle.setPosition(x, y);
-	rectangle.setFillColor(sf::Color::Black);
-	rectangle.setOutlineThickness(5);
+	rectangle.setFillColor(sf::Color(47,79,79));
+	rectangle.setOutlineThickness(1);
 	rectangle.setOutlineColor(sf::Color::White);
 
 	sf::Font font;
@@ -31,10 +31,11 @@ void Button::drawButton(sf::RenderWindow *window) {
 	text.setFont(font);
 
 	text.setString(txt);
-	text.setCharacterSize(24);
-	text.setColor(sf::Color::Red);
+	text.setCharacterSize(20);
+	text.setColor(sf::Color::White);
 	text.setPosition(x + (width/2) - (text.getGlobalBounds().width / 2), y + (height/2) -(text.getGlobalBounds().height / 2));
 	
+
 	window->draw(rectangle);
 	window->draw(text);
 

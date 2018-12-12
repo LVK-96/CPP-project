@@ -1,7 +1,10 @@
 #include "startmenu.hpp"
 
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	button1_ = Button("Play", 500, 200, 100, 50);
+	playbutton_ =  new Button("Play", 500, 100, 150, 50);
+	mapbutton_ = new Button("Map Editor", 500, 200, 150, 50);
+	scorebutton_ = new Button("Highscores", 500, 300, 150, 50);
+	quitbutton_ = new Button("Quit", 500, 400, 150, 50);
 }
 
 bool StartMenu::handleInput() {
@@ -15,8 +18,14 @@ bool StartMenu::handleInput() {
 		}
 		if (event.type == sf::Event::MouseButtonPressed) {
     			if (event.mouseButton.button == sf::Mouse::Left) {
-					if (button1_.checkClick(event.mouseButton.x, event.mouseButton.y))
+					if (playbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
 						guiWindow_.pushState(new MapMenu(guiWindow_));
+					if (mapbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
+						guiWindow_.pushState(new MapSize(guiWindow_));
+					if (scorebutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
+						guiWindow_.pushState(new ScoreGUI(guiWindow_));
+					if (quitbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
+						guiWindow_.getWindow().close();
 				}
 		}
 
@@ -74,7 +83,10 @@ void StartMenu::draw(const float dt) {
 	float xPos = 50;
 	text.setPosition(xPos, 100);
 
-	button1_.drawButton(&guiWindow_.getWindow());
+	playbutton_->drawButton(&guiWindow_.getWindow());
+	mapbutton_->drawButton(&guiWindow_.getWindow());
+	scorebutton_->drawButton(&guiWindow_.getWindow());
+	quitbutton_->drawButton(&guiWindow_.getWindow());
 
 	guiWindow_.getWindow().draw(text);
 }

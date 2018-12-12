@@ -9,7 +9,7 @@ class Button {
 	public:
 		Button() = default;
 		Button(std::string t, int xCord, int ycord, int w, int h);
-		~Button() = default;
+		//~Button() = default;
 		
 		bool checkClick(int clickX, int clickY) const;
 		void drawButton(sf::RenderWindow *window);
