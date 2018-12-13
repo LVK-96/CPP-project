@@ -70,7 +70,7 @@ bool StartMenu::handleInput() {
 	return false;
 }
 
-void StartMenu::draw(const float dt) {
+void StartMenu::draw() {
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))

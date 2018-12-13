@@ -5,7 +5,7 @@ SaveMap::SaveMap(GUIWindow& guiWindow, Map map): guiWindow_(guiWindow), map_(map
 	filepath_.setString(save);
 }
 
-void SaveMap::draw(const float dt) {
+void SaveMap::draw() {
 	std::vector<std::vector<int>> matrix = map_.getMatrix();
 	sf::CircleShape shape(48.f, 8);
 	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));

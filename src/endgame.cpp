@@ -25,7 +25,7 @@ bool EndGame::handleInput() {
 	return false;
 }
 
-void EndGame::draw(const float dt) {
+void EndGame::draw() {
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))

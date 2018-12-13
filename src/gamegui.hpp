@@ -22,7 +22,7 @@ class GameGUI : public State {
         GameGUI(GUIWindow& guiWindow, std::string mapname);
         ~GameGUI() = default;
 
-        virtual void draw(const float dt); 
+        virtual void draw(); 
         virtual bool update();
         virtual bool handleInput(); // window event loop, handle game inputs
         void drawTime(const float dt);
@@ -40,4 +40,5 @@ class GameGUI : public State {
 		sf::SoundBuffer musicBuffer_;
 		sf::Sound matchSound_;
 		sf::SoundBuffer matchBuffer_;
+		sf::Clock clock_;
 };

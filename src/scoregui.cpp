@@ -42,7 +42,7 @@ bool ScoreGUI::handleInput() {
 	return false;
 }
 
-void ScoreGUI::draw(const float dt) {
+void ScoreGUI::draw() {
 
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;

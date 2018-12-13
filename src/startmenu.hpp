@@ -8,7 +8,7 @@
 #include "guiwindow.hpp"
 #include "mapmenu.hpp"
 #include "scoregui.hpp"
-#include "mapsize.hpp"
+#include "mapeditor.hpp"
 #include "button.hpp"
 
 class StartMenu: public State {
@@ -16,7 +16,7 @@ class StartMenu: public State {
         StartMenu(GUIWindow& guiWindow);
         ~StartMenu();
 
-        virtual void draw(const float dt); //changes the view that will be drawn to window (defined in guiwindow class)
+        virtual void draw(); //changes the view that will be drawn to window (defined in guiwindow class)
         virtual bool handleInput(); // window event loop, close window or call startGame
 
         void startGame(); // add game to the state stack

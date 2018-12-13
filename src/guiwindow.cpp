@@ -11,18 +11,14 @@ GUIWindow::~GUIWindow() {
 }
 
 void GUIWindow::gameLoop() {
-    sf::Clock clock;
 
     while (window_.isOpen()) {
-        sf::Time elapsed=clock.getElapsedTime();
-        float dt=elapsed.asSeconds();
-        
         if (peekState()==NULL) {continue;}
         if(peekState()->handleInput()) {popState();}//remove a state from the stack
 		
 		while(peekState()->update()){}
         window_.clear(sf::Color::Black);
-        peekState()->draw(dt);
+        peekState()->draw();
         window_.display();
     }
 }
