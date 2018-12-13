@@ -17,8 +17,8 @@ class EndGame: public State {
 
         void startGame(); // add game to the state stack
     private:
-        GUIWindow& guiWindow_;
-		std::string modename_;
-        int points_;
+		int points_;
         std::string mapname_;
+		std::string modename_;
+		GUIWindow& guiWindow_;
 };

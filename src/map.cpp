@@ -16,4 +16,8 @@ bool Map::setTile (int x, int y, int color)
 }
 int Map::getTile(int x, int y) const {return matrix_[y][x];}
 
+void Map::setMatrix(std::vector<std::vector<int> > matrix){
+	matrix_ = matrix; 
+}
+
 

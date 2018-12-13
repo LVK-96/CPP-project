@@ -103,5 +103,5 @@ bool SaveMap::handleInput() {
 	return false;
 }
 
-void SaveMap::update(const float dt) {}
+bool SaveMap::update() {return false;}
 

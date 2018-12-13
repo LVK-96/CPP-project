@@ -88,13 +88,6 @@ bool Game::dropTiles() {
 			}
 		}
 		
-		//tmp_arr is a single column without walls
-		/*std::sort(tmp_arr.begin(), tmp_arr.end(), 
-		[] (int a, int b) {
-			if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal so 0s end up on top
-			return (a < b);
-		});*/
-
 		std::cout<<tmp_arr[8]<<std::endl;
 		for (int j = tmp_arr.size()-2; j >= 0; j--) {
 			if (tmp_arr[j+1] == 0 && tmp_arr[j] != 0) {

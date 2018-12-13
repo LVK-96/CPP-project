@@ -36,7 +36,7 @@ void MapMenu::initButtons() {
 	nextbutton_ = new Button("Next", 325, 600, 200, 50);
 	backbutton_ = new Button("Back to menu", 100, 100, 150, 50);
 	int j = 0;
-	for(int i = 0; i < filearr_.size(); i++){
+	for(unsigned int i = 0; i < filearr_.size(); i++){
 		if (j % 5 == 0)
 			j = 0;
 		mapbuttons_.push_back(new Button(filearr_[i], 325, 100 + 100 * j, 200, 75));
@@ -168,7 +168,7 @@ void MapMenu::draw() {
 
 	std::stringstream ss;
 	ss << "Choose Map \n\n";
-	int j = 0;
+	
 	for(unsigned int i = wincounter_; i < wincounter_ + 5 && i < filearr_.size(); i++){
 		mapbuttons_[i]->drawButton(&guiWindow_.getWindow());
 		//ss << filearr_[i];
