@@ -111,6 +111,7 @@ bool MapMenu::handleInput() {
     		{
                 //go back to startmenu
 				std::cout <<"Q pressed" << std::endl;
+				return true;
     		}
 
 		}

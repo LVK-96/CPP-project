@@ -7,10 +7,16 @@ StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	quitbutton_ = new Button("Quit", 500, 400, 150, 50);
 }
 
+StartMenu::~StartMenu() {
+	delete playbutton_;
+	delete mapbutton_;
+	delete scorebutton_;
+	delete quitbutton_;
+}
+
 bool StartMenu::handleInput() {
 	sf::Event event;
-	while (guiWindow_.getWindow().pollEvent(event))
-	{
+	while (guiWindow_.getWindow().pollEvent(event)) {
          // "close requested" event: we close the window
 		if (event.type == sf::Event::Closed){
 			std::cout << "window closed" << std::endl;
