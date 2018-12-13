@@ -14,7 +14,7 @@ public:
 	~SaveMap() = default;
 	
 	virtual void draw();
-	virtual void update(const float dt);
+	virtual bool update();
 	virtual bool handleInput();
 
 private:

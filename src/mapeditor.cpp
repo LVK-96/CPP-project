@@ -17,7 +17,7 @@ void MapEditor::draw() {
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
-				std::cout << "Wall" << std::endl;
+				//std::cout << "Wall" << std::endl;
 				wallshape.setPosition(j*distance, i*height);
 				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 				guiWindow_.getWindow().draw(wallshape);
@@ -65,7 +65,15 @@ bool MapEditor::handleInput() {
 				unsigned int clickX = (event.mouseButton.x / 100);
 				unsigned int clickY = (event.mouseButton.y / 100);
 				if (clickX > 7 || clickY > 7) {return false;}
-				map_.setTile(clickX, clickY, -1);
+				
+				std::cout<<map_.getTile(clickX, clickY)<<std::endl;
+				if (map_.getTile(clickX, clickY) == -1) {
+					std::vector<std::vector<int> > temp = map_.getMatrix();
+					temp[clickY][clickX] = 0;
+					map_.setMatrix(temp);
+				}
+				
+				else {map_.setTile(clickX, clickY, -1);}
 			}
 		}
 
