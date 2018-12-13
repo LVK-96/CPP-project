@@ -66,12 +66,16 @@ void Game::fillMap() {
 	for (unsigned int j = 0; j < matrix.size(); j++) {
 		for (unsigned int i = 0; i < matrix[j].size(); i++) {
 			if (matrix[j][i] == 0) {
-				map_.setTile(i, j, rand() % 4 + 1);
+				if ( (getScore() % 100 > 10) && (getScore() % 100 < 30) ) {
+					map_.setTile(i, j, rand() % 5 + 1);
+				}
+				
+				else {
+					map_.setTile(i, j, rand() % 4 + 1);
+				}
 			}
 		}
 	}
-	if ( (getScore() % 100 > 10) && (getScore() % 100 < 50) )
-		map_.setTile(rand() % 7, rand() % 7, rand() % 5 + 1);
 }
 
 bool Game::dropTiles() {

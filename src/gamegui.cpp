@@ -2,6 +2,7 @@
 
 
 GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename): guiWindow_(guiWindow), mapname_(mapname){
+	correctmoveFlag_ = 0;
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);
@@ -163,6 +164,7 @@ void GameGUI::drawSelection(int x, int y){
 }
 
 bool GameGUI::handleInput() {
+	correctmoveFlag_ = 0;
 	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
@@ -231,6 +233,7 @@ bool GameGUI::handleInput() {
 		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
 			if (game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
+				correctmoveFlag_ = 1;
 				matchSound_.play();
 				
 			}
@@ -245,8 +248,10 @@ bool GameGUI::update() {
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
-	sf::sleep(sf::seconds(0.2));
 	
+	if (correctmoveFlag_ == 0) {return false;}
+	
+	sf::sleep(sf::seconds(0.1));
 	while(game_.dropTiles()) {
 		guiWindow_.getWindow().clear(sf::Color::Black);
 		draw();
@@ -257,11 +262,10 @@ bool GameGUI::update() {
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
-	sf::sleep(sf::seconds(0.2));
 	game_.fillMap();
+	sf::sleep(sf::seconds(0.3));
 	
 	if(game_.clearMatches()) {
-		sf:sleep(sf::seconds(2));
 		return true;
 	}
 	

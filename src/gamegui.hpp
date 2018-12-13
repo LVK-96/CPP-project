@@ -42,4 +42,6 @@ class GameGUI : public State {
 		sf::Sound matchSound_;
 		sf::SoundBuffer matchBuffer_;
 		sf::Clock clock_;
+		
+		int correctmoveFlag_;
 };
