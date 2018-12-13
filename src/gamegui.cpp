@@ -1,18 +1,12 @@
 #include "gamegui.hpp"
 
-<<<<<<< HEAD
 GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename): guiWindow_(guiWindow), mapname_(mapname){
-=======
-GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindow), mapname_(mapname) {
->>>>>>> 231bea0ce5cab9505c3f5441036fc6753b51cacb
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);
 
-	if(modename == "default"){
-		
-	}
 	GameMode mode;
+
 	std::stringstream ss;
 	ss << "maps/" << mapname << ".txt"; //parse path
 
@@ -21,6 +15,9 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindo
     game_= Game(players,map, mode);
 	//check if game has ended before any moves have been made
 	availablemoves_ = game_.getGameMode().checkBaseEndCondition(game_.getMap());
+
+	std::cout << "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
+	game_.getGameMode().checkSpecialEndCondition(0);
 
 	if (!musicBuffer_.loadFromFile("gamemusic.wav"))
         std::cout << "Reading music file failed!" << std::endl;
