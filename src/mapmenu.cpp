@@ -39,7 +39,6 @@ void MapMenu::startGame(std::string mapname) {
 
 bool MapMenu::handleInput() {
 	sf::Event event;
-    bool ret = false;
 
 	while (guiWindow_.getWindow().pollEvent(event))
 	{
@@ -57,7 +56,6 @@ bool MapMenu::handleInput() {
 					startGame(filearr_[wincounter_]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
-                	ret = true;
 				}
     		}
 
@@ -69,7 +67,6 @@ bool MapMenu::handleInput() {
 					startGame(filearr_[wincounter_ + 1]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
-                	ret = true;
 				}
     		}
 			else if (event.key.code == sf::Keyboard::C)
@@ -80,7 +77,6 @@ bool MapMenu::handleInput() {
 					startGame(filearr_[wincounter_ + 2]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
-                	ret = true;
 				}
     		}
 			else if (event.key.code == sf::Keyboard::D)
@@ -91,7 +87,6 @@ bool MapMenu::handleInput() {
 					startGame(filearr_[wincounter_ + 3]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
-                	ret = true;
 				}
     		}
 			else if (event.key.code == sf::Keyboard::E)
@@ -102,7 +97,6 @@ bool MapMenu::handleInput() {
 					startGame(filearr_[wincounter_ + 4]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
-                	ret = true;
 				}
     		}
 			else if(event.key.code == sf::Keyboard::F){
@@ -117,13 +111,12 @@ bool MapMenu::handleInput() {
     		{
                 //go back to startmenu
 				std::cout <<"Q pressed" << std::endl;
-				ret = true;
     		}
 
 		}
 		//std::cout << "end of first loop" << std::endl;
 	}
-    return ret;
+    return false;
 }
 
 void MapMenu::draw(const float dt) {
