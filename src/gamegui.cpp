@@ -1,10 +1,7 @@
 #include "gamegui.hpp"
 
-<<<<<<< HEAD
+
 GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename): guiWindow_(guiWindow), mapname_(mapname){
-=======
-GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindow), mapname_(mapname) {
->>>>>>> 231bea0ce5cab9505c3f5441036fc6753b51cacb
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);
@@ -244,7 +241,7 @@ bool GameGUI::handleInput() {
 	return false;
 }
 
-bool GameGUI::update(){
+bool GameGUI::update() {
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
@@ -263,21 +260,23 @@ bool GameGUI::update(){
 	sf::sleep(sf::seconds(0.2));
 	game_.fillMap();
 	
-	if(game_.clearMatches()){
-		sf:sleep(sf::seconds(1));
+	if(game_.clearMatches()) {
+		sf:sleep(sf::seconds(2));
 		return true;
 	}
 	
 	
 	
-	if(game_.getGameMode().checkBaseEndCondition(game_.getMap())){
+	if(game_.getGameMode().checkBaseEndCondition(game_.getMap())) {
 		std::cout << "found atleast one possible move" << std::endl;
 	}
-	else{
+	
+	else { 
 		std::cout << "no possible moves found" << std::endl;
 		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode().getName(), guiWindow_));
 		game_.saveScore();
 		//end game (create a state for it)
-		}
-	return false;
 	}
+	
+	return false;
+}

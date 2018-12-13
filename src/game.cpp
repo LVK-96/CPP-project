@@ -30,10 +30,8 @@ bool Game::clearMatches() {
 	int matches = 0;
 	for (int j = 0; j < (int) matrix.size(); j++) {
 		for (int i = 0; i < (int) matrix[j].size(); i++) {
-			if(matrix[j][i] != -1){
-				//check only if not wall
-				if (j-2 >= 0) {	
-					//check y			
+			if(matrix[j][i] != -1){ //check only if not wall
+				if (j-2 >= 0) {	//check y			
 					if (matrix[j][i] == matrix[j-1][i] && matrix[j][i] == matrix[j-2][i]) {
 						map_.setTile(i, j, 0);  
 						map_.setTile(i, j-1, 0);
@@ -42,8 +40,7 @@ bool Game::clearMatches() {
 						ret = true;
 						}
 					}	
-					if (i-2 >= 0) { 
-						//check x 
+					if (i-2 >= 0) { //check x 
 						if (matrix[j][i] == matrix[j][i-1] && matrix[j][i] == matrix[j][i-2]) {
 							map_.setTile(i, j, 0); 
 							map_.setTile(i-1, j, 0);
@@ -93,8 +90,9 @@ bool Game::dropTiles() {
 			if (a != 0 && b != 0) {a = b;} //two ints != 0 are equal so 0s end up on top
 			return (a < b);
 		});*/
-		
-		for (int j = tmp_arr.size()-1; j >= 0; j--) {
+
+		std::cout<<tmp_arr[8]<<std::endl;
+		for (int j = tmp_arr.size()-2; j >= 0; j--) {
 			if (tmp_arr[j+1] == 0 && tmp_arr[j] != 0) {
 				int a = tmp_arr[j];
 				tmp_arr[j+1] = a;
@@ -129,6 +127,7 @@ bool Game::swapCoords(int x1, int y1, int x2, int y2) {
 		specialEffect5(clr1, clr2);
 		i = 1;
 	}
+	
 	else if (clearMatches()){i++;}
 
 	if(i == 0){
