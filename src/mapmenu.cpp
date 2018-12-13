@@ -46,7 +46,7 @@ void MapMenu::initButtons() {
 
 
 void MapMenu::startGame(std::string mapname) {
-    guiWindow_.changeState(new GameGUI(guiWindow_, mapname)); //insert as second in stack will be first when this method returns
+    guiWindow_.changeState(new GameGUI(guiWindow_, mapname, "default")); //insert as second in stack will be first when this method returns
 	/*we want to push the gamestate ontop of the STARTMENU - and we want to remove mapmenu from the stack - 
 	we can do this only after returning from this function (and handleinput) - once back in game loop the top of the
 	stack is popped - insert gameGUI as second in the stack*/

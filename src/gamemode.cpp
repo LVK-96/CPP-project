@@ -1,12 +1,13 @@
 #include "gamemode.hpp"
 
-GameMode::GameMode() {name_ = "basic";}
+GameMode::GameMode(std::string name):name_(name) {}
 std::string GameMode::getName() const {return name_;}
 
 
 
 bool GameMode::checkBaseEndCondition(Map map){
 
+	if(checkSpecialEndCondition(0)){return true;}
     //indexing is [y][x], but getTile gives x, y --> matrix is looped through column by column
     int i = 1;
     //check if possible moves exist
