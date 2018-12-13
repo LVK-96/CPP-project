@@ -12,6 +12,7 @@
 #include "map.hpp"
 #include "game.hpp"
 #include "endgame.hpp"
+#include "timeattack.hpp"
 
 //forward declarations for GUIWindow and Game. Compiler needs this for memory allocation
 class GUIWindow;
@@ -19,7 +20,7 @@ class Game;
 
 class GameGUI : public State {
     public:
-        GameGUI(GUIWindow& guiWindow, std::string mapname);
+        GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename);
         ~GameGUI() = default;
 
         virtual void draw(const float dt); 

@@ -1,9 +1,13 @@
 #include "gamegui.hpp"
 
-GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindow), mapname_(mapname){
+GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename): guiWindow_(guiWindow), mapname_(mapname){
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);
+
+	if(modename == "default"){
+		
+	}
 	GameMode mode;
 	std::stringstream ss;
 	ss << "maps/" << mapname << ".txt"; //parse path
