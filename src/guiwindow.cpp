@@ -38,7 +38,9 @@ void GUIWindow::popState() {
 }
 
 void GUIWindow::changeState(State* state) {
+    State *temp = states_.top();
     states_.pop();
+    delete temp;
     pushState(state);
 }
 
