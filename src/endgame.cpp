@@ -45,4 +45,3 @@ void EndGame::draw(const float dt) {
 	guiWindow_.getWindow().draw(text);
 }
 
-void EndGame::update(const float dt){}

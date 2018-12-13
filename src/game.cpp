@@ -203,12 +203,7 @@ bool Game::swapCoords(int x1, int y1, int x2, int y2) {
 		specialEffect5(clr1, clr2);
 		i = 1;
 	}
-
-	while(clearMatches() || i == 1) {
-			dropTiles();
-			fillMap();
-			i++;
-	} 
+	else if (clearMatches()){i++;}
 
 	if(i == 0){
 		std::cout << "no matches on the swap, swapping back" << std::endl;

@@ -19,7 +19,8 @@ void GUIWindow::gameLoop() {
         
         if (peekState()==NULL) {continue;}
         if(peekState()->handleInput()) {popState();}//remove a state from the stack
-        peekState()->update(dt);
+		
+		while(peekState()->update()){}
         window_.clear(sf::Color::Black);
         peekState()->draw(dt);
         window_.display();

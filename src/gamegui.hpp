@@ -23,7 +23,7 @@ class GameGUI : public State {
         ~GameGUI() = default;
 
         virtual void draw(const float dt); 
-        virtual void update(const float dt);
+        virtual bool update();
         virtual bool handleInput(); // window event loop, handle game inputs
         void drawTime(const float dt);
 		void drawScore();

@@ -27,7 +27,7 @@ bool StartMenu::handleInput() {
 					if (playbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
 						guiWindow_.pushState(new MapMenu(guiWindow_));
 					if (mapbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
-						guiWindow_.pushState(new MapSize(guiWindow_));
+						guiWindow_.pushState(new MapEditor(guiWindow_, 8));
 					if (scorebutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
 						guiWindow_.pushState(new ScoreGUI(guiWindow_));
 					if (quitbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
@@ -56,7 +56,7 @@ bool StartMenu::handleInput() {
 			
 			if (event.key.code == sf::Keyboard::E) {
 				std::cout <<"E pressed" << std::endl;
-				guiWindow_.pushState(new MapSize(guiWindow_));
+				guiWindow_.pushState(new MapEditor(guiWindow_, 8));
 			}
 			
 			if (event.key.code == sf::Keyboard::C)
@@ -96,5 +96,3 @@ void StartMenu::draw(const float dt) {
 
 	//guiWindow_.getWindow().draw(text);
 }
-
-void StartMenu::update(const float dt){}

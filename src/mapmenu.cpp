@@ -195,4 +195,3 @@ void MapMenu::draw(const float dt) {
 	guiWindow_.getWindow().draw(text);
 }
 
-void MapMenu::update(const float dt){}

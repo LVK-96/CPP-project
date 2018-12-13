@@ -223,15 +223,7 @@ bool GameGUI::handleInput() {
 			std::cout << "are adjacent" << std::endl;
 			if (game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
 				matchSound_.play();
-				if(game_.getGameMode().checkBaseEndCondition(game_.getMap())){
-					std::cout << "found atleast one possible move" << std::endl;
-				}
-				else{
-					std::cout << "no possible moves found" << std::endl;
-					guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode().getName(), guiWindow_));
-					game_.saveScore();
-					//end game (create a state for it)
-				}
+				
 			}
 			return false;
 		}
@@ -240,4 +232,32 @@ bool GameGUI::handleInput() {
 	return false;
 }
 
-void GameGUI::update(const float dt){}
+bool GameGUI::update(){
+	guiWindow_.getWindow().clear(sf::Color::Black);
+	draw(0);
+	guiWindow_.getWindow().display();
+	sf::sleep(sf::seconds(0.5));
+	game_.dropTiles();
+	guiWindow_.getWindow().clear(sf::Color::Black);
+	draw(0);
+	guiWindow_.getWindow().display();
+	sf::sleep(sf::seconds(0.5));
+	game_.fillMap();
+	
+	if(game_.clearMatches()){
+		return true;
+	}
+	
+	
+	
+	if(game_.getGameMode().checkBaseEndCondition(game_.getMap())){
+		std::cout << "found atleast one possible move" << std::endl;
+	}
+	else{
+		std::cout << "no possible moves found" << std::endl;
+		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode().getName(), guiWindow_));
+		game_.saveScore();
+		//end game (create a state for it)
+		}
+	return false;
+	}

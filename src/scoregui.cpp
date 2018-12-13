@@ -100,4 +100,3 @@ std::string ScoreGUI::getStr() {
     }
 	return scorestr;
 }
-void ScoreGUI::update(const float dt){}

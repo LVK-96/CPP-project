@@ -83,5 +83,3 @@ bool MapEditor::handleInput() {
 }
 
 
-void MapEditor::update(const float dt){}
-

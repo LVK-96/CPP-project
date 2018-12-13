@@ -60,6 +60,5 @@ void MapSize::draw(const float dt) {
 	guiWindow_.getWindow().draw(text);
 }
 
-void MapSize::update(const float dt){}
 
 
