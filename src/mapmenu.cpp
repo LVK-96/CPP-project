@@ -19,11 +19,15 @@ MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow){
 
 	std::cout << "arr 1: " << std::endl;
 	std::cout << filearr_[1] << std::endl;
+	initButtons();
 }
 
-MapMenu::~MapMenu(){
+MapMenu::~MapMenu() {
     std::cout << "Map menu destructor called" << std::endl << "delete this probably not a good idea" << std::endl;
 	//memory allocated with this
+
+	for (auto it : mapbuttons_)
+		delete it;
 }
 
 
@@ -45,8 +49,18 @@ bool MapMenu::handleInput() {
          // "close requested" event: we close the window
 		if (event.type == sf::Event::Closed /*|| event.key.code == sf::Keyboard::Q*/)
                guiWindow_.getWindow().close();
-		if (event.type == sf::Event::KeyPressed)
-		{
+		if (event.type == sf::Event::MouseButtonPressed) {
+    			if (event.mouseButton.button == sf::Mouse::Left) {
+					for (int i = 0; i < 6; i++) {
+						if(wincounter_ + i< filearr_.size()) {
+							if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y))
+								startGame(filearr_[wincounter_+ i]);
+						}
+					}
+
+				}
+		}
+		if (event.type == sf::Event::KeyPressed) {
     		if (event.key.code == sf::Keyboard::A)
     		{
 				if(wincounter_< filearr_.size()){
@@ -120,6 +134,16 @@ bool MapMenu::handleInput() {
     return false;
 }
 
+void MapMenu::initButtons() {
+	int j = 0;
+	for(int i = 0; i < filearr_.size(); i++){
+		if (j % 5 == 0)
+			j = 0;
+		mapbuttons_.push_back(new Button(filearr_[i], 500, 100 + 100 * j, 150, 50));
+		j++;
+	}
+}
+
 void MapMenu::draw(const float dt) {
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
@@ -132,7 +156,9 @@ void MapMenu::draw(const float dt) {
 
 	std::stringstream ss;
 	ss << "Choose Map \n\n";
+	int j = 0;
 	for(int i = wincounter_; i < wincounter_ + 5 && i < filearr_.size(); i++){
+		mapbuttons_[i]->drawButton(&guiWindow_.getWindow());
 		ss << filearr_[i];
 		ss << "\n\n";
 	}

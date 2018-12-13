@@ -9,6 +9,7 @@
 #include "state.hpp"
 #include "gamegui.hpp"
 #include "guiwindow.hpp"
+#include "button.hpp"
 
 class MapMenu: public State {
     public:
@@ -20,8 +21,10 @@ class MapMenu: public State {
         virtual bool handleInput(); // window event loop, close window or call startGame
 
         void startGame(std::string mapname); // add game to the state stack
+		void initButtons();
     private:
 		GUIWindow& guiWindow_;
         std::vector<std::string> filearr_;
         unsigned int wincounter_;
+		std::vector<Button*> mapbuttons_;
 };
