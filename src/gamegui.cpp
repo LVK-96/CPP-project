@@ -1,6 +1,10 @@
 #include "gamegui.hpp"
 
+<<<<<<< HEAD
 GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename): guiWindow_(guiWindow), mapname_(mapname){
+=======
+GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname): guiWindow_(guiWindow), mapname_(mapname) {
+>>>>>>> 231bea0ce5cab9505c3f5441036fc6753b51cacb
 	Player p1;
 	std::vector<Player> players;
 	players.push_back(p1);
@@ -71,6 +75,7 @@ std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
 
 
 void GameGUI::drawTime(const float time){
+	
 	int roundedtime = static_cast<int>(time);
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))
@@ -94,7 +99,7 @@ void GameGUI::drawTime(const float time){
 	guiWindow_.getWindow().display();//display command could probably be removed from guiWindow
 }
 
-void GameGUI::draw(const float time) {
+void GameGUI::draw() {
 	std::vector<std::vector<int>> matrix = game_.getMap().getMatrix();//should getMatrix or getMap return a reference
 	sf::CircleShape shape(48.f, 8);
 	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));
@@ -123,7 +128,10 @@ void GameGUI::draw(const float time) {
 		}
 	}
 	//time
-	drawTime(time);
+	sf::Time elapsed=clock_.getElapsedTime();
+	float dt=elapsed.asSeconds();
+	
+	drawTime(dt);
 	drawScore();
 }
 
@@ -238,12 +246,12 @@ bool GameGUI::handleInput() {
 
 bool GameGUI::update(){
 	guiWindow_.getWindow().clear(sf::Color::Black);
-	draw(0);
+	draw();
 	guiWindow_.getWindow().display();
 	sf::sleep(sf::seconds(0.5));
 	game_.dropTiles();
 	guiWindow_.getWindow().clear(sf::Color::Black);
-	draw(0);
+	draw();
 	guiWindow_.getWindow().display();
 	sf::sleep(sf::seconds(0.5));
 	game_.fillMap();

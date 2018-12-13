@@ -18,7 +18,7 @@ class ScoreGUI: public State {
         ScoreGUI(GUIWindow& guiWindow);
         ~ScoreGUI() = default;
 
-        virtual void draw(const float dt);
+        virtual void draw();
         virtual bool handleInput(); // window event loop, close window or call startGame
 		void loadScores();
 		void deleteScores();

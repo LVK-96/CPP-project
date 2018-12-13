@@ -156,7 +156,7 @@ bool MapMenu::handleInput() {
     return false;
 }
 
-void MapMenu::draw(const float dt) {
+void MapMenu::draw() {
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf"))

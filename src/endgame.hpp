@@ -11,7 +11,7 @@ class EndGame: public State {
         EndGame(int points, std::string mapname, std::string modename, GUIWindow& guiwindow);
         ~EndGame() = default;
 
-        virtual void draw(const float dt); //changes the view that will be drawn to window (defined in guiwindow class)
+        virtual void draw(); //changes the view that will be drawn to window (defined in guiwindow class)
         virtual bool handleInput(); // window event loop, close window or call startGame
 
 

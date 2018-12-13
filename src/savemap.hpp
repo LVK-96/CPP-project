@@ -13,7 +13,7 @@ public:
 	SaveMap(GUIWindow& guiWindow, Map map);
 	~SaveMap() = default;
 	
-	virtual void draw(const float dt);
+	virtual void draw();
 	virtual void update(const float dt);
 	virtual bool handleInput();
 
