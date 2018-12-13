@@ -9,7 +9,7 @@
 
 Game::Game() = default;
 
-Game::Game(std::vector<Player> players, Map map, GameMode mode): 
+Game::Game(std::vector<Player> players, Map map, GameMode *mode): 
 players_(players), map_(map), mode_(mode) {
 	score = 0;
 	fillMap(); //fill map with random numbers

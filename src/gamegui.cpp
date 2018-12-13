@@ -7,7 +7,8 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 	std::vector<Player> players;
 	players.push_back(p1);
 
-	GameMode mode;
+
+	GameMode *mode = new TimeAttack("time attack");
 
 	std::stringstream ss;
 	ss << "maps/" << mapname << ".txt"; //parse path
@@ -16,10 +17,13 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 
     game_= Game(players,map, mode);
 	//check if game has ended before any moves have been made
-	availablemoves_ = game_.getGameMode().checkBaseEndCondition(game_.getMap());
+	availablemoves_ = game_.getGameMode()->checkBaseEndCondition(game_.getMap());
 
 	std::cout << "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
-	game_.getGameMode().checkSpecialEndCondition(0);
+	game_.getGameMode()->checkSpecialEndCondition(0);
+	std::cout << game_.getGameMode()->getName() << std::endl;
+	std::cout << "mo weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
+	
 
 	if (!musicBuffer_.loadFromFile("gamemusic.wav"))
         std::cout << "Reading music file failed!" << std::endl;
@@ -172,7 +176,7 @@ bool GameGUI::handleInput() {
 
 	if(!availablemoves_){
 		std::cout << "no possible moves found" << std::endl;
-		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode().getName(), guiWindow_));
+		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
 		game_.saveScore();
 		return true;//close game and display endgame screen
 	}
@@ -272,13 +276,13 @@ bool GameGUI::update() {
 	
 	
 	
-	if(game_.getGameMode().checkBaseEndCondition(game_.getMap())) {
+	if(game_.getGameMode()->checkBaseEndCondition(game_.getMap())) {
 		std::cout << "found atleast one possible move" << std::endl;
 	}
 	
 	else { 
 		std::cout << "no possible moves found" << std::endl;
-		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode().getName(), guiWindow_));
+		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
 		game_.saveScore();
 		//end game (create a state for it)
 	}

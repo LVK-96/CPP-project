@@ -8,7 +8,7 @@
 class Game {
 public:
     Game();
-    Game(std::vector<Player> players, Map map, GameMode mode);
+    Game(std::vector<Player> players, Map map, GameMode *mode);
 
     void updateMap();
     void checkMove();
@@ -27,13 +27,13 @@ public:
 	int getScore();
 	void saveScore();
 	void specialEffect5(int color1, int color2);
-    GameMode getGameMode(){return mode_;}
+    GameMode *getGameMode(){return mode_;}
 
 private:
     bool paused;
     std::vector<Player> players_;
     Map map_;
-    GameMode mode_;
+    GameMode *mode_;
 	sf::Clock clock_;
 	int score;
 };
