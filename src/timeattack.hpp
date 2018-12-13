@@ -8,7 +8,11 @@ class TimeAttack : public GameMode{
     public:
         TimeAttack(std::string name);
         ~TimeAttack() = default;
-        bool SpecialEndCondition(float dt);
+
+        std::string getName() const;
+
+        bool checkSpecialEndCondition(float dt);
+
     private:
         std::string name_;
         float maxtime_;

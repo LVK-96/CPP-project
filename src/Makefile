@@ -2,8 +2,8 @@ CC=g++
 CPPFLAGS=-c -g -std=c++0x -Wall -Wextra -pedantic
 INCLUDES=-I/usr/include/
 LDFLAGS=-L/usr/include/ -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-SOURCES=main.cpp game.cpp map.cpp player.cpp gamemode.cpp guiwindow.cpp startmenu.cpp gamegui.cpp mapmenu.cpp scoregui.cpp mapeditor.cpp savemap.cpp button.cpp endgame.cpp
-OBJECTS=main.o game.o map.o player.o gamemode.o guiwindow.o startmenu.o gamegui.o mapmenu.o scoregui.o mapeditor.o savemap.o button.o endgame.o
+SOURCES=main.cpp game.cpp map.cpp player.cpp gamemode.cpp guiwindow.cpp startmenu.cpp gamegui.cpp mapmenu.cpp scoregui.cpp mapeditor.cpp savemap.cpp button.cpp endgame.cpp timeattack.cpp
+OBJECTS=main.o game.o map.o player.o gamemode.o guiwindow.o startmenu.o gamegui.o mapmenu.o scoregui.o mapeditor.o savemap.o button.o endgame.o timeattack.o
 EXECUTABLE=main
 
 all: $(SOURCES) $(EXECUTABLE)

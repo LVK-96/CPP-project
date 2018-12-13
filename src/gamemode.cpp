@@ -1,13 +1,25 @@
 #include "gamemode.hpp"
 
 GameMode::GameMode(std::string name):name_(name) {}
-std::string GameMode::getName() const {return name_;}
 
+std::string GameMode::getName() const {
+	std::cout << "gamemode getname called, name: " << name_ << std::endl; 
+	return name_;
+}
 
+bool GameMode::checkSpecialEndCondition(float dt){
+		std::cout << "std special condition check is called" << std::endl;
+        return false;
+}
 
 bool GameMode::checkBaseEndCondition(Map map){
 
-	if(checkSpecialEndCondition(0)){return true;}
+	std::cout << "checking base end condition" << std::endl;
+	if(checkSpecialEndCondition(0)){
+		std::cout << "special End condition returned true" << std::endl;
+		return true;
+	}
+	std::cout << "checking special end condition returned false" << std::endl;
     //indexing is [y][x], but getTile gives x, y --> matrix is looped through column by column
     int i = 1;
     //check if possible moves exist

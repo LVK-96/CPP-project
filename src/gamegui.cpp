@@ -7,10 +7,8 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 	std::vector<Player> players;
 	players.push_back(p1);
 
-	if(modename == "default"){
-		
-	}
 	GameMode mode;
+
 	std::stringstream ss;
 	ss << "maps/" << mapname << ".txt"; //parse path
 
@@ -19,6 +17,9 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
     game_= Game(players,map, mode);
 	//check if game has ended before any moves have been made
 	availablemoves_ = game_.getGameMode().checkBaseEndCondition(game_.getMap());
+
+	std::cout << "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
+	game_.getGameMode().checkSpecialEndCondition(0);
 
 	if (!musicBuffer_.loadFromFile("gamemusic.wav"))
         std::cout << "Reading music file failed!" << std::endl;
