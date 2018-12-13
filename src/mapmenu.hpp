@@ -27,4 +27,6 @@ class MapMenu: public State {
         std::vector<std::string> filearr_;
         unsigned int wincounter_;
 		std::vector<Button*> mapbuttons_;
+		Button* nextbutton_;
+		Button* backbutton_;
 };

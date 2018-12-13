@@ -1,10 +1,10 @@
 #include "startmenu.hpp"
 
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
-	playbutton_ =  new Button("Play", 500, 100, 150, 50);
-	mapbutton_ = new Button("Map Editor", 500, 200, 150, 50);
-	scorebutton_ = new Button("Highscores", 500, 300, 150, 50);
-	quitbutton_ = new Button("Quit", 500, 400, 150, 50);
+	playbutton_ =  new Button("Play", 325, 100, 150, 50);
+	mapbutton_ = new Button("Map Editor", 325, 200, 150, 50);
+	scorebutton_ = new Button("Highscores", 325, 300, 150, 50);
+	quitbutton_ = new Button("Quit", 325, 400, 150, 50);
 }
 
 StartMenu::~StartMenu() {
@@ -94,7 +94,7 @@ void StartMenu::draw(const float dt) {
 	scorebutton_->drawButton(&guiWindow_.getWindow());
 	quitbutton_->drawButton(&guiWindow_.getWindow());
 
-	guiWindow_.getWindow().draw(text);
+	//guiWindow_.getWindow().draw(text);
 }
 
 void StartMenu::update(const float dt){}

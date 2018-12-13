@@ -28,9 +28,21 @@ MapMenu::~MapMenu() {
 
 	for (auto it : mapbuttons_)
 		delete it;
+	delete nextbutton_;
+	delete backbutton_;
 }
 
-
+void MapMenu::initButtons() {
+	nextbutton_ = new Button("Next", 325, 600, 200, 50);
+	backbutton_ = new Button("Back to menu", 100, 100, 150, 50);
+	int j = 0;
+	for(int i = 0; i < filearr_.size(); i++){
+		if (j % 5 == 0)
+			j = 0;
+		mapbuttons_.push_back(new Button(filearr_[i], 325, 100 + 100 * j, 200, 75));
+		j++;
+	}
+}
 
 
 void MapMenu::startGame(std::string mapname) {
@@ -50,15 +62,25 @@ bool MapMenu::handleInput() {
 		if (event.type == sf::Event::Closed /*|| event.key.code == sf::Keyboard::Q*/)
                guiWindow_.getWindow().close();
 		if (event.type == sf::Event::MouseButtonPressed) {
-    			if (event.mouseButton.button == sf::Mouse::Left) {
-					for (int i = 0; i < 6; i++) {
-						if(wincounter_ + i< filearr_.size()) {
-							if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y))
-								startGame(filearr_[wincounter_+ i]);
-						}
+    		if (event.mouseButton.button == sf::Mouse::Left) {
+				for (int i = 0; i < 6; i++) {
+					if(wincounter_ + i< filearr_.size()) {
+						if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y))
+							startGame(filearr_[wincounter_+ i]);
 					}
-
 				}
+				if (nextbutton_->checkClick(event.mouseButton.x, event.mouseButton.y)) {
+					if(wincounter_ + 5 < filearr_.size()){
+						wincounter_ = wincounter_ + 5;
+					}
+					else {
+						wincounter_ = 0;
+					}
+				}
+				if (backbutton_->checkClick(event.mouseButton.x, event.mouseButton.y)) {
+					return true;
+				}
+			}
 		}
 		if (event.type == sf::Event::KeyPressed) {
     		if (event.key.code == sf::Keyboard::A)
@@ -134,16 +156,6 @@ bool MapMenu::handleInput() {
     return false;
 }
 
-void MapMenu::initButtons() {
-	int j = 0;
-	for(int i = 0; i < filearr_.size(); i++){
-		if (j % 5 == 0)
-			j = 0;
-		mapbuttons_.push_back(new Button(filearr_[i], 500, 100 + 100 * j, 150, 50));
-		j++;
-	}
-}
-
 void MapMenu::draw(const float dt) {
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
@@ -157,26 +169,29 @@ void MapMenu::draw(const float dt) {
 	std::stringstream ss;
 	ss << "Choose Map \n\n";
 	int j = 0;
-	for(int i = wincounter_; i < wincounter_ + 5 && i < filearr_.size(); i++){
+	for(unsigned int i = wincounter_; i < wincounter_ + 5 && i < filearr_.size(); i++){
 		mapbuttons_[i]->drawButton(&guiWindow_.getWindow());
-		ss << filearr_[i];
-		ss << "\n\n";
+		//ss << filearr_[i];
+		//ss << "\n\n";
 	}
-	if(filearr_.size() > 5){
+	/*if(filearr_.size() > 5){
 		ss << "press f for next\n\n";
 	}
-	ss << "press q to go back"; 
+	ss << "press q to go back";*/
 
 	text.setString(ss.str());
-	text.setCharacterSize(24);
+	text.setCharacterSize(30);
 	text.setColor(sf::Color::Red);
-	float xPos = 50;
+	float xPos = 325;
 
 	text.setPosition(xPos, 100);
 
-	float ypos = 100;
+	float ypos = 20;
 	text.setPosition(xPos, ypos);
 	
+	nextbutton_->drawButton(&guiWindow_.getWindow());
+	backbutton_->drawButton(&guiWindow_.getWindow());
+
 	guiWindow_.getWindow().draw(text);
 }
 

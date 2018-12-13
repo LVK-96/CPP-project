@@ -2,8 +2,8 @@
 
 ScoreGUI::ScoreGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	loadScores();
-	backbutton_ =  new Button("Back", 50, 500, 150, 50);
-	deletebutton_ = new Button("Delete", 220, 500, 150, 50);	
+	backbutton_ =  new Button("Back", 325, 500, 150, 50);
+	deletebutton_ = new Button("Delete", 500, 500, 150, 50);	
 }
 
 
@@ -55,7 +55,7 @@ void ScoreGUI::draw(const float dt) {
 	text.setString(getStr());
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
-	float xPos = 50;
+	float xPos = 325;
 	text.setPosition(xPos, 100);
 
 	backbutton_->drawButton(&guiWindow_.getWindow());
