@@ -240,15 +240,23 @@ bool GameGUI::update(){
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
-	sf::sleep(sf::seconds(0.5));
-	game_.dropTiles();
+	sf::sleep(sf::seconds(0.2));
+	
+	while(game_.dropTiles()) {
+		guiWindow_.getWindow().clear(sf::Color::Black);
+		draw();
+		guiWindow_.getWindow().display();
+		sf::sleep(sf::seconds(0.2));				
+	}
+	
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
-	sf::sleep(sf::seconds(0.5));
+	sf::sleep(sf::seconds(0.2));
 	game_.fillMap();
 	
 	if(game_.clearMatches()){
+		sf:sleep(sf::seconds(1));
 		return true;
 	}
 	
