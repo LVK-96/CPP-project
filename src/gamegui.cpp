@@ -222,17 +222,15 @@ bool GameGUI::handleInput() {
 	int counter = 0;
 	//outer loop loops while there is no event and the inner loop catches it
 	while (counter < 2){
-
 		if(game_->getGameMode()->getName() == "timeattack"){
 			//draw time left
-			std::cout << "getting max time" << game_->getGameMode()->getMaxTime() << std::endl;
 			drawTimeLeft(game_->getGameMode()->getMaxTime());
 		}
 
 		
 		if(!game_->getGameMode()->checkSpecialEndCondition(dt)){
 			guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
-			return false;//close game and display endgame screen
+			return true;//close game and display endgame screen
 		}
 
 		dt = game_->getTime();
