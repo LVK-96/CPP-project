@@ -100,7 +100,7 @@ bool SaveMap::handleInput() {
 
 				std::ofstream maplist;
 				maplist.open("maps/map_filenames.txt", std::ios::app);
-				maplist<<filepath_.getString().toAnsiString();
+				maplist<<filepath_.getString().toAnsiString() << std::endl;
 				return true;
 			}
 		}
