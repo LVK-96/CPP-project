@@ -12,7 +12,7 @@ class TimeAttack : public GameMode{
 
         bool checkSpecialEndCondition(float dt);
         float getMaxTime(){return maxtime_;}
-
+        void addTime(int time);
     private:
         std::string name_;
         float maxtime_;

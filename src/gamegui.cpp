@@ -250,9 +250,11 @@ bool GameGUI::handleInput() {
 				}
 			}
 		}
-		
+		int temp = game_->getScore();
 		if (game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			if (game_->swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
+				std::cout << temp - game_->getScore() << std::endl;
+				game_->getGameMode()->addTime((game_->getScore() - temp +105)/100);
 				correctmoveFlag_ = 1;
 				matchSound_.play();
 				
