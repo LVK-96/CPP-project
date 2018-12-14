@@ -17,6 +17,7 @@ class GameMode {
 		bool checkBaseEndCondition(Map map);
 		virtual bool checkSpecialEndCondition(float timeElapsed);
 		virtual float getMaxTime(){return 0.0;};
+		virtual void addTime(int time){};
 
 	protected:
 		std::string name_;
