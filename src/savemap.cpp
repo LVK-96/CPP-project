@@ -15,7 +15,6 @@ void SaveMap::draw() {
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
-				//std::cout << "Wall" << std::endl;
 				wallshape.setPosition(j*distance, i*height);
 				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 				guiWindow_.getWindow().draw(wallshape);
@@ -33,9 +32,7 @@ void SaveMap::draw() {
 	}
 	
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {
-    	std::cout << "Error" << std::endl;
-	}
+	font.loadFromFile("arial.ttf");
 
 	sf::Text text;
 	text.setFont(font);
@@ -98,7 +95,6 @@ bool SaveMap::handleInput() {
 
 				std::ofstream maplist;
 				maplist.open("maps/map_filenames.txt", std::ios::app);
-				std::cout<< filepath_.getString().toAnsiString()<<std::endl;
 				maplist<<filepath_.getString().toAnsiString()<<std::endl;
 				maplist.close();
 				return true;

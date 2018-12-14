@@ -23,10 +23,8 @@ void Button::drawButton(sf::RenderWindow& window) {
 	rectangle.setOutlineColor(sf::Color::White);
 
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-    	std::cout << "Error in loading font" << std::endl;
-	}
+	font.loadFromFile("arial.ttf");
+	
 	sf::Text text;
 	text.setFont(font);
 

@@ -48,10 +48,8 @@ bool EndGame::handleInput() {
 void EndGame::draw() {
 	//no loop? It runs in the guiwindow::Gamelqqoop?
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-    	std::cout << "Error" << std::endl;
-	}
+	font.loadFromFile("arial.ttf");
+
 	sf::Text text;
 	text.setFont(font);
     std::stringstream ss;
