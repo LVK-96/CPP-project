@@ -182,7 +182,7 @@ bool GameGUI::handleInput() {
 	if(!availablemoves_){
 		std::cout << "no possible moves found" << std::endl;
 		guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
-		return false;//close game and display endgame screen
+		return true;//close game and display endgame screen
 	}
 
 	float dt = game_->getTime();
@@ -234,7 +234,7 @@ bool GameGUI::handleInput() {
 				{
 					std::cout << "Q pressed closing window" << std::endl;
 					guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
-					return false;
+					return true;//muoqattud
 				}
 			}
 		}

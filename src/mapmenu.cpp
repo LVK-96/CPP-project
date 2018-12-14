@@ -56,9 +56,7 @@ void MapMenu::startGame(std::string mapname) {
 bool MapMenu::handleInput() {
 	sf::Event event;
 
-	while (guiWindow_.getWindow().pollEvent(event))
-	{
-         // "close requested" event: we close the window
+	while (guiWindow_.getWindow().pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 			guiWindow_.getWindow().close();
 			return true;
@@ -71,6 +69,7 @@ bool MapMenu::handleInput() {
 					if(wincounter_ + i< filearr_.size()) {
 						if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y))
 							startGame(filearr_[wincounter_+ i]);
+							return true;
 					}
 				}
 				if (nextbutton_->checkClick(event.mouseButton.x, event.mouseButton.y)) {
@@ -95,6 +94,7 @@ bool MapMenu::handleInput() {
 					std::cout <<"A pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_] << std::endl;
 					startGame(filearr_[wincounter_]);
+					return true;
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
 				}
@@ -106,6 +106,7 @@ bool MapMenu::handleInput() {
 					std::cout <<"B pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 1] << std::endl;
 					startGame(filearr_[wincounter_ + 1]);
+					return true;
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
 				}
@@ -116,6 +117,7 @@ bool MapMenu::handleInput() {
 					std::cout <<"C pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 2] << std::endl;
 					startGame(filearr_[wincounter_ + 2]);
+					return true;
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
 				}
@@ -126,6 +128,7 @@ bool MapMenu::handleInput() {
 					std::cout <<"D pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 3] << std::endl;
 					startGame(filearr_[wincounter_ + 3]);
+					return true;
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
 				}
@@ -136,6 +139,7 @@ bool MapMenu::handleInput() {
 					std::cout <<"E pressed" << std::endl;
 					std::cout << "set map: " << filearr_[wincounter_ + 4] << std::endl;
 					startGame(filearr_[wincounter_ + 4]);
+					return true;
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
 				}
@@ -174,7 +178,7 @@ void MapMenu::draw() {
 	ss << "Choose Map \n\n";
 	
 	for(unsigned int i = wincounter_; i < wincounter_ + 5 && i < filearr_.size(); i++){
-		mapbuttons_[i]->drawButton(&guiWindow_.getWindow());
+		mapbuttons_[i]->drawButton(guiWindow_.getWindow());
 		//ss << filearr_[i];
 		//ss << "\n\n";
 	}
@@ -193,8 +197,8 @@ void MapMenu::draw() {
 	float ypos = 20;
 	text.setPosition(xPos, ypos);
 	
-	nextbutton_->drawButton(&guiWindow_.getWindow());
-	backbutton_->drawButton(&guiWindow_.getWindow());
+	nextbutton_->drawButton(guiWindow_.getWindow());
+	backbutton_->drawButton(guiWindow_.getWindow());
 
 	guiWindow_.getWindow().draw(text);
 }

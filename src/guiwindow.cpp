@@ -7,7 +7,7 @@ GUIWindow::GUIWindow() {
 
 GUIWindow::~GUIWindow() {
     std::cout << "GUIWindow destructor called" << std::endl;
-    while(!states_.empty()) popState();
+    while(!states_.empty()) {popState();}
 }
 
 void GUIWindow::gameLoop() {
@@ -40,16 +40,16 @@ void GUIWindow::popState() {
 void GUIWindow::changeState(State* state) {
     State *temp = states_.top();
     states_.pop();
-    delete temp;
     pushState(state);
+	pushState(temp);
 }
 
 State *GUIWindow::peekState() {
-    if(states_.empty()) return NULL;
+    if(states_.empty()) {return NULL;}
     return states_.top();
 }
 
 //returns a reference to the window so that it can be used outside of this class
-sf::RenderWindow &GUIWindow::getWindow(){
+sf::RenderWindow& GUIWindow::getWindow(){
     return window_;
 }

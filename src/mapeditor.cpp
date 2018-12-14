@@ -57,6 +57,7 @@ bool MapEditor::handleInput() {
 	while (guiWindow_.getWindow().pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
 				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
+				return true;
 		}
 
 		if (event.type == sf::Event::MouseButtonPressed) {

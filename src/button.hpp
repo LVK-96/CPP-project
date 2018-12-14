@@ -9,10 +9,10 @@ class Button {
 	public:
 		Button() = default;
 		Button(std::string t, int xCord, int ycord, int w, int h);
-		//~Button() = default;
+		~Button() = default;
 		
 		bool checkClick(int clickX, int clickY) const; //return true if click was inside the button
-		void drawButton(sf::RenderWindow *window); //draws the button the the parameter window
+		void drawButton(sf::RenderWindow& window); //draws the button the the parameter window
 	
 	private:
 		std::string txt;

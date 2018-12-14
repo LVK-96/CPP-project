@@ -6,6 +6,10 @@ ScoreGUI::ScoreGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	deletebutton_ = new Button("Delete", 500, 500, 150, 50);	
 }
 
+ScoreGUI::~ScoreGUI() {
+	delete backbutton_;
+	delete deletebutton_;
+}
 
 bool ScoreGUI::handleInput() {
 	sf::Event event;
@@ -15,6 +19,7 @@ bool ScoreGUI::handleInput() {
 		if (event.type == sf::Event::Closed){
 			std::cout << "window closed" << std::endl;
 			guiWindow_.getWindow().close();
+			return true;
 		}
 		
 		if (event.type == sf::Event::MouseButtonPressed) {
@@ -58,8 +63,8 @@ void ScoreGUI::draw() {
 	float xPos = 325;
 	text.setPosition(xPos, 100);
 
-	backbutton_->drawButton(&guiWindow_.getWindow());
-	deletebutton_->drawButton(&guiWindow_.getWindow());
+	backbutton_->drawButton(guiWindow_.getWindow());
+	deletebutton_->drawButton(guiWindow_.getWindow());
 
 	guiWindow_.getWindow().draw(text);
 }

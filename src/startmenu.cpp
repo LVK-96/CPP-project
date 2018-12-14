@@ -91,8 +91,8 @@ void StartMenu::draw() {
 	float xPos = 50;
 	text.setPosition(xPos, 100);
 
-	playbutton_->drawButton(&guiWindow_.getWindow());
-	mapbutton_->drawButton(&guiWindow_.getWindow());
-	scorebutton_->drawButton(&guiWindow_.getWindow());
-	quitbutton_->drawButton(&guiWindow_.getWindow());
+	playbutton_->drawButton(guiWindow_.getWindow());
+	mapbutton_->drawButton(guiWindow_.getWindow());
+	scorebutton_->drawButton(guiWindow_.getWindow());
+	quitbutton_->drawButton(guiWindow_.getWindow());
 }
