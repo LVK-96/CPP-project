@@ -9,7 +9,11 @@ class Game {
 public:
     Game();
     Game(std::vector<Player> players, Map map, GameMode *mode);
-
+	~Game();
+	
+	Game& operator=(const Game& g) = default; 
+	Game(const Game& g) = default;
+	
     void updateMap();
     void checkMove();
     void tickGame();

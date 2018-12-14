@@ -19,6 +19,11 @@ players_(players), map_(map), mode_(mode) {
 	score = 0;
 }
 
+Game::~Game(){
+	std::cout<<"game destructor called"<<std::endl;
+	delete mode_;
+}
+
  Map Game::getMap(){
 	 //return the games map object for use outside of this class
 	 return this->map_;

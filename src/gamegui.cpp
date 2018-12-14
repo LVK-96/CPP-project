@@ -15,13 +15,14 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 
 	Map map(loadMap(ss.str()));
 
-    game_= Game(players,map, mode);
+    game_ = new Game(players, map, mode);
+	std::cout << "after" << std::endl;
 	//check if game has ended before any moves have been made
-	availablemoves_ = game_.getGameMode()->checkBaseEndCondition(game_.getMap());
+	availablemoves_ = game_->getGameMode()->checkBaseEndCondition(game_->getMap());
 
 	std::cout << "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
-	game_.getGameMode()->checkSpecialEndCondition(0);
-	std::cout << game_.getGameMode()->getName() << std::endl;
+	game_->getGameMode()->checkSpecialEndCondition(0);
+	std::cout << game_->getGameMode()->getName() << std::endl;
 	std::cout << "mo weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
 	
 
@@ -40,6 +41,10 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 		std::cout << "Loading match was success!" << std::endl;
 	
 	 matchSound_.setBuffer(matchBuffer_);
+}
+
+GameGUI::~GameGUI() {
+	delete game_;
 }
 
 std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
@@ -103,7 +108,7 @@ void GameGUI::drawTime(const float time){
 }
 
 void GameGUI::draw() {
-	std::vector<std::vector<int>> matrix = game_.getMap().getMatrix();//should getMatrix or getMap return a reference
+	std::vector<std::vector<int>> matrix = game_->getMap().getMatrix();//should getMatrix or getMap return a reference
 	sf::CircleShape shape(48.f, 8);
 	sf::RectangleShape wallshape(sf::Vector2f(96.f, 96.f));
 	shape.setFillColor(sf::Color::Green);
@@ -146,7 +151,7 @@ void GameGUI::drawScore() {
 	}
 	sf::Text text;
 	text.setFont(font);
-	std::string scorestr = "Score: " +  std::to_string(game_.getScore());
+	std::string scorestr = "Score: " +  std::to_string(game_->getScore());
 	text.setString(scorestr);
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
@@ -176,17 +181,17 @@ bool GameGUI::handleInput() {
 
 	if(!availablemoves_){
 		std::cout << "no possible moves found" << std::endl;
-		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
+		guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
 		return false;//close game and display endgame screen
 	}
 
-	float dt = game_.getTime();
+	float dt = game_->getTime();
 
 	int counter = 0;
 	//outer loop loops while there is no event and the inner loop catches it
 	while (counter < 2){
 
-		dt = game_.getTime();
+		dt = game_->getTime();
 		drawTime(dt);
 		while (guiWindow_.getWindow().pollEvent(event))
 		{
@@ -203,7 +208,7 @@ bool GameGUI::handleInput() {
 					unsigned int clickX = (event.mouseButton.x / 100);
 					unsigned int clickY = (event.mouseButton.y / 100);
 					if (clickX > 7 || clickY > 7) {return false;}
-					if(game_.getMap().getTile(clickX, clickY) != -1){
+					if(game_->getMap().getTile(clickX, clickY) != -1){
 						//dont allow selecting walls
 						if (newCoords[2] != clickX || newCoords[3] != clickY) {
 						newCoords[0] = newCoords[2];
@@ -228,14 +233,14 @@ bool GameGUI::handleInput() {
 				if(event.key.code == sf::Keyboard::Q)
 				{
 					std::cout << "Q pressed closing window" << std::endl;
-					guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
+					guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
 					return false;
 				}
 			}
 		}
-		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
+		if (game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			std::cout << "are adjacent" << std::endl;
-			if (game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
+			if (game_->swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
 				correctmoveFlag_ = 1;
 				matchSound_.play();
 				
@@ -261,7 +266,7 @@ bool GameGUI::update() {
 		sf::sleep(sf::seconds(0.02));
 	}
 	
-	while(game_.dropTiles()) {
+	while(game_->dropTiles()) {
 		guiWindow_.getWindow().clear(sf::Color::Black);
 		draw();
 		guiWindow_.getWindow().display();
@@ -277,7 +282,7 @@ bool GameGUI::update() {
 		sf::sleep(sf::seconds(0.05));
 	}
 	
-	game_.fillMap();
+	game_->fillMap();
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
@@ -287,15 +292,15 @@ bool GameGUI::update() {
 		sf::sleep(sf::seconds(0.1));
 	}
 	
-	if(game_.clearMatches()) {
+	if(game_->clearMatches()) {
 		return true;
 	}
 	
-	if(game_.getGameMode()->checkBaseEndCondition(game_.getMap())) {}
+	if(game_->getGameMode()->checkBaseEndCondition(game_->getMap())) {}
 	
 	else { 
-		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
-		game_.saveScore();
+		guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
+		game_->saveScore();
 		//end game (create a state for it)
 	}
 	return false;

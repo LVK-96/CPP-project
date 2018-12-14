@@ -21,7 +21,7 @@ class Game;
 class GameGUI : public State {
     public:
         GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename);
-        ~GameGUI() = default;
+        ~GameGUI();
 		
 		GameGUI& operator= (const GameGUI& g) = default;
 		GameGUI(const GameGUI& g) = default;
@@ -36,7 +36,7 @@ class GameGUI : public State {
 
 	private:
 		GUIWindow& guiWindow_;
-		Game game_;
+		Game *game_;
         std::string mapname_;
         bool availablemoves_;
 
