@@ -32,9 +32,11 @@ bool ScoreGUI::handleInput() {
 
 		if (event.type == sf::Event::KeyPressed)
 		{
-			if(event.key.code == sf::Keyboard::Q) {
+
+			if(event.key.code == sf::Keyboard::Escape) {
 				guiWindow_.popState();
 			}
+			
 			if (event.key.code == sf::Keyboard::D) {
 				deleteScores();
 			}

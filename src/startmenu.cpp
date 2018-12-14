@@ -36,9 +36,11 @@ bool StartMenu::handleInput() {
 				}
 		}
 
-		if (event.type == sf::Event::KeyPressed)
-		{
-			if(event.key.code == sf::Keyboard::Q) {
+		if (event.type == sf::Event::KeyPressed) {
+
+			if(event.key.code == sf::Keyboard::Escape)
+			{
+
 				guiWindow_.getWindow().close();
 			}
 

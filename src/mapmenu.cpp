@@ -149,6 +149,7 @@ bool MapMenu::handleInput() {
 void MapMenu::draw() {
 	sf::Font font;
 	font.loadFromFile("arial.ttf");
+	
 	sf::Text text;
 	text.setFont(font);
 

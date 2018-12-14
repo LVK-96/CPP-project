@@ -1,5 +1,6 @@
 #include "startmenu.hpp"
 
+
  EndGame::EndGame(int points, std::string mapname, std::string modename, GUIWindow& guiwindow): points_(points), mapname_(mapname), modename_(modename), guiWindow_(guiwindow){
 	std::string save = "";
 	filepath_.setString(save);
@@ -21,7 +22,7 @@ bool EndGame::handleInput() {
 
 		if (event.type == sf::Event::TextEntered) {
 			if(event.text.unicode >= 32 && event.text.unicode < 127) {
-				playerInput +=event.text.unicode;
+				playerInput += event.text.unicode;
     			filepath_.setString(filepath_.getString() + playerInput);
 			}
 			else if (event.text.unicode == 8 && filepath_.getString().getSize() > 0) {
@@ -33,7 +34,7 @@ bool EndGame::handleInput() {
 		}
 
 		if (event.type == sf::Event::KeyPressed) {
-			if(event.key.code == sf::Keyboard::Q)
+			if(event.key.code == sf::Keyboard::Escape)
 				return true;
 			if (event.key.code == sf::Keyboard::Return) {
 				std::string playername = filepath_.getString().toAnsiString();
@@ -46,7 +47,7 @@ bool EndGame::handleInput() {
 }
 
 void EndGame::draw() {
-	//no loop? It runs in the guiwindow::Gamelqqoop?
+	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
 	font.loadFromFile("arial.ttf");
 
@@ -71,11 +72,14 @@ void EndGame::draw() {
 	text2.setPosition(10, 800);
 	guiWindow_.getWindow().draw(text2);
 	
-	filepath_.setFont(font);
-	filepath_.setCharacterSize(24);
-	filepath_.setColor(sf::Color::Red);
-	filepath_.setPosition(200, 800);
-	guiWindow_.getWindow().draw(filepath_);
+	std::string inputstr = filepath_.getString().toAnsiString(); //not smart but fixes a bug
+	sf::Text text3;
+	text3.setFont(font);
+	text3.setString(inputstr);
+	text3.setCharacterSize(24);
+	text3.setColor(sf::Color::Red);
+	text3.setPosition(200, 800);
+	guiWindow_.getWindow().draw(text3);
 }
 
 void EndGame::saveScore(std::string name) {

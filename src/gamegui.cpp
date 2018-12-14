@@ -248,11 +248,10 @@ bool GameGUI::handleInput() {
 					}
     			}
 			}
-			if (event.type == sf::Event::KeyPressed)
-			{
-				if(event.key.code == sf::Keyboard::Q) {
+			if (event.type == sf::Event::KeyPressed) {
+				if(event.key.code == sf::Keyboard::Escape) {
 					guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
-					return true;//muoqattud
+					return true;
 				}
 			}
 		}
