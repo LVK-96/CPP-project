@@ -194,6 +194,8 @@ bool GameGUI::handleInput() {
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
 
+	availablemoves_ = game_->getGameMode()->checkBaseEndCondition(game_->getMap());
+
 	if(!availablemoves_){
 		guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
 		return true;//close game and display endgame screen
