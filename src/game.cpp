@@ -1,22 +1,12 @@
-#include <iostream>
-#include <fstream>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
 #include "game.hpp"
-#include "guiwindow.hpp"
-#include "algorithm"
 
-Game::Game() = default;
 
 Game::Game(std::vector<Player> players, Map map, GameMode *mode): 
 players_(players), map_(map), mode_(mode) {
-	score = 0;
+	score_ = 0;
 	fillMap(); //fill map with random numbers
-	while(clearMatches()) { 
-		fillMap(); //clear and fill until no more matches
-	}
-	score = 0;
+	while(clearMatches()) {fillMap();}
+	score_ = 0;
 }
 
 Game::~Game(){
@@ -26,7 +16,7 @@ Game::~Game(){
  Map Game::getMap(){
 	 //return the games map object for use outside of this class
 	 return this->map_;
- }
+}
 
 bool Game::clearMatches() {
 	std::vector<std::vector<int> > matrix = map_.getMatrix(); //perform checks on this copy 
@@ -34,7 +24,7 @@ bool Game::clearMatches() {
 	int matches = 0;
 	for (int j = 0; j < (int) matrix.size(); j++) {
 		for (int i = 0; i < (int) matrix[j].size(); i++) {
-			if(matrix[j][i] != -1){ //check only if not wall
+			if(matrix[j][i] != -1) { //check only if not wall
 				if (j-2 >= 0) {	//check y			
 					if (matrix[j][i] == matrix[j-1][i] && matrix[j][i] == matrix[j-2][i]) {
 						map_.setTile(i, j, 0);  
@@ -44,6 +34,7 @@ bool Game::clearMatches() {
 						ret = true;
 						}
 					}	
+					
 					if (i-2 >= 0) { //check x 
 						if (matrix[j][i] == matrix[j][i-1] && matrix[j][i] == matrix[j][i-2]) {
 							map_.setTile(i, j, 0); 
@@ -62,11 +53,8 @@ bool Game::clearMatches() {
 
 void Game::fillMap() {
 	std::vector<std::vector<int> > matrix = map_.getMatrix();
+	srand(time(NULL)); //intialize random seed
 	
-	//intialize random seed
-	srand(time(NULL));
-
-	//loops through the map and fills empty spaces with random tiles
 	for (unsigned int j = 0; j < matrix.size(); j++) {
 		for (unsigned int i = 0; i < matrix[j].size(); i++) {
 			if (matrix[j][i] == 0) {
@@ -122,7 +110,6 @@ bool Game::swapCoords(int x1, int y1, int x2, int y2) {
     map_.setTile(x2, y2, clr1);
 		
 	int i = 0;
-
 	//special tile
 	if (clr1 == 5 || clr2 == 5) {
 		specialEffect5(clr1, clr2);
@@ -136,8 +123,8 @@ bool Game::swapCoords(int x1, int y1, int x2, int y2) {
     	map_.setTile(x1, y1, map_.getTile(x2, y2));
 		map_.setTile(x2, y2, clr1);
 		return false;
-
 	}
+	
 	return true;
 }
 
@@ -154,16 +141,16 @@ float Game::getTime() {
 }
 
 void Game::addScore(int matches) {
-	score += 10 * pow(matches, 3);
+	score_ += 10 * pow(matches, 3);
 }
 
 int Game::getScore() {
-	return score;
+	return score_;
 }
 
 void Game::saveScore() {
 	std::ofstream myfile;
-  	myfile.open ("highscore.txt", std::ofstream::app);
+  	myfile.open ("highscore_.txt", std::ofstream::app);
   	myfile << "Player1 " << std::to_string(getScore()) << "\n";
   	myfile.close();
 }

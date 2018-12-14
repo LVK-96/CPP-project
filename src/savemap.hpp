@@ -7,6 +7,7 @@
 #include "state.hpp"
 #include "guiwindow.hpp"
 #include "map.hpp"
+/*Savemap menu gamestate class*/
 
 class SaveMap : public State {
 public:

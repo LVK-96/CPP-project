@@ -1,20 +1,16 @@
 #pragma once
 #include "guiwindow.hpp"
+/*Pure virtual class that game states inherit. Allows running the game loop in GUIWindow*/
 
-//virtual class for game states
-class GUIWindow;//forward declaration
+class GUIWindow;
 
 class State {
     public:
-        virtual ~State() = default;//virtual destructor
+        virtual ~State() = default;
         virtual void draw() = 0;
         virtual bool update(){return false;}
-        virtual bool handleInput() = 0;//bool return value to determine whether to call the destructor of the state or not
+        virtual bool handleInput() = 0; //bool return value to determine whether to call the destructor of the state or not
 	protected:
 		GUIWindow *guiWindow_;
 
 };
-/*
-virtual destructor is used to inform that when a derived classes destructor is called through a pointer to the base class,
-the derived classes destructor will always be called
-*/

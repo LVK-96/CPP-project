@@ -1,5 +1,6 @@
 #include "guiwindow.hpp"
 
+
 GUIWindow::GUIWindow() {
     window_.create(sf::VideoMode(800,850), "Match 3");
     window_.setFramerateLimit(60);
@@ -12,10 +13,10 @@ GUIWindow::~GUIWindow() {
 void GUIWindow::gameLoop() {
 
     while (window_.isOpen()) {
-        if (peekState()==NULL) {continue;}
+        if (peekState()==NULL) {continue;} //empty stack
         if(peekState()->handleInput()) {popState();}//remove a state from the stack
 		
-		while(peekState()->update()){}
+		while(peekState()->update()){} //necessary for GameGUI udpate to work  
         window_.clear(sf::Color::Black);
         peekState()->draw();
         window_.display();
@@ -30,8 +31,12 @@ void GUIWindow::popState() {
     State *temp = states_.top();
     states_.pop();
     delete temp;
+<<<<<<< HEAD
     //pop method calls the destructor of the item that is popped, memory deallocation moved to the destructor - does it??
     //check if this works as expected
+=======
+    //pop method calls the destructor of the item that is popped
+>>>>>>> 0812d5ad78de45dd656a8572a68c74824108658e
 }
 
 void GUIWindow::changeState(State* state) {
@@ -39,6 +44,7 @@ void GUIWindow::changeState(State* state) {
     states_.pop();
     pushState(state);
 	pushState(temp);
+	/*Top state is pushed back into stack. This avoids returning into a deleted object, in the changeState function*/
 }
 
 State *GUIWindow::peekState() {
@@ -46,7 +52,6 @@ State *GUIWindow::peekState() {
     return states_.top();
 }
 
-//returns a reference to the window so that it can be used outside of this class
-sf::RenderWindow& GUIWindow::getWindow(){
+sf::RenderWindow& GUIWindow::getWindow() {
     return window_;
 }

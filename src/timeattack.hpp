@@ -1,8 +1,7 @@
 #pragma once
-
 #include "gamemode.hpp"
 #include <iostream>
-
+/*Timeattack gamemode. Inherits GameMode*/
 
 class TimeAttack : public GameMode{
     public:
@@ -17,5 +16,4 @@ class TimeAttack : public GameMode{
     private:
         std::string name_;
         float maxtime_;
-
 };

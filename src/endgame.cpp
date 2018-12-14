@@ -1,41 +1,39 @@
 #include "startmenu.hpp"
 
 
- EndGame::EndGame(int points, std::string mapname, std::string modename, GUIWindow& guiwindow): points_(points), mapname_(mapname), modename_(modename), guiWindow_(guiwindow){
+EndGame::EndGame(int points, std::string mapname, std::string modename, GUIWindow& guiwindow): 
+points_(points), mapname_(mapname), modename_(modename), guiWindow_(guiwindow) {
 	std::string save = "";
 	filepath_.setString(save);
-
 }
 
 bool EndGame::handleInput() {
 	sf::Event event;
-	//outer loop loops while there is no event and the inner loop catches it
-	
+	//Poll SFML event
 	while (guiWindow_.getWindow().pollEvent(event)) {
 		sf::String playerInput;
 
 		if (event.type == sf::Event::Closed) {
-				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
+				guiWindow_.getWindow().close(); //if the window is closed the whole program should terminate
+				return true;
 		}
-
 		
-
 		if (event.type == sf::Event::TextEntered) {
 			if(event.text.unicode >= 32 && event.text.unicode < 127) {
 				playerInput += event.text.unicode;
     			filepath_.setString(filepath_.getString() + playerInput);
 			}
+			
 			else if (event.text.unicode == 8 && filepath_.getString().getSize() > 0) {
 				 sf::String temp = filepath_.getString();
 				 temp.erase(temp.getSize()-1, temp.getSize());
 				 filepath_.setString(temp);
 			}
-			
 		}
 
 		if (event.type == sf::Event::KeyPressed) {
-			if(event.key.code == sf::Keyboard::Escape)
-				return true;
+			if(event.key.code == sf::Keyboard::Escape) {return true;}
+			
 			if (event.key.code == sf::Keyboard::Return) {
 				std::string playername = filepath_.getString().toAnsiString();
 				saveScore(playername);
@@ -43,17 +41,18 @@ bool EndGame::handleInput() {
 			}
 		}
 	}
+	
 	return false;
 }
 
 void EndGame::draw() {
-	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
 	font.loadFromFile("arial.ttf");
 
 	sf::Text text;
 	text.setFont(font);
-    std::stringstream ss;
+    
+	std::stringstream ss;
     ss << "Game ended\n\nMap: "+ mapname_ +"\n\nGame Mode: " + modename_ + "\n\nScore: ";
     ss << points_;
 	text.setString(ss.str());
@@ -72,7 +71,7 @@ void EndGame::draw() {
 	text2.setPosition(10, 800);
 	guiWindow_.getWindow().draw(text2);
 	
-	std::string inputstr = filepath_.getString().toAnsiString(); //not smart but fixes a bug
+	std::string inputstr = filepath_.getString().toAnsiString();
 	sf::Text text3;
 	text3.setFont(font);
 	text3.setString(inputstr);

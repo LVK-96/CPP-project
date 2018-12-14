@@ -1,11 +1,10 @@
 #include "guiwindow.hpp"
 #include "startmenu.hpp"
-#include <iostream>
+/*Main function creates a GUIWindow object and starts game loop.*/
 
 int main() {
 	GUIWindow gui;
 	gui.pushState(new StartMenu(gui)); //we want to show this when it's created so we push it to the stack
-	//dynamically aloocating the StartMenu so that GUIWindow default destructor can be used
 	gui.gameLoop();
     return 0;
 }

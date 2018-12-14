@@ -1,10 +1,11 @@
 #include "mapmenu.hpp"
 
-MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow){
+
+MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	wincounter_ = 0;
-	std::ifstream infile("maps/map_filenames.txt");//map_filename is by default default.txt which is 8x8 of zeros
+	std::ifstream infile("maps/map_filenames.txt"); //map_filename is by default default.txt which is 8x8 of zeros
 	std::string line;
-	filearr_ = {};//init an empty vector
+	filearr_ = {}; //init an empty vector
 
 	while(std::getline(infile, line)){
 
@@ -39,7 +40,6 @@ void MapMenu::initButtons() {
 
 
 void MapMenu::startGame(std::string mapname) {
-
 	guiWindow_.changeState(new ModeMenu(guiWindow_, mapname));
 	//insert as second in stack will be first when this method returns
 	/*we want to push the gamestate ontop of the STARTMENU - and we want to remove mapmenu from the stack - 

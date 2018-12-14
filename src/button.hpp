@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
 #include "guiwindow.hpp"
+/*Button class for clickable menu buttons*/
 
 class Button {
 	public:

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
@@ -7,11 +6,11 @@
 #include <string>
 #include <bits/stdc++.h> 
 #include <utility> 
-
 #include "state.hpp"
 #include "gamegui.hpp"
 #include "guiwindow.hpp"
 #include "button.hpp"
+/*Highscore menu gamestate class*/
 
 class ScoreGUI: public State {
     public:

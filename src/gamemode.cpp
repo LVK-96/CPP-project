@@ -1,23 +1,23 @@
 #include "gamemode.hpp"
 
+
 GameMode::GameMode(std::string name):name_(name) {}
 
-std::string GameMode::getName() const {
-	return name_;
-}
+std::string GameMode::getName() const {return name_;}
 
-bool GameMode::checkSpecialEndCondition(float timeElapsed){
+bool GameMode::checkSpecialEndCondition(float timeElapsed) {
     if(timeElapsed >= 0){
 		return true;
 	}
 	return false;
 }
 
-bool GameMode::checkBaseEndCondition(Map map){
+bool GameMode::checkBaseEndCondition(Map map) {
     //indexing is [y][x], but getTile gives x, y --> matrix is looped through column by column
     int i = 1;
     //check if possible moves exist
 
+	//this should be split into multiple functions -Leo
     for (unsigned int x = 0; x < map.getMatrix().size(); x++ ) {
 		for (unsigned int y = 0; y < map.getMatrix()[0].size(); y++) {
 			if (x < map.getMatrix().size() - 2) {
@@ -45,7 +45,6 @@ bool GameMode::checkBaseEndCondition(Map map){
                     }
 				}
 
-
 				else if (map.getTile(x+1, y) == map.getTile(x+2, y) && map.getTile(x,y) != -1 && map.getTile(x + 1, y) != -1) {
 					//+11
 					if (y > 0) {
@@ -70,6 +69,7 @@ bool GameMode::checkBaseEndCondition(Map map){
 					
 
 				}
+				
 				else if (map.getTile(x, y) == map.getTile(x+2, y) && map.getTile(x+1,y) != -1 && map.getTile(x, y) != -1) {
 					//1+1
 					//check that within index
@@ -87,11 +87,6 @@ bool GameMode::checkBaseEndCondition(Map map){
                     }
 				}
 			}
-			
-
-
-
-
 
 			if (y < map.getMatrix()[0].size() - 2) {
 				//check y
@@ -121,7 +116,6 @@ bool GameMode::checkBaseEndCondition(Map map){
                     }
 				}
 
-
 				else if (map.getTile(x, y+1) == map.getTile(x, y+2)  && map.getTile(x,y) != -1 && map.getTile(x, y + 1) != -1) {
 					//+
                     //1
@@ -147,10 +141,12 @@ bool GameMode::checkBaseEndCondition(Map map){
                     }
 
 				}
+				
 				else if (map.getTile(x, y) == map.getTile(x, y + 2)  && map.getTile(x,y + 1) != -1 && map.getTile(x, y) != -1) {
 					//1
                     //+
                     //1
+					//=2
 					//check that within index
 					if (x > 0) {
 						//check [x-1][y+1]
@@ -173,7 +169,6 @@ bool GameMode::checkBaseEndCondition(Map map){
 	    
     }
 
-
     for (unsigned int x = 0; x < map.getMatrix().size(); x++ ) {
 		for (unsigned int y = 0; y < map.getMatrix()[0].size(); y++) {
             //check for special tile -- doesnt determine whether it can be swapped at all
@@ -182,7 +177,6 @@ bool GameMode::checkBaseEndCondition(Map map){
             }
         }
     }
-
-
+	
     return false;
 }
