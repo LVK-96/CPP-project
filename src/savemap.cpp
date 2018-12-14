@@ -15,7 +15,7 @@ void SaveMap::draw() {
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
-				std::cout << "Wall" << std::endl;
+				//std::cout << "Wall" << std::endl;
 				wallshape.setPosition(j*distance, i*height);
 				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 				guiWindow_.getWindow().draw(wallshape);
@@ -39,7 +39,7 @@ void SaveMap::draw() {
 
 	sf::Text text;
 	text.setFont(font);
-	std::string save = "Filename: ";
+	std::string save = "Filename(press q to cancel): ";
 	text.setString(save);
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
@@ -64,6 +64,8 @@ bool SaveMap::handleInput() {
 				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
 		}
 
+		
+
 		if (event.type == sf::Event::TextEntered) {
 			if(event.text.unicode >= 32 && event.text.unicode < 127) {
 				playerInput +=event.text.unicode;
@@ -78,6 +80,8 @@ bool SaveMap::handleInput() {
 		}
 
 		if (event.type == sf::Event::KeyPressed) {
+			if(event.key.code == sf::Keyboard::Q)
+				return true;
 			if (event.key.code == sf::Keyboard::Return) {
 				//save into file and close mapeditor
 				std::string savepath = "maps/" + filepath_.getString().toAnsiString() + ".txt";

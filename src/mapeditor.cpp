@@ -50,7 +50,6 @@ void MapEditor::draw() {
 }
 
 bool MapEditor::handleInput() {
-	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
 
