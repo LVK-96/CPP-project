@@ -192,6 +192,7 @@ bool GameGUI::handleInput() {
 		{
 			if (event.type == sf::Event::Closed) {
 				guiWindow_.getWindow().close();
+				return true;
 				//guiWindow_.~GUIWindow();
 			}
 
@@ -247,41 +248,56 @@ bool GameGUI::handleInput() {
 }
 
 bool GameGUI::update() {
+	sf::Event event;
+
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
 	
 	if (correctmoveFlag_ == 0) {return false;}
 	
-	sf::sleep(sf::seconds(0.1));
+	for (unsigned int i = 0; i < 10; i++) { 
+		guiWindow_.getWindow().pollEvent(event);
+		sf::sleep(sf::seconds(0.02));
+	}
+	
 	while(game_.dropTiles()) {
 		guiWindow_.getWindow().clear(sf::Color::Black);
 		draw();
 		guiWindow_.getWindow().display();
-		sf::sleep(sf::seconds(0.2));				
+		
+		for (unsigned int i = 0; i < 10; i++) {
+			sf:sleep(sf::seconds(0.004));
+			guiWindow_.getWindow().pollEvent(event);
+		}
 	}
 	
+	for (unsigned int i = 0; i < 10; i++) { 
+		guiWindow_.getWindow().pollEvent(event);
+		sf::sleep(sf::seconds(0.05));
+	}
+	
+	game_.fillMap();
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
-	game_.fillMap();
-	sf::sleep(sf::seconds(0.3));
+	
+	for (unsigned int i = 0; i < 10; i++) { 
+		guiWindow_.getWindow().pollEvent(event);
+		sf::sleep(sf::seconds(0.1));
+	}
 	
 	if(game_.clearMatches()) {
 		return true;
 	}
 	
-	
-	
-	if(game_.getGameMode()->checkBaseEndCondition(game_.getMap())) {
-		std::cout << "found atleast one possible move" << std::endl;
-	}
+	if(game_.getGameMode()->checkBaseEndCondition(game_.getMap())) {}
 	
 	else { 
-		std::cout << "no possible moves found" << std::endl;
 		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
+		game_.saveScore();
 		//end game (create a state for it)
 	}
-	
 	return false;
 }
+
