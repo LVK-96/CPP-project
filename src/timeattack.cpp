@@ -1,6 +1,6 @@
 #include "timeattack.hpp"
 
-TimeAttack::TimeAttack(std::string name) : name_(name), maxtime_(5.0){
+TimeAttack::TimeAttack(std::string name) : name_(name), maxtime_(60){
 }
 
 std::string TimeAttack::getName() const{

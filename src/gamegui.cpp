@@ -11,13 +11,13 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 	GameMode *mode;
 
 	if(modename == "default"){
-		mode = new GameMode("default");
+		mode = new GameMode("Classic");
 	}
 	else if(modename == "timeattack"){
-		mode = new TimeAttack("timeattack");
+		mode = new TimeAttack("Time Attack");
 	}
 	else{
-		mode = new GameMode("default");
+		mode = new GameMode("Classic");
 	}
 
 	std::stringstream ss;
@@ -99,6 +99,11 @@ void GameGUI::drawTime(const float time){
 	guiWindow_.getWindow().draw(rect);
 	guiWindow_.getWindow().draw(text);
 	guiWindow_.getWindow().display();//display command could probably be removed from guiWindow
+
+	if(game_->getGameMode()->getName() == "Time Attack"){
+			//draw time left
+			drawTimeLeft(game_->getGameMode()->getMaxTime());
+	}
 }
 
 void GameGUI::draw() {
@@ -205,12 +210,6 @@ bool GameGUI::handleInput() {
 	int counter = 0;
 	//outer loop loops while there is no event and the inner loop catches it
 	while (counter < 2){
-		if(game_->getGameMode()->getName() == "timeattack"){
-			//draw time left
-			drawTimeLeft(game_->getGameMode()->getMaxTime());
-		}
-
-		
 		if(!game_->getGameMode()->checkSpecialEndCondition(dt)){
 			guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
 			return true;//close game and display endgame screen

@@ -21,7 +21,8 @@ void ModeMenu::initButtons() {
 
 
 void ModeMenu::startGame(std::string modename) {
-    guiWindow_.changeState(new GameGUI(guiWindow_, mapname_, modename)); //insert as second in stack will be first when this method returns
+    guiWindow_.changeState(new GameGUI(guiWindow_, mapname_, modename));
+	//insert as second in stack will be first when this method returns
 	/*we want to push the gamestate ontop of the STARTMENU - and we want to remove mapmenu from the stack - 
 	we can do this only after returning from this function (and handleinput) - once back in game loop the top of the
 	stack is popped - insert gameGUI as second in the stack*/
@@ -41,7 +42,7 @@ bool ModeMenu::handleInput() {
 		if (event.type == sf::Event::MouseButtonPressed) {
     		if (event.mouseButton.button == sf::Mouse::Left) {	
 				if (mapbuttons_[0]->checkClick(event.mouseButton.x, event.mouseButton.y)){
-                    startGame("default");
+                    startGame("classic");
 					return true;
                 }
                 if (mapbuttons_[1]->checkClick(event.mouseButton.x, event.mouseButton.y)){
