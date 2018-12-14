@@ -46,11 +46,15 @@ void SaveMap::draw() {
 	text.setPosition(10, 800);
 	guiWindow_.getWindow().draw(text);
 	
-	filepath_.setFont(font);
-	filepath_.setCharacterSize(24);
-	filepath_.setColor(sf::Color::Red);
-	filepath_.setPosition(350, 800);
-	guiWindow_.getWindow().draw(filepath_);
+
+	std::string inputstr = filepath_.getString().toAnsiString();
+	sf::Text userinput;
+	userinput.setFont(font);
+	userinput.setString(inputstr);
+	userinput.setCharacterSize(24);
+	userinput.setColor(sf::Color::Red);
+	userinput.setPosition(350, 800);
+	guiWindow_.getWindow().draw(userinput);
 }
 
 bool SaveMap::handleInput() {

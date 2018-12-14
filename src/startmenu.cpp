@@ -39,7 +39,7 @@ bool StartMenu::handleInput() {
 
 		if (event.type == sf::Event::KeyPressed)
 		{
-			if(event.key.code == sf::Keyboard::Q)
+			if(event.key.code == sf::Keyboard::Escape)
 			{
 				std::cout << "Q pressed closing window" << std::endl;
 				guiWindow_.getWindow().close();

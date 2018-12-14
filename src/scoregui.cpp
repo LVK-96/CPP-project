@@ -28,7 +28,7 @@ bool ScoreGUI::handleInput() {
 
 		if (event.type == sf::Event::KeyPressed)
 		{
-			if(event.key.code == sf::Keyboard::Q)
+			if(event.key.code == sf::Keyboard::Escape)
 			{
 				std::cout << "Q pressed closing highscore" << std::endl;
 				guiWindow_.popState();

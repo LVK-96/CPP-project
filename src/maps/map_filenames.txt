@@ -21,3 +21,5 @@ leo
 leotest1
 leotest2
 dsadsa
+testmap
+eeroninput
