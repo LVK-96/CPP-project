@@ -63,11 +63,13 @@ void Game::fillMap() {
 	srand(time(NULL));
 
 	//loops through the map and fills empty spaces with random tiles
+	bool special_flag = false;
 	for (unsigned int j = 0; j < matrix.size(); j++) {
 		for (unsigned int i = 0; i < matrix[j].size(); i++) {
 			if (matrix[j][i] == 0) {
-				if ( (getScore() % 100 > 10) && (getScore() % 100 < 30) ) {
+				if ( (getScore() % 100 > 10) && (getScore() % 100 < 30) && !special_flag) {
 					map_.setTile(i, j, rand() % 5 + 1);
+					special_flag = true;
 				}
 				
 				else {
