@@ -19,6 +19,7 @@ bool StartMenu::handleInput() {
 	while (guiWindow_.getWindow().pollEvent(event)) {
          // "close requested" event: we close the window
 		if (event.type == sf::Event::Closed){
+			std::cout << "window closed" << std::endl;
 			guiWindow_.getWindow().close();
 		}
 		if (event.type == sf::Event::MouseButtonPressed) {
@@ -38,24 +39,29 @@ bool StartMenu::handleInput() {
 		{
 			if(event.key.code == sf::Keyboard::Q)
 			{
+				std::cout << "Q pressed closing window" << std::endl;
 				guiWindow_.getWindow().close();
 			}
 
     		if (event.key.code == sf::Keyboard::A)
     		{
+				std::cout <<"A pressed" << std::endl;
 				guiWindow_.pushState(new MapMenu(guiWindow_));//call the map menu
     		}
 			
 			if (event.key.code == sf::Keyboard::B)
     		{
+				std::cout <<"B pressed" << std::endl;
     		}
 			
 			if (event.key.code == sf::Keyboard::E) {
+				std::cout <<"E pressed" << std::endl;
 				guiWindow_.pushState(new MapEditor(guiWindow_, 8));
 			}
 			
 			if (event.key.code == sf::Keyboard::C)
     		{
+				std::cout <<"C pressed" << std::endl;
 				guiWindow_.pushState(new ScoreGUI(guiWindow_));
 				
     		}
@@ -67,7 +73,10 @@ bool StartMenu::handleInput() {
 void StartMenu::draw() {
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
-	font.loadFromFile("arial.ttf");
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error" << std::endl;
+	}
 	sf::Text text;
 	text.setFont(font);
 	text.setString("press a to start game \n\n"

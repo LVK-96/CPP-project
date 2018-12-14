@@ -16,9 +16,11 @@ class EndGame: public State {
 
 
         void startGame(); // add game to the state stack
+		void saveScore(std::string playername);
     private:
 		int points_;
         std::string mapname_;
 		std::string modename_;
 		GUIWindow& guiWindow_;
+		sf::Text filepath_;
 };

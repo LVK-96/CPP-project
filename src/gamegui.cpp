@@ -1,7 +1,7 @@
 #include "gamegui.hpp"
 
 
-GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename): guiWindow_(guiWindow), mapname_(mapname){
+GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename): guiWindow_(guiWindow), mapname_(mapname) {
 	correctmoveFlag_ = 0;
 	Player p1;
 	std::vector<Player> players;
@@ -19,19 +19,32 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 	//check if game has ended before any moves have been made
 	availablemoves_ = game_.getGameMode()->checkBaseEndCondition(game_.getMap());
 
+	std::cout << "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
 	game_.getGameMode()->checkSpecialEndCondition(0);
+	std::cout << game_.getGameMode()->getName() << std::endl;
+	std::cout << "mo weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
 	
-	musicBuffer_.loadFromFile("gamemusic.wav");
-        
+
+	if (!musicBuffer_.loadFromFile("gamemusic.wav"))
+        std::cout << "Reading music file failed!" << std::endl;
+	else
+		std::cout << "Loading music was success!" << std::endl;
+	
 	music_.setBuffer(musicBuffer_);
 	music_.play();
 	music_.setLoop(true);
 
-	matchBuffer_.loadFromFile("matchsound.wav");
-	matchSound_.setBuffer(matchBuffer_);
+	if (!matchBuffer_.loadFromFile("matchsound.wav"))
+        std::cout << "Reading match file failed!" << std::endl;
+	else
+		std::cout << "Loading match was success!" << std::endl;
+	
+	 matchSound_.setBuffer(matchBuffer_);
 }
 
 std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
+
+	std::cout << "loading map from: " << map_filename << std::endl;
 	std::vector<std::vector<int>> temp(8, std::vector<int>(8,0));
 
 	std::ifstream infile(map_filename);//map_filename is by default default.txt which is 8x8 of zeros
@@ -55,6 +68,7 @@ std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
 			}
 			y++;
 		}
+		std::cout << std::endl;
 		x++;
 		y = 0;
 	}
@@ -67,8 +81,10 @@ void GameGUI::drawTime(const float time){
 	
 	int roundedtime = static_cast<int>(time);
 	sf::Font font;
-	font.loadFromFile("arial.ttf");
-	
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error in loading font" << std::endl;
+	}
 	sf::Text text;
 	text.setFont(font);
 	std::string timestr = "Time: " +  std::to_string(roundedtime);
@@ -97,6 +113,7 @@ void GameGUI::draw() {
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
+				std::cout << "Wall" << std::endl;
 				wallshape.setPosition(j*distance, i*height);
 				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 				guiWindow_.getWindow().draw(wallshape);
@@ -123,7 +140,10 @@ void GameGUI::draw() {
 
 void GameGUI::drawScore() {
 	sf::Font font;
-	font.loadFromFile("arial.ttf");
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error in loading font" << std::endl;
+	}
 	sf::Text text;
 	text.setFont(font);
 	std::string scorestr = "Score: " +  std::to_string(game_.getScore());
@@ -150,13 +170,14 @@ void GameGUI::drawSelection(int x, int y){
 
 bool GameGUI::handleInput() {
 	correctmoveFlag_ = 0;
+	std::cout << "entering handle input" << std::endl;
 	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
 	sf::Event event;
 
 	if(!availablemoves_){
+		std::cout << "no possible moves found" << std::endl;
 		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
-		game_.saveScore();
-		return true;//close game and display endgame screen
+		return false;//close game and display endgame screen
 	}
 
 	float dt = game_.getTime();
@@ -170,14 +191,14 @@ bool GameGUI::handleInput() {
 		while (guiWindow_.getWindow().pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed) {
-				game_.saveScore();
 				guiWindow_.getWindow().close();
-				return true;
+				//guiWindow_.~GUIWindow();
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed) {
     			if (event.mouseButton.button == sf::Mouse::Left) {
 					//this loop is entered only once per mouse click event
+					std::cout << "click number: " << counter + 1 << std::endl;
 					unsigned int clickX = (event.mouseButton.x / 100);
 					unsigned int clickY = (event.mouseButton.y / 100);
 					if (clickX > 7 || clickY > 7) {return false;}
@@ -188,10 +209,14 @@ bool GameGUI::handleInput() {
 						newCoords[1] = newCoords[3];
 						newCoords[2] = clickX;
 						newCoords[3] = clickY;
+		    			std::cout << "the left button was pressed" << std::endl;
+		    			std::cout << "mouse x: " << newCoords[2] << std::endl;
+		    			std::cout << "mouse y: " << newCoords[3] << std::endl;
 						counter++;
 						drawSelection(newCoords[2], newCoords[3]);
 						}
 						else {
+							std::cout << "same tile pressed twice" << std::endl;
 							counter++;
 						}
 					}
@@ -201,13 +226,14 @@ bool GameGUI::handleInput() {
 			{
 				if(event.key.code == sf::Keyboard::Q)
 				{
-					//guiWindow_.popState();
-					game_.saveScore();
-					return true;
+					std::cout << "Q pressed closing window" << std::endl;
+					guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
+					return false;
 				}
 			}
 		}
 		if (game_.isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
+			std::cout << "are adjacent" << std::endl;
 			if (game_.swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
 				correctmoveFlag_ = 1;
 				matchSound_.play();
@@ -216,59 +242,46 @@ bool GameGUI::handleInput() {
 			return false;
 		}
 	}
+	std::cout << "invalid move" << std::endl;
 	return false;
 }
 
 bool GameGUI::update() {
-	sf::Event event;
-
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
 	
 	if (correctmoveFlag_ == 0) {return false;}
 	
-	for (unsigned int i = 0; i < 10; i++) { 
-		guiWindow_.getWindow().pollEvent(event);
-		sf::sleep(sf::seconds(0.02));
-	}
-	
+	sf::sleep(sf::seconds(0.1));
 	while(game_.dropTiles()) {
 		guiWindow_.getWindow().clear(sf::Color::Black);
 		draw();
 		guiWindow_.getWindow().display();
-		
-		for (unsigned int i = 0; i < 10; i++) {
-			sf:sleep(sf::seconds(0.004));
-			guiWindow_.getWindow().pollEvent(event);
-		}
+		sf::sleep(sf::seconds(0.2));				
 	}
 	
-	for (unsigned int i = 0; i < 10; i++) { 
-		guiWindow_.getWindow().pollEvent(event);
-		sf::sleep(sf::seconds(0.05));
-	}
-	
-	game_.fillMap();
 	guiWindow_.getWindow().clear(sf::Color::Black);
 	draw();
 	guiWindow_.getWindow().display();
-	
-	for (unsigned int i = 0; i < 10; i++) { 
-		guiWindow_.getWindow().pollEvent(event);
-		sf::sleep(sf::seconds(0.1));
-	}
+	game_.fillMap();
+	sf::sleep(sf::seconds(0.3));
 	
 	if(game_.clearMatches()) {
 		return true;
 	}
 	
-	if(game_.getGameMode()->checkBaseEndCondition(game_.getMap())) {}
+	
+	
+	if(game_.getGameMode()->checkBaseEndCondition(game_.getMap())) {
+		std::cout << "found atleast one possible move" << std::endl;
+	}
 	
 	else { 
+		std::cout << "no possible moves found" << std::endl;
 		guiWindow_.changeState(new EndGame(game_.getScore(), mapname_, game_.getGameMode()->getName(), guiWindow_));
-		game_.saveScore();
 		//end game (create a state for it)
 	}
+	
 	return false;
 }

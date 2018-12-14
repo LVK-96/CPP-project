@@ -17,6 +17,7 @@ void MapEditor::draw() {
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
+				//std::cout << "Wall" << std::endl;
 				wallshape.setPosition(j*distance, i*height);
 				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 				guiWindow_.getWindow().draw(wallshape);
@@ -34,8 +35,10 @@ void MapEditor::draw() {
 	}
 	
 	sf::Font font;
-	font.loadFromFile("arial.ttf");
-    
+	if (!font.loadFromFile("arial.ttf")) {
+    	std::cout << "Error" << std::endl;
+	}
+	
 	sf::Text text;
 	text.setFont(font);
 	std::string save = "Press S to save";
@@ -62,6 +65,7 @@ bool MapEditor::handleInput() {
 				unsigned int clickY = (event.mouseButton.y / 100);
 				if (clickX > 7 || clickY > 7) {return false;}
 				
+				std::cout<<map_.getTile(clickX, clickY)<<std::endl;
 				if (map_.getTile(clickX, clickY) == -1) {
 					std::vector<std::vector<int> > temp = map_.getMatrix();
 					temp[clickY][clickX] = 0;
@@ -76,7 +80,7 @@ bool MapEditor::handleInput() {
 			if (event.key.code == sf::Keyboard::S) {
 				guiWindow_.pushState(new SaveMap(guiWindow_, map_));
 			}
-			if (event.key.code == sf::Keyboard::Q) {
+			if (event.key.code == sf::Keyboard::Escape) {
 				return true;
 			}
 

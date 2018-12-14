@@ -6,6 +6,7 @@ GUIWindow::GUIWindow() {
 }
 
 GUIWindow::~GUIWindow() {
+    std::cout << "GUIWindow destructor called" << std::endl;
     while(!states_.empty()) popState();
 }
 
@@ -27,6 +28,7 @@ void GUIWindow::pushState(State* state) {
 }
 
 void GUIWindow::popState() {
+    std::cout << "popstate called" << std::endl;
     State *temp = states_.top();
     states_.pop();
     delete temp;
@@ -37,7 +39,6 @@ void GUIWindow::popState() {
 
 void GUIWindow::changeState(State* state) {
     State *temp = states_.top();
-	
     states_.pop();
     delete temp;
     pushState(state);

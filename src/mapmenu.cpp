@@ -10,12 +10,20 @@ MapMenu::MapMenu(GUIWindow& guiWindow): guiWindow_(guiWindow){
 
 		line.erase(std::remove(line.begin(), line.end(), '\n'), line.end());
 		line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
+		std::cout << line.size() << std::endl;
 		filearr_.push_back(line);
 	}
+
+	std::cout << "arr 0: " << std::endl;
+	std::cout << filearr_[0] << std::endl;
+
+	std::cout << "arr 1: " << std::endl;
+	std::cout << filearr_[1] << std::endl;
 	initButtons();
 }
 
 MapMenu::~MapMenu() {
+    std::cout << "Map menu destructor called" << std::endl;
 	//memory allocated with this
 
 	for (auto it : mapbuttons_)
@@ -79,6 +87,8 @@ bool MapMenu::handleInput() {
     		{
 				if(wincounter_< filearr_.size()){
 					//check that the index exists
+					std::cout <<"A pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_] << std::endl;
 					startGame(filearr_[wincounter_]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
@@ -88,6 +98,8 @@ bool MapMenu::handleInput() {
             else if (event.key.code == sf::Keyboard::B)
     		{
 				if(wincounter_ + 1 < filearr_.size()){
+					std::cout <<"B pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 1] << std::endl;
 					startGame(filearr_[wincounter_ + 1]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
@@ -96,6 +108,8 @@ bool MapMenu::handleInput() {
 			else if (event.key.code == sf::Keyboard::C)
     		{
 				if(wincounter_ + 2 < filearr_.size()){
+					std::cout <<"C pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 2] << std::endl;
 					startGame(filearr_[wincounter_ + 2]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
@@ -104,6 +118,8 @@ bool MapMenu::handleInput() {
 			else if (event.key.code == sf::Keyboard::D)
     		{
 				if(wincounter_ + 3 < filearr_.size()){
+					std::cout <<"D pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 3] << std::endl;
 					startGame(filearr_[wincounter_ + 3]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
@@ -112,6 +128,8 @@ bool MapMenu::handleInput() {
 			else if (event.key.code == sf::Keyboard::E)
     		{
 				if(wincounter_ + 4 < filearr_.size()){
+					std::cout <<"E pressed" << std::endl;
+					std::cout << "set map: " << filearr_[wincounter_ + 4] << std::endl;
 					startGame(filearr_[wincounter_ + 4]);
                 	//set a map and start Game
 					//startGame();//this may result to problems if the loops stays on
@@ -128,18 +146,22 @@ bool MapMenu::handleInput() {
             else if (event.key.code == sf::Keyboard::Q)
     		{
                 //go back to startmenu
+				std::cout <<"Q pressed" << std::endl;
 				return true;
     		}
 
 		}
+		//std::cout << "end of first loop" << std::endl;
 	}
     return false;
 }
 
 void MapMenu::draw() {
-	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
-	font.loadFromFile("arial.ttf");
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error" << std::endl;
+	}
 	sf::Text text;
 	text.setFont(font);
 

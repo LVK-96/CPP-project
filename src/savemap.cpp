@@ -15,6 +15,7 @@ void SaveMap::draw() {
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
+				//std::cout << "Wall" << std::endl;
 				wallshape.setPosition(j*distance, i*height);
 				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 				guiWindow_.getWindow().draw(wallshape);
@@ -32,11 +33,13 @@ void SaveMap::draw() {
 	}
 	
 	sf::Font font;
-	font.loadFromFile("arial.ttf");
+	if (!font.loadFromFile("arial.ttf")) {
+    	std::cout << "Error" << std::endl;
+	}
 
 	sf::Text text;
 	text.setFont(font);
-	std::string save = "Filename(press q to cancel): ";
+	std::string save = "Filename(press esc to cancel): ";
 	text.setString(save);
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
@@ -46,7 +49,7 @@ void SaveMap::draw() {
 	filepath_.setFont(font);
 	filepath_.setCharacterSize(24);
 	filepath_.setColor(sf::Color::Red);
-	filepath_.setPosition(120, 800);
+	filepath_.setPosition(350, 800);
 	guiWindow_.getWindow().draw(filepath_);
 }
 
@@ -77,7 +80,7 @@ bool SaveMap::handleInput() {
 		}
 
 		if (event.type == sf::Event::KeyPressed) {
-			if(event.key.code == sf::Keyboard::Q)
+			if(event.key.code == sf::Keyboard::Escape)
 				return true;
 			if (event.key.code == sf::Keyboard::Return) {
 				//save into file and close mapeditor
@@ -94,6 +97,7 @@ bool SaveMap::handleInput() {
 
 				std::ofstream maplist;
 				maplist.open("maps/map_filenames.txt", std::ios::app);
+				std::cout<< filepath_.getString().toAnsiString()<<std::endl;
 				maplist<<filepath_.getString().toAnsiString()<<std::endl;
 				maplist.close();
 				return true;
