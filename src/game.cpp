@@ -92,22 +92,25 @@ bool Game::dropTiles() {
 			}
 		}
 		
-		for (int j = tmp_arr.size()-2; j >= 0; j--) {
-			if (tmp_arr[j+1] == 0 && tmp_arr[j] != 0) {
-				int a = tmp_arr[j];
-				tmp_arr[j+1] = a;
-				tmp_arr[j] = 0;
-				ret = true;
-			}
-		}
+		if (tmp_arr.size() > 0) {
+			for (int j = tmp_arr.size()-2; j >= 0; j--) {
+				if (tmp_arr[j+1] == 0 && tmp_arr[j] != 0) {
+					int a = tmp_arr[j];
+					tmp_arr[j+1] = a;
+					tmp_arr[j] = 0;
+					ret = true;
+				}
+			}	
 
-		int k = 0;//index the sorted array without walls
-		for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //set sorted array into map 
-			if(map_.setTile(i, tmp, tmp_arr[k])) {
-				k++;
+			int k = 0;//index the sorted array without walls
+			for (unsigned int tmp = 0; tmp < map_.getMatrix().size(); tmp++) { //set sorted array into map 
+				if(map_.setTile(i, tmp, tmp_arr[k])) {
+					k++;
+				}
+				else continue;
 			}
-			else continue;
 		}
+		
 	}
 	return ret;
 }

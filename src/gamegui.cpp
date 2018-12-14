@@ -287,7 +287,7 @@ bool GameGUI::update() {
 		guiWindow_.getWindow().display();
 		
 		for (unsigned int i = 0; i < 10; i++) {
-			sf:sleep(sf::seconds(0.004));
+			sf::sleep(sf::seconds(0.004));
 			guiWindow_.getWindow().pollEvent(event);
 		}
 	}

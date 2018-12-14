@@ -10,9 +10,11 @@ Button::Button(std::string t, int xcord, int ycord, int w, int h){
 }
 
 bool Button::checkClick(int clickX, int clickY) const {
-	if (clickX > x && clickX < (x+width) && clickY > y && clickY < (y+height))
+	if (clickX > x && clickX < (x+width) && clickY > y && clickY < (y+height)) {
 		return true;
+	}
 	return false;
+	
 }
 
 void Button::drawButton(sf::RenderWindow& window) {
