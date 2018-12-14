@@ -60,8 +60,6 @@ bool MapMenu::handleInput() {
 		if (event.type == sf::Event::MouseButtonPressed) {
     		if (event.mouseButton.button == sf::Mouse::Left) {
 				for (int i = 0; i < 5; i++) {
-					std::cout<<wincounter_ + i<<std::endl;
-					std::cout<<filearr_.size()<<std::endl;
 					if(wincounter_ + i < filearr_.size()) {
 						if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y)) {
 							startGame(filearr_[wincounter_+ i]);
