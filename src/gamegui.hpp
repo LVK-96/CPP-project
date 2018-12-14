@@ -32,6 +32,7 @@ class GameGUI : public State {
         void drawTime(const float dt);
 		void drawScore();
         void drawSelection(int x, int y);
+		void drawTimeLeft(float maxtime);
         std::vector<std::vector<int>> loadMap(std::string map_filename);
 
 	private:
