@@ -89,8 +89,7 @@ bool Game::dropTiles() {
 				tmp_arr.push_back(map_.getTile(i, tmp));
 			}
 		}
-		
-		std::cout<<tmp_arr[8]<<std::endl;
+	
 		for (int j = tmp_arr.size()-2; j >= 0; j--) {
 			if (tmp_arr[j+1] == 0 && tmp_arr[j] != 0) {
 				int a = tmp_arr[j];
@@ -112,10 +111,8 @@ bool Game::dropTiles() {
 }
 
 bool Game::swapCoords(int x1, int y1, int x2, int y2) {
-	std::cout << "swapping" << std::endl;
 	int clr1 = map_.getTile(x1, y1);
 	int clr2 = map_.getTile(x2, y2);
-	std::cout << x1 << y1 << x2 << y2 << std::endl;
     map_.setTile(x1, y1, map_.getTile(x2, y2)); 
     map_.setTile(x2, y2, clr1);
 		
@@ -130,7 +127,6 @@ bool Game::swapCoords(int x1, int y1, int x2, int y2) {
 	else if (clearMatches()){i++;}
 
 	if(i == 0){
-		std::cout << "no matches on the swap, swapping back" << std::endl;
 		clr1 = map_.getTile(x1, y1);
     	map_.setTile(x1, y1, map_.getTile(x2, y2));
 		map_.setTile(x2, y2, clr1);
@@ -168,7 +164,6 @@ void Game::saveScore() {
 }
 
 void Game::specialEffect5(int color1, int color2) {
-	std::cout << "SPECIAL EFFECT!!!" << std::endl;
 	std::vector<std::vector<int> > matrix = map_.getMatrix();
 	for (unsigned int i = 0; i < map_.getMatrix()[0].size(); i++) {
 		for (unsigned int j = 0; j < map_.getMatrix().size(); j++) {

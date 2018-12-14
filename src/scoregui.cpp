@@ -13,7 +13,6 @@ bool ScoreGUI::handleInput() {
 	{
          // "close requested" event: we close the window
 		if (event.type == sf::Event::Closed){
-			std::cout << "window closed" << std::endl;
 			guiWindow_.getWindow().close();
 		}
 		
@@ -30,11 +29,9 @@ bool ScoreGUI::handleInput() {
 		{
 			if(event.key.code == sf::Keyboard::Q)
 			{
-				std::cout << "Q pressed closing highscore" << std::endl;
 				guiWindow_.popState();
 			}
 			if (event.key.code == sf::Keyboard::D) {
-				std::cout << "D pressed - deleting highscores" << std::endl;
 				deleteScores();
 			}
 		}
@@ -46,10 +43,8 @@ void ScoreGUI::draw() {
 
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-    	std::cout << "Error" << std::endl;
-	}
+	font.loadFromFile("arial.ttf");
+
 	sf::Text text;
 	text.setFont(font);
 	text.setString(getStr());
@@ -76,7 +71,6 @@ void ScoreGUI::loadScores() {
 		sort(scores.begin(), scores.end());
     	myfile.close();
 	}
-	else std::cout << "Unable to open file"; 
 	
 }
 

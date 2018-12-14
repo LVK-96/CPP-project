@@ -172,7 +172,7 @@ bool GameGUI::handleInput() {
 			if (event.type == sf::Event::Closed) {
 				game_.saveScore();
 				guiWindow_.getWindow().close();
-				//guiWindow_.~GUIWindow();
+				return true;
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed) {

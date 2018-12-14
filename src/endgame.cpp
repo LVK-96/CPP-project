@@ -8,7 +8,6 @@ bool EndGame::handleInput() {
 	{
          // "close requested" event: we close the window
 		if (event.type == sf::Event::Closed){
-			std::cout << "window closed" << std::endl;
 			guiWindow_.getWindow().close();
 		}
 		if (event.type == sf::Event::MouseButtonPressed) {
@@ -28,10 +27,7 @@ bool EndGame::handleInput() {
 void EndGame::draw() {
 	//no loop? It runs in the guiwindow::Gameloop?
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf"))
-	{
-    	std::cout << "Error" << std::endl;
-	}
+	!font.loadFromFile("arial.ttf");
 	sf::Text text;
 	text.setFont(font);
     std::stringstream ss;
