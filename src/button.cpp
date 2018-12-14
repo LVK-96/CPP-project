@@ -15,7 +15,7 @@ bool Button::checkClick(int clickX, int clickY) const {
 	return false;
 }
 
-void Button::drawButton(sf::RenderWindow *window) {
+void Button::drawButton(sf::RenderWindow& window) {
 	sf::RectangleShape rectangle(sf::Vector2f(width, height));
 	rectangle.setPosition(x, y);
 	rectangle.setFillColor(sf::Color(47,79,79));
@@ -36,7 +36,7 @@ void Button::drawButton(sf::RenderWindow *window) {
 	text.setPosition(x + (width/2) - (text.getGlobalBounds().width / 2), y + (height/2) -(text.getGlobalBounds().height / 2));
 	
 
-	window->draw(rectangle);
-	window->draw(text);
+	window.draw(rectangle);
+	window.draw(text);
 
 }

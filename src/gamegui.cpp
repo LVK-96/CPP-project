@@ -8,7 +8,17 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 	players.push_back(p1);
 
 
-	GameMode *mode = new TimeAttack("time attack");
+	GameMode *mode;
+
+	if(modename == "default"){
+		mode = new GameMode("default");
+	}
+	else if(modename == "timeattack"){
+		mode = new TimeAttack("timeattack");
+	}
+	else{
+		mode = new GameMode("default");
+	}
 
 	std::stringstream ss;
 	ss << "maps/" << mapname << ".txt"; //parse path
@@ -16,14 +26,9 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 	Map map(loadMap(ss.str()));
 
     game_ = new Game(players, map, mode);
-	std::cout << "after" << std::endl;
+
 	//check if game has ended before any moves have been made
 	availablemoves_ = game_->getGameMode()->checkBaseEndCondition(game_->getMap());
-
-	std::cout << "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
-	game_->getGameMode()->checkSpecialEndCondition(0);
-	std::cout << game_->getGameMode()->getName() << std::endl;
-	std::cout << "mo weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
 	
 
 	if (!musicBuffer_.loadFromFile("gamemusic.wav"))
@@ -92,7 +97,7 @@ void GameGUI::drawTime(const float time){
 	}
 	sf::Text text;
 	text.setFont(font);
-	std::string timestr = "Time: " +  std::to_string(roundedtime);
+	std::string timestr = "Time Elapsed: " +  std::to_string(roundedtime);
 	text.setString(timestr);
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::Red);
@@ -118,7 +123,6 @@ void GameGUI::draw() {
 	for (unsigned int i=0; i < matrix.size(); i++) {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
-				std::cout << "Wall" << std::endl;
 				wallshape.setPosition(j*distance, i*height);
 				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
 				guiWindow_.getWindow().draw(wallshape);
@@ -173,6 +177,34 @@ void GameGUI::drawSelection(int x, int y){
 	guiWindow_.getWindow().display();
 }
 
+void GameGUI::drawTimeLeft(float maxtime){
+
+	float currenttime = game_->getTime();
+	int roundedtime = static_cast<int>(maxtime - currenttime);
+	
+
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf"))
+	{
+    	std::cout << "Error in loading font" << std::endl;
+	}
+	sf::Text text;
+	text.setFont(font);
+	std::string timestr = "Time Left: " +  std::to_string(roundedtime);
+	text.setString(timestr);
+	text.setCharacterSize(24);
+	text.setColor(sf::Color::Red);
+	text.setPosition(500, 800);
+
+	//draw a rectangle over the existing time
+	sf::RectangleShape rect(sf::Vector2f(200, 100));
+	rect.setPosition(500, 800);
+	rect.setFillColor(sf::Color::Black);
+	guiWindow_.getWindow().draw(rect);
+	guiWindow_.getWindow().draw(text);
+	guiWindow_.getWindow().display();//display command could probably be removed from guiWindow
+}
+
 bool GameGUI::handleInput() {
 	correctmoveFlag_ = 0;
 	std::cout << "entering handle input" << std::endl;
@@ -182,7 +214,7 @@ bool GameGUI::handleInput() {
 	if(!availablemoves_){
 		std::cout << "no possible moves found" << std::endl;
 		guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
-		return false;//close game and display endgame screen
+		return true;//close game and display endgame screen
 	}
 
 	float dt = game_->getTime();
@@ -190,6 +222,18 @@ bool GameGUI::handleInput() {
 	int counter = 0;
 	//outer loop loops while there is no event and the inner loop catches it
 	while (counter < 2){
+
+		if(game_->getGameMode()->getName() == "timeattack"){
+			//draw time left
+			std::cout << "getting max time" << game_->getGameMode()->getMaxTime() << std::endl;
+			drawTimeLeft(game_->getGameMode()->getMaxTime());
+		}
+
+		
+		if(!game_->getGameMode()->checkSpecialEndCondition(dt)){
+			guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
+			return false;//close game and display endgame screen
+		}
 
 		dt = game_->getTime();
 		drawTime(dt);
@@ -234,7 +278,7 @@ bool GameGUI::handleInput() {
 				{
 					std::cout << "Q pressed closing window" << std::endl;
 					guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
-					return false;
+					return true;//muoqattud
 				}
 			}
 		}

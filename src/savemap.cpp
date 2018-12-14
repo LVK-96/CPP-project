@@ -71,14 +71,15 @@ bool SaveMap::handleInput() {
 		
 
 		if (event.type == sf::Event::TextEntered) {
-			if(event.text.unicode >= 32 && event.text.unicode < 127) {
-				playerInput +=event.text.unicode;
-    			filepath_.setString(filepath_.getString() + playerInput);
-			}
-			else if (event.text.unicode == 8 && filepath_.getString().getSize() > 0) {
+			if (event.text.unicode == 8 && filepath_.getString().getSize() > 0) {
 				 sf::String temp = filepath_.getString();
 				 temp.erase(temp.getSize()-1, temp.getSize());
 				 filepath_.setString(temp);
+			}
+			
+			else if(event.text.unicode < 128) {
+				playerInput +=event.text.unicode;
+    			filepath_.setString(filepath_.getString() + playerInput);
 			}
 			
 		}
