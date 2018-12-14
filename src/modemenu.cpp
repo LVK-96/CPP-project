@@ -55,7 +55,7 @@ bool ModeMenu::handleInput() {
 			}
 		}
 		if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Q)
+            if (event.key.code == sf::Keyboard::Escape)
     		{
                 //go back to startmenu
 				return true;

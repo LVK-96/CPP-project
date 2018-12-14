@@ -141,7 +141,7 @@ bool MapMenu::handleInput() {
 					wincounter_ = 0;
 				}
 			}
-            else if (event.key.code == sf::Keyboard::Q)
+            else if (event.key.code == sf::Keyboard::Escape)
     		{
                 //go back to startmenu
 				return true;
