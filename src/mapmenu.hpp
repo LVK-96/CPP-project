@@ -16,9 +16,11 @@ class MapMenu: public State {
         MapMenu(GUIWindow& guiWindow);
         ~MapMenu();
 
+		MapMenu& operator= (const MapMenu& m) = default;
+		MapMenu(const MapMenu& m) = default;
+
         virtual void draw(); //changes the view that will be drawn to window (defined in guiwindow class)
         virtual bool handleInput(); // window event loop, close window or call startGame
-
         void startGame(std::string mapname); // add game to the state stack
 		void initButtons();
     private:

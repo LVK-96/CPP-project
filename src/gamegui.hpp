@@ -22,6 +22,9 @@ class GameGUI : public State {
     public:
         GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename);
         ~GameGUI() = default;
+		
+		GameGUI& operator= (const GameGUI& g) = default;
+		GameGUI(const GameGUI& g) = default;
 
         virtual void draw(); 
         virtual bool update();

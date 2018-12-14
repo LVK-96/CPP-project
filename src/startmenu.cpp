@@ -21,7 +21,9 @@ bool StartMenu::handleInput() {
 		if (event.type == sf::Event::Closed){
 			std::cout << "window closed" << std::endl;
 			guiWindow_.getWindow().close();
+			return true;
 		}
+		
 		if (event.type == sf::Event::MouseButtonPressed) {
     			if (event.mouseButton.button == sf::Mouse::Left) {
 					if (playbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
@@ -93,6 +95,4 @@ void StartMenu::draw() {
 	mapbutton_->drawButton(&guiWindow_.getWindow());
 	scorebutton_->drawButton(&guiWindow_.getWindow());
 	quitbutton_->drawButton(&guiWindow_.getWindow());
-
-	//guiWindow_.getWindow().draw(text);
 }

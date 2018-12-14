@@ -59,11 +59,15 @@ bool MapMenu::handleInput() {
 	while (guiWindow_.getWindow().pollEvent(event))
 	{
          // "close requested" event: we close the window
-		if (event.type == sf::Event::Closed /*|| event.key.code == sf::Keyboard::Q*/)
-               guiWindow_.getWindow().close();
+		if (event.type == sf::Event::Closed) {
+			guiWindow_.getWindow().close();
+			return true;
+		}
+               
+			   
 		if (event.type == sf::Event::MouseButtonPressed) {
     		if (event.mouseButton.button == sf::Mouse::Left) {
-				for (int i = 0; i < 6; i++) {
+				for (int i = 0; i < 5; i++) {
 					if(wincounter_ + i< filearr_.size()) {
 						if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y))
 							startGame(filearr_[wincounter_+ i]);
@@ -82,6 +86,7 @@ bool MapMenu::handleInput() {
 				}
 			}
 		}
+		
 		if (event.type == sf::Event::KeyPressed) {
     		if (event.key.code == sf::Keyboard::A)
     		{

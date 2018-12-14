@@ -9,7 +9,9 @@ class GameMode {
 public:
     GameMode() = default;
     GameMode(std::string name);
-
+	
+	GameMode& operator= (const GameMode& g) = default;
+	GameMode(const GameMode& g) = default;
 
     virtual std::string getName() const;
     bool checkBaseEndCondition(Map map);

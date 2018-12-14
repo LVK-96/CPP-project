@@ -11,6 +11,9 @@ public:
 	MapEditor(GUIWindow& guiWindow, int size);
 	~MapEditor() = default;
 	
+	MapEditor& operator= (const MapEditor& m) = default;
+	MapEditor(const MapEditor& m) = default;
+	
 	virtual void draw();
 	virtual bool handleInput();
 

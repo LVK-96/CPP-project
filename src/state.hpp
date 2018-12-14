@@ -6,7 +6,7 @@ class GUIWindow;//forward declaration
 
 class State {
     public:
-        virtual ~State(){};//virtual destructor
+        virtual ~State() = default;//virtual destructor
         virtual void draw() = 0;
         virtual bool update(){return false;}
         virtual bool handleInput() = 0;//bool return value to determine whether to call the destructor of the state or not

@@ -13,6 +13,9 @@ public:
 	SaveMap(GUIWindow& guiWindow, Map map);
 	~SaveMap() = default;
 	
+	SaveMap& operator= (const SaveMap& s) = default;
+	SaveMap(const SaveMap& s) = default;
+	
 	virtual void draw();
 	virtual bool update();
 	virtual bool handleInput();
