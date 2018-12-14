@@ -16,8 +16,6 @@ bool GameMode::checkBaseEndCondition(Map map) {
     //indexing is [y][x], but getTile gives x, y --> matrix is looped through column by column
     int i = 1;
     //check if possible moves exist
-
-	std::cout << "checking base end condition" << std::endl;
 	//this should be split into multiple functions -Leo
     for (unsigned int x = 0; x < map.getMatrix().size(); x++ ) {
 		for (unsigned int y = 0; y < map.getMatrix()[0].size(); y++) {
