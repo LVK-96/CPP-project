@@ -10,6 +10,7 @@ bool GameMode::checkSpecialEndCondition(float timeElapsed){
     if(timeElapsed >= 0){
 		return true;
 	}
+	return false;
 }
 
 bool GameMode::checkBaseEndCondition(Map map){

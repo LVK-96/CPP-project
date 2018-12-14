@@ -10,6 +10,8 @@ public:
     GameMode() = default;
     GameMode(std::string name);
 	
+	virtual ~GameMode() = default; 
+	
 	GameMode& operator= (const GameMode& g) = default;
 	GameMode(const GameMode& g) = default;
 

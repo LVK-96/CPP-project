@@ -39,7 +39,7 @@ void MapMenu::initButtons() {
 
 
 void MapMenu::startGame(std::string mapname) {
-    guiWindow_.changeState(new GameGUI(guiWindow_, mapname, "timeattack")); //insert as second in stack will be first when this method returns
+	guiWindow_.changeState(new GameGUI(guiWindow_, mapname, "timeattack")); //insert as second in stack will be first when this method returns
 	/*we want to push the gamestate ontop of the STARTMENU - and we want to remove mapmenu from the stack - 
 	we can do this only after returning from this function (and handleinput) - once back in game loop the top of the
 	stack is popped - insert gameGUI as second in the stack*/
@@ -50,6 +50,7 @@ bool MapMenu::handleInput() {
 	sf::Event event;
 
 	while (guiWindow_.getWindow().pollEvent(event)) {
+		
 		if (event.type == sf::Event::Closed) {
 			guiWindow_.getWindow().close();
 			return true;
@@ -59,12 +60,16 @@ bool MapMenu::handleInput() {
 		if (event.type == sf::Event::MouseButtonPressed) {
     		if (event.mouseButton.button == sf::Mouse::Left) {
 				for (int i = 0; i < 5; i++) {
-					if(wincounter_ + i< filearr_.size()) {
-						if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y))
+					std::cout<<wincounter_ + i<<std::endl;
+					std::cout<<filearr_.size()<<std::endl;
+					if(wincounter_ + i < filearr_.size()) {
+						if (mapbuttons_[wincounter_ + i]->checkClick(event.mouseButton.x, event.mouseButton.y)) {
 							startGame(filearr_[wincounter_+ i]);
-							return true;
+							return true; 
+						}
 					}
 				}
+				
 				if (nextbutton_->checkClick(event.mouseButton.x, event.mouseButton.y)) {
 					if(wincounter_ + 5 < filearr_.size()){
 						wincounter_ = wincounter_ + 5;
@@ -73,6 +78,7 @@ bool MapMenu::handleInput() {
 						wincounter_ = 0;
 					}
 				}
+				
 				if (backbutton_->checkClick(event.mouseButton.x, event.mouseButton.y)) {
 					return true;
 				}
@@ -158,13 +164,7 @@ void MapMenu::draw() {
 	
 	for(unsigned int i = wincounter_; i < wincounter_ + 5 && i < filearr_.size(); i++){
 		mapbuttons_[i]->drawButton(guiWindow_.getWindow());
-		//ss << filearr_[i];
-		//ss << "\n\n";
 	}
-	/*if(filearr_.size() > 5){
-		ss << "press f for next\n\n";
-	}
-	ss << "press q to go back";*/
 
 	text.setString(ss.str());
 	text.setCharacterSize(30);
