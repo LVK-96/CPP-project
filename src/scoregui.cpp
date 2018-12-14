@@ -24,16 +24,16 @@ bool ScoreGUI::handleInput() {
 		
 		if (event.type == sf::Event::MouseButtonPressed) {
     			if (event.mouseButton.button == sf::Mouse::Left) {
-					if (backbutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
-						guiWindow_.popState();;
-					if (deletebutton_->checkClick(event.mouseButton.x, event.mouseButton.y))
-						deleteScores();
+					if (backbutton_->checkClick(event.mouseButton.x, event.mouseButton.y)) {
+						return true;
+					}
+					
+					if (deletebutton_->checkClick(event.mouseButton.x, event.mouseButton.y)) {deleteScores();}
 				}
 		}
 
 		if (event.type == sf::Event::KeyPressed)
 		{
-
 			if(event.key.code == sf::Keyboard::Escape) {
 				guiWindow_.popState();
 			}
@@ -43,6 +43,7 @@ bool ScoreGUI::handleInput() {
 			}
 		}
 	}
+	
 	return false;
 }
 
