@@ -1,5 +1,6 @@
 #include "savemap.hpp"
 
+
 SaveMap::SaveMap(GUIWindow& guiWindow, Map map): guiWindow_(guiWindow), map_(map) {
 	std::string save = "";
 	filepath_.setString(save);
@@ -16,7 +17,7 @@ void SaveMap::draw() {
     	for (unsigned int j = 0; j < matrix[i].size(); j++) {
 			if (matrix[i][j] == -1) {
 				wallshape.setPosition(j*distance, i*height);
-				wallshape.setFillColor(sf::Color(139, 69, 19));//brown for walls
+				wallshape.setFillColor(sf::Color(139, 69, 19)); //brown for walls
 				guiWindow_.getWindow().draw(wallshape);
 			}
 			else {

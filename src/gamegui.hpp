@@ -5,7 +5,6 @@
 #include <fstream>
 #include <sstream>
 #include <SFML/Audio.hpp>
-
 #include "guiwindow.hpp"
 #include "player.hpp"
 #include "gamemode.hpp"
@@ -13,16 +12,12 @@
 #include "game.hpp"
 #include "endgame.hpp"
 #include "timeattack.hpp"
-
-//forward declarations for GUIWindow and Game. Compiler needs this for memory allocation
-class GUIWindow;
-class Game;
+/*Game state class for the game (frontend of game backend)*/
 
 class GameGUI : public State {
     public:
         GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename);
         ~GameGUI();
-		
 		GameGUI& operator= (const GameGUI& g) = default;
 		GameGUI(const GameGUI& g) = default;
 

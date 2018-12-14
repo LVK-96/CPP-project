@@ -5,19 +5,19 @@
 #include "guiwindow.hpp"
 #include "map.hpp"
 #include "savemap.hpp"
+/*Mapeditor gamestate class*/
 
 class MapEditor : public State {
-public:
-	MapEditor(GUIWindow& guiWindow, int size);
-	~MapEditor() = default;
+	public:
+		MapEditor(GUIWindow& guiWindow, int size);
+		~MapEditor() = default;
+		MapEditor& operator= (const MapEditor& m) = default;
+		MapEditor(const MapEditor& m) = default;
 	
-	MapEditor& operator= (const MapEditor& m) = default;
-	MapEditor(const MapEditor& m) = default;
-	
-	virtual void draw();
-	virtual bool handleInput();
+		virtual void draw();
+		virtual bool handleInput();
 
-private:
-	GUIWindow& guiWindow_;
-	Map map_;
+	private:
+		GUIWindow& guiWindow_;
+		Map map_;
 };

@@ -1,5 +1,6 @@
 #include "startmenu.hpp"
 
+
 StartMenu::StartMenu(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	playbutton_ =  new Button("Play", 325, 100, 150, 50);
 	mapbutton_ = new Button("Map Editor", 325, 200, 150, 50);

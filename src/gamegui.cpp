@@ -7,46 +7,38 @@ GameGUI::GameGUI(GUIWindow& guiWindow, std::string mapname, std::string modename
 	std::vector<Player> players;
 	players.push_back(p1);
 
-
 	GameMode *mode;
-
-	if(modename == "default"){
+	if(modename == "default") {
 		mode = new GameMode("default");
 	}
-	else if(modename == "timeattack"){
+	else if(modename == "timeattack") {
 		mode = new TimeAttack("timeattack");
 	}
-	else{
+	else {
 		mode = new GameMode("default");
 	}
-
+	
 	std::stringstream ss;
 	ss << "maps/" << mapname << ".txt"; //parse path
-
 	Map map(loadMap(ss.str()));
-
-    game_ = new Game(players, map, mode);
+	game_ = new Game(players, map, mode);
 
 	//check if game has ended before any moves have been made
 	availablemoves_ = game_->getGameMode()->checkBaseEndCondition(game_->getMap());
 	
-
 	musicBuffer_.loadFromFile("gamemusic.wav");
-	
 	music_.setBuffer(musicBuffer_);
 	music_.play();
 	music_.setLoop(true);
-
 	matchBuffer_.loadFromFile("matchsound.wav");
-	
-	 matchSound_.setBuffer(matchBuffer_);
+	matchSound_.setBuffer(matchBuffer_);
 }
 
 GameGUI::~GameGUI() {
 	delete game_;
 }
 
-std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename){
+std::vector<std::vector<int>> GameGUI::loadMap(std::string map_filename) {
 	std::vector<std::vector<int>> temp(8, std::vector<int>(8,0));
 
 	std::ifstream infile(map_filename);//map_filename is by default default.txt which is 8x8 of zeros
@@ -128,6 +120,7 @@ void GameGUI::draw() {
 			}
 		}
 	}
+	
 	//time
 	sf::Time elapsed=clock_.getElapsedTime();
 	float dt=elapsed.asSeconds();
@@ -152,7 +145,7 @@ void GameGUI::drawScore() {
 	guiWindow_.getWindow().display();
 }
 
-void GameGUI::drawSelection(int x, int y){
+void GameGUI::drawSelection(int x, int y) {
 	sf::CircleShape shape(48.f, 8);
 	const int distance = 100; //distance between dots
     const float height = sqrt(pow(distance,2.f));
@@ -164,7 +157,7 @@ void GameGUI::drawSelection(int x, int y){
 	guiWindow_.getWindow().display();
 }
 
-void GameGUI::drawTimeLeft(float maxtime){
+void GameGUI::drawTimeLeft(float maxtime) {
 
 	float currenttime = game_->getTime();
 	int roundedtime = static_cast<int>(maxtime - currenttime);
@@ -218,8 +211,7 @@ bool GameGUI::handleInput() {
 
 		dt = game_->getTime();
 		drawTime(dt);
-		while (guiWindow_.getWindow().pollEvent(event))
-		{
+		while (guiWindow_.getWindow().pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				guiWindow_.getWindow().close();
 				return true;
@@ -248,6 +240,7 @@ bool GameGUI::handleInput() {
 					}
     			}
 			}
+			
 			if (event.type == sf::Event::KeyPressed) {
 				if(event.key.code == sf::Keyboard::Escape) {
 					guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
@@ -255,6 +248,7 @@ bool GameGUI::handleInput() {
 				}
 			}
 		}
+		
 		if (game_->isAdjacent(newCoords[0], newCoords[1], newCoords[2], newCoords[3])) {
 			if (game_->swapCoords(newCoords[0], newCoords[1], newCoords[2], newCoords[3]) ) {
 				correctmoveFlag_ = 1;
@@ -311,13 +305,11 @@ bool GameGUI::update() {
 		return true;
 	}
 	
-	if(game_->getGameMode()->checkBaseEndCondition(game_->getMap())) {}
-	
-	else { 
+	if(!(game_->getGameMode()->checkBaseEndCondition(game_->getMap()))) {
 		guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
 		game_->saveScore();
-		//end game (create a state for it)
 	}
+	
 	return false;
 }
 

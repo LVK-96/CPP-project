@@ -1,7 +1,7 @@
 #include "button.hpp"
 
 
-Button::Button(std::string t, int xcord, int ycord, int w, int h){
+Button::Button(std::string t, int xcord, int ycord, int w, int h) {
 	txt = t;
 	x = xcord;
 	y = ycord;
@@ -10,11 +10,8 @@ Button::Button(std::string t, int xcord, int ycord, int w, int h){
 }
 
 bool Button::checkClick(int clickX, int clickY) const {
-	if (clickX > x && clickX < (x+width) && clickY > y && clickY < (y+height)) {
-		return true;
-	}
+	if (clickX > x && clickX < (x+width) && clickY > y && clickY < (y+height)) {return true;}
 	return false;
-	
 }
 
 void Button::drawButton(sf::RenderWindow& window) {
@@ -29,13 +26,11 @@ void Button::drawButton(sf::RenderWindow& window) {
 	
 	sf::Text text;
 	text.setFont(font);
-
 	text.setString(txt);
 	text.setCharacterSize(20);
 	text.setColor(sf::Color::White);
 	text.setPosition(x + (width/2) - (text.getGlobalBounds().width / 2), y + (height/2) -(text.getGlobalBounds().height / 2));
 	
-
 	window.draw(rectangle);
 	window.draw(text);
 

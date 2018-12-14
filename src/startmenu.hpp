@@ -1,8 +1,6 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
 #include "state.hpp"
 #include "gamegui.hpp"
 #include "guiwindow.hpp"
@@ -10,6 +8,7 @@
 #include "scoregui.hpp"
 #include "mapeditor.hpp"
 #include "button.hpp"
+/*Startmenu gamestate class. The first state that is pushed into the stack when the program is launched*/
 
 class StartMenu: public State {
     public:

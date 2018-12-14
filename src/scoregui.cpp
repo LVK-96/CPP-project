@@ -1,5 +1,6 @@
 #include "scoregui.hpp"
 
+
 ScoreGUI::ScoreGUI(GUIWindow& guiWindow): guiWindow_(guiWindow) {
 	loadScores();
 	backbutton_ =  new Button("Back", 325, 500, 150, 50);

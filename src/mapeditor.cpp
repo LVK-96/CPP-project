@@ -47,13 +47,13 @@ void MapEditor::draw() {
 }
 
 bool MapEditor::handleInput() {
-	std::vector<unsigned int> newCoords (4, 10000); //4 1k's in a vector
+	std::vector<unsigned int> newCoords (4, 10000);
 	sf::Event event;
 
 	//outer loop loops while there is no event and the inner loop catches it
 	while (guiWindow_.getWindow().pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
-				guiWindow_.getWindow().close();//if the window is closed the whole program should terminate
+				guiWindow_.getWindow().close(); //if the window is closed the whole program should terminate
 				return true;
 		}
 

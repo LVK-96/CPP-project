@@ -1,16 +1,22 @@
 #pragma once
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
 #include "map.hpp"
 #include "player.hpp"
 #include "gamemode.hpp"
 #include "guiwindow.hpp"
+#include "guiwindow.hpp"
+/*Game backend class, implements game logic*/
 
 class Game {
 public:
-    Game();
+    Game() = default;
     Game(std::vector<Player> players, Map map, GameMode *mode);
 	~Game();
-	
 	Game& operator=(const Game& g) = default; 
 	Game(const Game& g) = default;
 	
@@ -39,5 +45,5 @@ private:
     Map map_;
     GameMode *mode_;
 	sf::Clock clock_;
-	int score;
+	int score_;
 };
