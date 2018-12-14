@@ -308,10 +308,6 @@ bool GameGUI::update() {
 		return true;
 	}
 	
-	if(!(game_->getGameMode()->checkBaseEndCondition(game_->getMap()))) {
-		guiWindow_.changeState(new EndGame(game_->getScore(), mapname_, game_->getGameMode()->getName(), guiWindow_));
-		game_->saveScore();
-	}
 	
 	return false;
 }

@@ -35,7 +35,7 @@ bool ScoreGUI::handleInput() {
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if(event.key.code == sf::Keyboard::Escape) {
-				guiWindow_.popState();
+				return true;
 			}
 			
 			if (event.key.code == sf::Keyboard::D) {
