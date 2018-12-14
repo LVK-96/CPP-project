@@ -12,6 +12,7 @@ class TimeAttack : public GameMode{
         std::string getName() const;
 
         bool checkSpecialEndCondition(float dt);
+        float getMaxTime(){return maxtime_;}
 
     private:
         std::string name_;

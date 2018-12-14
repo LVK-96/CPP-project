@@ -7,19 +7,17 @@ std::string GameMode::getName() const {
 	return name_;
 }
 
-bool GameMode::checkSpecialEndCondition(float dt){
-		std::cout << "std special condition check is called" << std::endl;
-        return false;
+bool GameMode::checkSpecialEndCondition(float timeElapsed){
+	std::cout << "base class special end condition" << std::endl;
+    if(timeElapsed >= 0){
+		return true;
+	}
 }
 
 bool GameMode::checkBaseEndCondition(Map map){
 
 	std::cout << "checking base end condition" << std::endl;
-	if(checkSpecialEndCondition(0)){
-		std::cout << "special End condition returned true" << std::endl;
-		//return true;
-	}
-	std::cout << "checking special end condition returned false" << std::endl;
+
     //indexing is [y][x], but getTile gives x, y --> matrix is looped through column by column
     int i = 1;
     //check if possible moves exist

@@ -15,9 +15,8 @@ public:
 
     virtual std::string getName() const;
     bool checkBaseEndCondition(Map map);
-
-    //virtual
-    virtual bool checkSpecialEndCondition(float dt);
+    virtual bool checkSpecialEndCondition(float timeElapsed);
+    virtual float getMaxTime(){return 0.0;};
 
 
 protected:
